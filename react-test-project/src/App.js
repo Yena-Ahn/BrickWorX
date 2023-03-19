@@ -4,11 +4,11 @@ import Navbar from "./components/Navbar";
 //import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
-import UPLOAD from "./components/Upload";
-import Create from "./components/Create";
-import Mark from "./components/Mark";
-import Review from "./components/Review";
-import Download from "./components/Download";
+import UPLOAD from "./components/pages/Upload";
+import Create from "./components/pages/Create";
+import Mark from "./components/pages/Mark";
+import Review from "./components/pages/Review";
+import Download from "./components/pages/Download";
 function App() {
   return (
     // <div className="container">
