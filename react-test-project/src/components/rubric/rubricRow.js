@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import '../../index.css';
 import PropTypes from 'prop-types'
 const RubricRow = () => {

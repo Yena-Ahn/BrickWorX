@@ -1,4 +1,6 @@
 import RubricRow from "../rubric/rubricRow";
+import RubricContainer from "../rubric/rubricContainer";
+
 const Create = () => {
   return (
     <div>
