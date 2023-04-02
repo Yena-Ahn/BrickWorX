@@ -2,11 +2,10 @@
 import { useState, memo } from 'react';
 import '../../index.css';
 import PropTypes from 'prop-types'
-const RubricRowV2 = (question) => {
+const RubricRowV2 = ({question, question_index}) => {
   
-  const [formFields, setFormFields] = useState(question.question
+  const [formFields, setFormFields] = useState(question
   )
-  const id=question.question_id
   console.log("question")
   console.log(question)
   console.log("_")
@@ -45,7 +44,7 @@ const RubricRowV2 = (question) => {
 
   return (
     <div className='box2'>
-      question_id {id}
+      question_index {question_index}
           {formFields.map((form, index) => {
             console.log('thing 3 ' +JSON.stringify(form))
             return (
