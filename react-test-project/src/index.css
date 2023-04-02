@@ -20,6 +20,8 @@ body {
   padding: 30px;
   border-radius: 5px;
   justify-content: center;
+  flex-direction: column;
+
 }
 
 .box2 {
