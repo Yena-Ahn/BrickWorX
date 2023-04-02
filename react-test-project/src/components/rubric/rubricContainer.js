@@ -15,8 +15,10 @@ const RubricContainer = (DATA={}) => {
         {JSON.stringify(formFields)}
         {formFields[0].map((a)=>{
          return <div className='box2'>{JSON.stringify(a)}
-         <RubricRowV2 question={a.rubric_fields}/>
-         {JSON.stringify(a.rubric_fields)}</div>
+         <RubricRowV2 question={a.rubric_fields} question_id={a.question_id}/>
+         
+         {JSON.stringify(a.rubric_fields)}
+         {JSON.stringify(a.question_id)}</div>
         })}
       </form>
     </div>
