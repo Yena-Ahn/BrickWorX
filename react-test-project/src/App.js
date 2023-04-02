@@ -24,7 +24,7 @@ function App() {
     <Routes>
         <Route exact path='/' element={<UPLOAD />} />
         <Route path='/Upload' element={<UPLOAD/>} />
-        <Route path='/Create' element={<Create/>} />
+        <Route path='/Create' element={<Create />} />
         <Route path='/Mark' element={<Mark/>} />
         <Route path='/Review' element={<Review/>} />
         <Route path='/Download' element={<Download/>} />
