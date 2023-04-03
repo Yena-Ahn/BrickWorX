@@ -2,7 +2,7 @@
 import { useState, memo } from 'react';
 import '../../index.css';
 import PropTypes from 'prop-types'
-const RubricRowV2 = ({question, question_index}) => {
+const RubricRowV2 = ({question, question_index, update_method, rubric_data}) => {
   
   const [formFields, setFormFields] = useState(question
   )
@@ -12,12 +12,21 @@ const RubricRowV2 = ({question, question_index}) => {
   console.log("question_id")
   console.log(question.question_id)
   console.log("_")
+  console.log('addfields debug')
+  console.log(rubric_data[question_index].rubric_fields)
 
   const handleFormChange = (event, index) => {
     let data = [...formFields];
     data[index][event.target.name] = event.target.value;
     setFormFields(data);
   }
+  // let object = {
+  //   text: '',
+  //   grade: 0
+  // }
+  // rubric_data[question_index].rubric_fields.push({text:'',grade:0})
+  //console.log('hmmmmmmmmmmmmmmm')
+  //console.log(rubric_data)
 
   console.log('formFields  ' +JSON.stringify(formFields))
   console.log('thing 2 ' +JSON.stringify())
@@ -32,8 +41,12 @@ const RubricRowV2 = ({question, question_index}) => {
       text: '',
       grade: 0
     }
+    //let a=[...rubric_data]
+    //a[question_index].rubric_fields+=object
+    rubric_data[question_index].rubric_fields.push({text:'',grade:0})
+    // update_method([{"question_id":1,"question_title":"how to abc","rubric_fields":[{"text":"a","grade":3},{"text":"a","grade":3}]}])
+    update_method(rubric_data)
 
-    setFormFields([...formFields, object])
   }
 
   const removeFields = (index) => {

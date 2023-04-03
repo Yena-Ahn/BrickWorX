@@ -11,7 +11,7 @@ const Create = () => {
         TOOOL HERE DYNAMIC FORM
       </h1>
       {/*<RubricRow />*/}
-      <RubricContainer rubric={DATA}/>
+      <RubricContainer DATA={DATA}/>
     </div>
   );
 };
