@@ -47,12 +47,8 @@ const RubricRowV2 = ({question, question_index, update_method, rubric_data}) => 
       text: '',
       grade: 0
     }
-    //let a=[...rubric_data]
-    //a[question_index].rubric_fields+=object
     rubric_data[question_index].rubric_fields.push({text:'',grade:0})
-    // update_method([{"question_id":1,"question_title":"how to abc","rubric_fields":[{"text":"a","grade":3},{"text":"a","grade":3}]}])
     update_method(rubric_data)
-
   }
 
   const removeFields = (index) => {
