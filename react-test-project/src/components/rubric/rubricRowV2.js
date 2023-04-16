@@ -1,11 +1,16 @@
 
 import { useState, memo } from 'react';
 import '../../index.css';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import cloneDeep from 'lodash';
+
+
+
+
 const RubricRowV2 = ({question, question_index, update_method, rubric_data}) => {
   
   const [formFields, setFormFields] = useState(question
-  )
+  ) 
   console.log("question")
   console.log(question)
   console.log("_")
@@ -16,7 +21,8 @@ const RubricRowV2 = ({question, question_index, update_method, rubric_data}) => 
   console.log(rubric_data[question_index].rubric_fields)
 
   const handleFormChange = (event, index) => {
-    let data = [...formFields];
+    let data = cloneDeep(formFields);
+    
     data[index][event.target.name] = event.target.value;
     setFormFields(data);
   }
