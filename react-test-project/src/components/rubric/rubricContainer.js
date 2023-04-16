@@ -1,42 +1,21 @@
 //stub
 import RubricRowV2 from "../rubric/rubricRowV2";
 import { useState, useEffect, useRef } from 'react';
-
-
 const RubricContainer = () => {
   const DATA = [{question_id:1, question_title:'how to abc', rubric_fields : [{text: "blahblah", grade: 3 },{text: "blahblah", grade: 3 },{text: "blahblah", grade: 4 }]},
-  {question_id:2, question_title:'how to eat an apple', rubric_fields : [{text: "hfmdhsmdhfhmfds", grade: 30 }]}]
-  
+  {question_id:2, question_title:'how to eat an apple', rubric_fields : [{text: "hfmdhsmdhfhmfds", grade: 30 }]}] 
   console.log('data')
 
   console.log(DATA)
   const [formFields, setFormFields] = useState([
     ...DATA
   ])
-
   const onChangeSomeState = (newSomeState) => {
     setFormFields(newSomeState);
   };
-
-  // const addFields = (index) => {
-  //   let object = {
-  //     text: '',
-  //     grade: 0
-  //   }
-  //   let temp = formFields
-  //   temp[index].rubric_fields+=object
-  //   setFormFields(temp)
-  // }
-
   return (
     <div>
       <form>
-        {/* {//JSON.stringify(formFields)}
-        {//console.log('AAAAAAAAAAAAAAAAAA')}
-        {//console.log(formFields)}
-
-        {//console.log('AAAAAAAAAAAAAAAAAA')} */}
-
         {formFields.map((a,b)=>{
          return <div key={b} className='box2'>
           {/* {JSON.stringify(a)} */}
@@ -48,7 +27,5 @@ const RubricContainer = () => {
       </form>
     </div>
   )
-    
-  
 }
 export default RubricContainer
