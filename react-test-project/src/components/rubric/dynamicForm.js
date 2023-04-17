@@ -75,6 +75,12 @@ const DynamicForm = () => {
 		console.table(rubric)
 	}
 
+	const removeCriterion = (questionID,criteriaID) => {
+	
+	}
+
+
+
 	return (
     <div>
 			<div className="row-section">
@@ -115,10 +121,11 @@ const DynamicForm = () => {
 								</div>
 							))}
 						</div>
+						<button className='btn' onClick={() => {}}>Remove Question</button>
 					</div>
 				))}
 				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
-				<button className="btn-primary" onClick={saveRubric}>
+				<button className="btn" onClick={saveRubric}>
 					Submit rubric data
 				</button>
 			</div>
