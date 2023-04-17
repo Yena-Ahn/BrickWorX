@@ -1,5 +1,6 @@
 import { cloneDeep } from "lodash"
 import React from "react"
+import { v4 as uuidv4 } from 'uuid';
 const DynamicForm = () => {
 	const [rubric, setRubricData] = React.useState([
 		{
@@ -80,11 +81,19 @@ const DynamicForm = () => {
 		console.log('REMOVERCRITERIA ID')
 		console.log(criteriaID)
 
-		let data = [...rubric];
-		console.log('REMOVERCRITERIA TEST')
-		console.log(data[questionID].criterions[criteriaID])
-		data[questionID].criterions.splice(criteriaID,1)
-		console.log(data[questionID])
+		let data = [...cloneDeep(rubric)];
+
+
+		// console.log('REMOVERCRITERIA TEST')
+		// console.log(data[questionID].criterions[criteriaID])
+		// data[questionID].criterions.splice(criteriaID,1)
+		// console.log(data[questionID])
+
+		//rewrite to remove based on key and not index
+		data[questionID].criterions=data[questionID].criterions.filter((item)=>{return item.id!==criteriaID})
+
+
+
 		// data[questionID].criterions=
 		// data[questionID].criterions.forEach((item,index)=>{
 		// 	item.id=index
