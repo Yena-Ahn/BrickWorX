@@ -1,17 +1,29 @@
 
 import { useState, memo } from 'react';
 import '../../index.css';
-import PropTypes from 'prop-types'
-const RubricRow = () => {
-  const [formFields, setFormFields] = useState([
-    { text: '', grade: 0 },
-  ])
-
+import PropTypes from 'prop-types';
+import cloneDeep from 'lodash';
+const RubricRowV2 = ({question, question_index, update_method, rubric_data}) => {
+  
+  const [formFields, setFormFields] = useState(question
+  ) 
+  console.log("question")
+  console.log(question)
+  console.log("_")
+  console.log("question_id")
+  console.log(question.question_id)
+  console.log("_")
+  console.log('addfields debug')
+  console.log(rubric_data[question_index].rubric_fields)
   const handleFormChange = (event, index) => {
-    let data = [...formFields];
+    let data = cloneDeep(formFields);
+    
     data[index][event.target.name] = event.target.value;
     setFormFields(data);
   }
+
+  console.log('formFields  ' +JSON.stringify(formFields))
+  console.log('thing 2 ' +JSON.stringify())
 
   const submit = (e) => {
     e.preventDefault();
@@ -23,8 +35,8 @@ const RubricRow = () => {
       text: '',
       grade: 0
     }
-
-    setFormFields([...formFields, object])
+    rubric_data[question_index].rubric_fields.push({text:'',grade:0})
+    update_method(rubric_data)
   }
 
   const removeFields = (index) => {
@@ -34,9 +46,10 @@ const RubricRow = () => {
   }
 
   return (
-    <div className=''>
-      <form className="container" onSubmit={submit}>
+    <div className='box2'>
+      question_index {question_index}
           {formFields.map((form, index) => {
+            console.log('thing 3 ' +JSON.stringify(form))
             return (
               <div className='rubricItem' key={index}>
                 <input
@@ -44,31 +57,25 @@ const RubricRow = () => {
                   name='text'
                   placeholder='text'
                   onChange={event => handleFormChange(event, index)}
-                  value={form.name}
+                  value={form.text}
                 />
                 <input
                   className='formtext'
                   name='grade'
                   placeholder='grade'
                   onChange={event => handleFormChange(event, index)}
-                  value={form.age}
+                  value={form.grade}
                 />
                 <button className='btn' onClick={() => removeFields(index)}>Remove</button>
               </div>
             )
           })}
         <button className='btn' onClick={addFields}>Add More..</button>
-        <button className='btn' onClick={submit}>Submit</button>
-      </form>
-      
       <br />
       
     </div>
   )
 }
-
-// RubricRow.propTypes = {
-//     value : PropTypes.number,
-//     text : PropTypes.string
-// }
-export default RubricRow
+RubricRowV2.propTypes = {
+}
+export default RubricRowV2
