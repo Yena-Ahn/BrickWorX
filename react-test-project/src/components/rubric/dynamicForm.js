@@ -110,13 +110,14 @@ const DynamicForm = () => {
 											}
 										/>
 									</div>
-									<button onClick={() => addCriteriaToQuestion(question.id)}>+</button>
+									<button className='btn' onClick={() => {}}>Remove</button>
+									<button className='btn' onClick={() => addCriteriaToQuestion(question.id)}>+</button>
 								</div>
 							))}
 						</div>
 					</div>
 				))}
-				<button onClick={handleAddQuestion}>Add new block</button> <br />
+				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
 				<button className="btn-primary" onClick={saveRubric}>
 					Submit rubric data
 				</button>
