@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash"
 import React from "react"
 const DynamicForm = () => {
 	const [rubric, setRubricData] = React.useState([
@@ -76,7 +77,22 @@ const DynamicForm = () => {
 	}
 
 	const removeCriterion = (questionID,criteriaID) => {
-	
+		console.log('REMOVERCRITERIA ID')
+		console.log(criteriaID)
+
+		let data = [...rubric];
+		console.log('REMOVERCRITERIA TEST')
+		console.log(data[questionID].criterions[criteriaID])
+		data[questionID].criterions.splice(criteriaID,1)
+		console.log(data[questionID])
+		// data[questionID].criterions=
+		// data[questionID].criterions.forEach((item,index)=>{
+		// 	item.id=index
+		// })
+		console.log('ID update after item deleted')
+		//console.log(apples)
+		setRubricData(data)
+		//data[questionID].criterions=apples
 	}
 
 
@@ -116,7 +132,7 @@ const DynamicForm = () => {
 											}
 										/>
 									</div>
-									<button className='btn' onClick={() => {}}>Remove</button>
+									<button className='btn' onClick={() => removeCriterion(question.id,criterion.id)}>Remove</button>
 									<button className='btn' onClick={() => addCriteriaToQuestion(question.id)}>+</button>
 								</div>
 							))}
