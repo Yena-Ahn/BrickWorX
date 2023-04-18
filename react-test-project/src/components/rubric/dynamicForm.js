@@ -25,6 +25,8 @@ const DynamicForm = () => {
 			],
 		},
 	])
+
+
 	const handleAddQuestion = () => {
     console.log("ISSUES")
     console.log(rubric.slice(-1)[0].id)
@@ -58,20 +60,20 @@ const DynamicForm = () => {
 		console.log(thing[0])
 		setRubricData(_questionMembers)
 	}
-	const insertCriteriaToQuestion = (questionID, insertAboveIndexID)=>{
-		let data = [...cloneDeep(rubric)];
-		let index = data.findIndex(question => question.id === questionID);
-		let thing = {...data[index].criterions.slice(-1)}
-		let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
-		data[index].criterions=addAfter(data[index].criterions,criteriaIndex,
-			{
-						body: "insertTEST",
-						grade: 0,
-						id: thing[0].id+1,
-			}
-		)
-		setRubricData(data)
-	}
+	// const insertCriteriaToQuestion = (questionID, insertAboveIndexID)=>{
+	// 	let data = [...cloneDeep(rubric)];
+	// 	let index = data.findIndex(question => question.id === questionID);
+	// 	let thing = {...data[index].criterions.slice(-1)}
+	// 	let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
+	// 	data[index].criterions=addAfter(data[index].criterions,criteriaIndex,
+	// 		{
+	// 					body: "insertTEST",
+	// 					grade: 0,
+	// 					id: thing[0].id+1,
+	// 		}
+	// 	)
+	// 	setRubricData(data)
+	// }
 	
 
 
