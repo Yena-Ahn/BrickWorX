@@ -81,27 +81,28 @@ const DynamicForm = () => {
 		console.log('REMOVERCRITERIA ID')
 		console.log(criteriaID)
 
+		
 		let data = [...cloneDeep(rubric)];
+		if (data[questionID].criterions.length>1){
+			// console.log('REMOVERCRITERIA TEST')
+			// console.log(data[questionID].criterions[criteriaID])
+			// data[questionID].criterions.splice(criteriaID,1)
+			// console.log(data[questionID])
+
+			//rewrite to remove based on key and not index
+			data[questionID].criterions=data[questionID].criterions.filter((item)=>{return item.id!==criteriaID})
 
 
-		// console.log('REMOVERCRITERIA TEST')
-		// console.log(data[questionID].criterions[criteriaID])
-		// data[questionID].criterions.splice(criteriaID,1)
-		// console.log(data[questionID])
 
-		//rewrite to remove based on key and not index
-		data[questionID].criterions=data[questionID].criterions.filter((item)=>{return item.id!==criteriaID})
-
-
-
-		// data[questionID].criterions=
-		// data[questionID].criterions.forEach((item,index)=>{
-		// 	item.id=index
-		// })
-		console.log('ID update after item deleted')
-		//console.log(apples)
-		setRubricData(data)
-		//data[questionID].criterions=apples
+			// data[questionID].criterions=
+			// data[questionID].criterions.forEach((item,index)=>{
+			// 	item.id=index
+			// })
+			console.log('ID update after item deleted')
+			//console.log(apples)
+			setRubricData(data)
+			//data[questionID].criterions=apples
+		}
 	}
 
 
