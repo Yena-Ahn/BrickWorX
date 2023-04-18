@@ -4,10 +4,13 @@ import React from "react"
 import { v4 as uuidv4 } from 'uuid';
 const DynamicForm = () => {
 	//just usefull to have
-	Array.prototype.insert =  ( index, ...items ) => {
-    this.splice( index, 0, ...items )
+	function addAfter(array, index, newItem) {
+    return [
+        ...array.slice(0, index),
+        newItem,
+        ...array.slice(index)
+    ]
 	}
-
 	
 	const [rubric, setRubricData] = React.useState([
 		{
@@ -60,13 +63,13 @@ const DynamicForm = () => {
 		let index = data.findIndex(question => question.id === questionID);
 		let thing = {...data[index].criterions.slice(-1)}
 		let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
-		data[index].criterions.splice(criteriaIndex,0,
-				{
-					body: "insertTEST",
-					grade: 0,
-					id: thing[0].id+1,
-				}
-			)
+		data[index].criterions=addAfter(data[index].criterions,criteriaIndex,
+			{
+						body: "insertTEST",
+						grade: 0,
+						id: thing[0].id+1,
+			}
+		)
 		setRubricData(data)
 	}
 	
