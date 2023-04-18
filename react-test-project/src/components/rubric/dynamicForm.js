@@ -1,7 +1,14 @@
+/* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
 import React from "react"
 import { v4 as uuidv4 } from 'uuid';
 const DynamicForm = () => {
+	//just usefull to have
+	Array.prototype.insert =  ( index, ...items ) => {
+    this.splice( index, 0, ...items )
+	}
+
+	
 	const [rubric, setRubricData] = React.useState([
 		{
 			questionName: "",
@@ -48,6 +55,24 @@ const DynamicForm = () => {
 		console.log(thing[0])
 		setRubricData(_questionMembers)
 	}
+	const insertCriteriaToQuestion = (questionID, insertAboveIndexID)=>{
+		let data = [...cloneDeep(rubric)];
+		let index = data.findIndex(question => question.id === questionID);
+		let thing = {...data[index].criterions.slice(-1)}
+		let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
+		data[index].criterions.splice(criteriaIndex,0,
+				{
+					body: "insertTEST",
+					grade: 0,
+					id: thing[0].id+1,
+				}
+			)
+		setRubricData(data)
+	}
+	
+
+
+
 
 	const handleQuestionData = (
 		id,
@@ -78,25 +103,11 @@ const DynamicForm = () => {
 	}
 
 	const removeCriterion = (questionID,criteriaID) => {
-		console.log('REMOVERCRITERIA ID')
-		console.log(criteriaID)
-
-		
 		let data = [...cloneDeep(rubric)];
 		let index = data.findIndex(question => question.id === questionID);
 
 		if (data[index].criterions.length>1){
-		
-
-			//rewrite to remove based on key and not index
-			//rewrite to make QUESTION ID FIND VIA MATCHING QUESTION ID RATHER THAN INDEX
-
-
 			data[index].criterions=data[index].criterions.filter((item)=>{return item.id!==criteriaID})
-
-
-			console.log('ID update after item deleted')
-			//console.log(apples)
 			setRubricData(data)
 		}
 	}
@@ -154,6 +165,8 @@ const DynamicForm = () => {
 							))}
 						</div>
 						<button className='btn' onClick={() => {removeQuestion(question.id)}}>Remove Question</button>
+						<button className='btn' onClick={() => {}}>TEST BUTTON</button>
+
 					</div>
 				))}
 				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
