@@ -83,13 +83,14 @@ const DynamicForm = () => {
 
 		
 		let data = [...cloneDeep(rubric)];
-		if (data[questionID].criterions.length>1){
+		let index = data.findIndex(question => question.id === questionID);
+
+		if (data[index].criterions.length>1){
 		
 
 			//rewrite to remove based on key and not index
 			//rewrite to make QUESTION ID FIND VIA MATCHING QUESTION ID RATHER THAN INDEX
 
-			var index = data.findIndex(question => question.id === questionID);
 
 			data[index].criterions=data[index].criterions.filter((item)=>{return item.id!==criteriaID})
 
@@ -102,16 +103,21 @@ const DynamicForm = () => {
 
 
 	const removeQuestion = (questionID) => {
-
+		let data = [...cloneDeep(rubric)];
+		let index = data.findIndex(question => question.id === questionID);
+		if (data.length>1){
+			data=data.filter((item)=>{return item.id!==questionID})
+			setRubricData(data)
+		}
 	}
-
-
-
 	return (
     <div>
 			<div className="row-section">
-				{rubric.map((question) => (
+				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
+						<h2>question {index+1}</h2>
+						<p>&nbsp;</p>
+
 						<div className="input-group">
 							<label htmlFor="Question">Name of Question</label>
 							<input
@@ -147,7 +153,7 @@ const DynamicForm = () => {
 								</div>
 							))}
 						</div>
-						<button className='btn' onClick={() => {}}>Remove Question</button>
+						<button className='btn' onClick={() => {removeQuestion(question.id)}}>Remove Question</button>
 					</div>
 				))}
 				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
