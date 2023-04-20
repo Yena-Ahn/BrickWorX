@@ -122,6 +122,7 @@ const DynamicForm = () => {
 
 	const saveRubric = () => {
 		console.table(rubric)
+		// console.log(rubric)
 	}
 
 	const removeCriterion = (questionID,criteriaID) => {
