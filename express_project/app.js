@@ -15,7 +15,19 @@ app.use(express.json());
 //because it is sent as a json it does not need to be destrigified or anything, you can directly start working with it
 app.post('/submit', function(request, response){
   console.log(request.body);      // your JSON
-  console.log(request.body[0]);  //question one
+  let rubric = {...request.body};  //question one
+  
+  console.log("RUBRIC_NAME:");
+  console.log(rubric.rubricName);
+
+  console.log("RUBRIC_BODY:");
+  console.log(rubric.rubric);
+
+  console.log("QUESTION_1:");
+  console.log(rubric.rubric[0]);
+
+
+
   response.send(request.body);    // echo the result back
 });
 
