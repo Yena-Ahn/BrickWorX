@@ -1,6 +1,6 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React from "react"
+import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,8 +15,10 @@ const DynamicForm = () => {
         ...array.slice(index)
     ]
 	}
+	// useEffect(()=>{
+	// 	fetch('/submit')
+	// })
 	const [status, setStatus] = React.useState("");
-	
 	const [rubric, setRubricData] = React.useState([
 		{
 			questionName: "",
@@ -31,18 +33,34 @@ const DynamicForm = () => {
 		},
 	])
 
-	const handleSubmit = async (event) => {
-		setStatus(""); // Reset status
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("rubric", rubric);
-    const resp = await axios.post(UPLOAD_ENDPOINT, formData, {
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    setStatus(resp.status === 200 ? "Thank you!" : "Error.");
-  };
+	// const handleSubmit = async (event) => {
+	// 	setStatus(""); // Reset status
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("rubric", rubric);
+  //   const resp = await axios.post(UPLOAD_ENDPOINT, formData, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   });
+  //   setStatus(resp.status === 200 ? "Thank you!" : "Error.");
+  // };
+
+	let customConfig = {
+    headers: {
+    'Content-Type': 'application/json'
+    }
+	};
+
+
+	const axios_post = ()=>{
+		axios.post("http://localhost:5000/submit", rubric, customConfig).then(response => {
+			console.log(response);
+		}).catch(error => {
+			console.log("this is error", error);
+		});
+	}
+	
 
 	const handleAddQuestion = () => {
     console.log("ISSUES")
@@ -193,7 +211,7 @@ const DynamicForm = () => {
 					</div>
 				))}
 				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
-				<button className="btn" onClick={saveRubric}>
+				<button className="btn" onClick={axios_post}>
 					Submit rubric data
 				</button>
 			</div>
