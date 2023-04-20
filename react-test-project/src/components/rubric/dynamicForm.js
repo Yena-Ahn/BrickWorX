@@ -4,8 +4,6 @@ import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
-const UPLOAD_ENDPOINT = "http://127.0.0.1:8000/api/submitrubric";
-
 const DynamicForm = () => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
