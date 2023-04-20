@@ -32,6 +32,7 @@ const DynamicForm = () => {
 			],
 		},
 	])
+	const [rubricName, setRubricName] = React.useState('default')
 
 	// const handleSubmit = async (event) => {
 	// 	setStatus(""); // Reset status
@@ -54,7 +55,7 @@ const DynamicForm = () => {
 
 
 	const axios_post = ()=>{
-		axios.post("http://localhost:5000/submit", rubric, customConfig).then(response => {
+		axios.post("http://localhost:5000/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -162,8 +163,19 @@ const DynamicForm = () => {
 			setRubricData(data)
 		}
 	}
+
+	const handleNameChange = (
+		event,
+	) => {
+		setRubricName(event.target.value)
+		console.log(rubricName)
+	}
+
+
 	return (
     <div>
+			<label htmlFor="rubric_name">Name of Question</label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text"/>
 			<div className="row-section">
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
