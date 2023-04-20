@@ -1,7 +1,11 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
 import React from "react"
+import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+
+const UPLOAD_ENDPOINT = "http://127.0.0.1:8000/api/submitrubric";
+
 const DynamicForm = () => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
@@ -11,6 +15,7 @@ const DynamicForm = () => {
         ...array.slice(index)
     ]
 	}
+	const [status, setStatus] = React.useState("");
 	
 	const [rubric, setRubricData] = React.useState([
 		{
@@ -26,6 +31,18 @@ const DynamicForm = () => {
 		},
 	])
 
+	const handleSubmit = async (event) => {
+		setStatus(""); // Reset status
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("rubric", rubric);
+    const resp = await axios.post(UPLOAD_ENDPOINT, formData, {
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    setStatus(resp.status === 200 ? "Thank you!" : "Error.");
+  };
 
 	const handleAddQuestion = () => {
     console.log("ISSUES")
