@@ -55,7 +55,7 @@ const DynamicForm = () => {
 
 
 	const axios_post = ()=>{
-		axios.post("http://localhost:5000/submit", {rubricName, rubric}, customConfig).then(response => {
+		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
