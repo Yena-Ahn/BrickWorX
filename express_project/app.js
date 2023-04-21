@@ -31,7 +31,7 @@ app.post('/submit', function(request, response){
   response.send(request.body);    // echo the result back
 });
 
-app.listen(5000, ()=>{console.log('server started on port 5000')});
+app.listen(3001, ()=>{console.log('server started on port 3001')});
 
 
 // const mysql = require("mysql2")
