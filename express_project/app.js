@@ -5,7 +5,8 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 dotenv.config();
 
-// const dbService = require("./dbService");
+const dbService = require("./dbService.js");
+const db = dbService.connection;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -26,10 +27,96 @@ app.post('/submit', function(request, response){
   console.log("QUESTION_1:");
   console.log(rubric.rubric[0]);
 
+  var rubricName = rubric.rubricName;
+  var questionName = rubric.rubric[0].questionName;
+
+  // fixed user for now
+  // Rubrics table
+  var sqlQuery = "INSERT INTO Rubrics (time_stamp, last_editor, rubric_name) VALUES (NOW(), 0, ?)";
+  db.query(sqlQuery, rubricName, function(err) {
+    if (err) throw err;
+    console.log("Successfully inserted into Rubrics table.")
+  });
+
+
+  db.query("SELECT LAST_INSERT_ID();", function(err, row, field) {
+    let result = JSON.parse(JSON.stringify(row));
+    rubricId = result[0]["LAST_INSERT_ID()"]; // ERROR
+  });
+
+
+  for (let question=0; question<rubric.rubric.length; question++) {
+    console.log(rubricId);
+    //Question table
+    let question_name = rubric.rubric[question].questionName;
+    sqlQuery = "INSERT INTO Question (rubric_id, question_name) VALUES (?, ?);";
+    db.query(sqlQuery, [rubricId, question_name], function(err) {
+      if (err) throw err;
+      console.log("Successfully inserted into Question table.");
+    });
+
+    let criterion = rubric.rubric[question].criterions;
+
+    db.query("SELECT LAST_INSERT_ID();", function(err, row, field) {
+      let questionId = row[0];
+    })
+
+    // Rubric_block table
+    for (let j=0; j<criterion.length; j++) {
+      let grade = criterion[j].grade;
+      let criterionsId = criterion[j].id;
+      let criteria = criterion[j].criteria;
+
+      sqlQuery = "INSERT INTO Rubric_block (id, grade, text, question_id) INTO VALUES (?, ?, ?, ?);";
+      db.query(sqlQuery, [criterionsId, grade, criteria, question_id], function(err) {
+        if (err) throw err;
+        console.log("Successfully inserted into Rubric_block table.");
+      });
+
+      
+    }
+
+  }
+
+
+  
+  
+  
+
+  
+
+  
+
+  // db.query("INSERT INTO rubric_row_blocks COLUMNS (rubric_row_id, rubric_block) VALUES (${row_id}, ${criterions.id});", function(err) {
+  //   if (err) throw err;
+  //   console.log("Successfully inserted into rubric_row_blocks table.")
+  // });
+
+  
+
+
+
 
 
   response.send(request.body);    // echo the result back
 });
+
+const clearDB = (db, tableName) => {
+  var sqlq = "DELETE FROM " + tableName + "; ALTER TABLE " + tableName + " AUTO_INCREMENT = 1;";
+  db.query(sqlq, tableName, function(err) {
+    if (err) throw err;
+    console.log("Table " + tableName + " is cleared.");
+  });
+}
+
+// const getLastId = (db) => {
+//   db.query("SELECT LAST_INSERT_ID();", function(err, row, field) {
+//     let result = JSON.parse(JSON.stringify(row));
+//     result[0]["LAST_INSERT_ID()"];
+//   });
+// }
+
+
 
 app.listen(3001, ()=>{console.log('server started on port 3001')});
 

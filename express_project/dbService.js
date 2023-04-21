@@ -1,20 +1,35 @@
-const mysql = require("mysql2");
+const mysql = require("mysql");
+// const sqlite = require("sqlite3");
+// const md5 = require("md5");
+let instance = null;
 const dotenv = require("dotenv");
 dotenv.config();
 
-// const db = mysql.createConnection({
-//   user: process.env.USER,
-//   host: process.env.HOST,
-//   port: process.env.DB_PORT,
-//   password: process.env.PASSWORD,
-//   database: process.env.DATABASE
-// });
+config = {
+    user: process.env.USER,
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    multipleStatements: true
+}
 
 
-// db.connect((err) => {
-//         if(err) {
-//             console.log(err.message);
-//         };
-//         console.log('db ' + db.state); 
-//     });
+const db = mysql.createConnection(config);
 
+db.connect((err) => {
+        if(err) {
+            console.log(err.message);
+        };
+        console.log('db ' + db.state);
+    });
+
+// class DbService {
+//     static getDbServiceInstance() {
+//         return instance ? instance : new DbService();
+//     }
+// }
+
+module.exports = {
+    connection : mysql.createConnection(config)
+}
