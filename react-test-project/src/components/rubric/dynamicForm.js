@@ -1,7 +1,9 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React from "react"
+import React, { useEffect } from "react"
+import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+
 const DynamicForm = () => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
@@ -11,7 +13,10 @@ const DynamicForm = () => {
         ...array.slice(index)
     ]
 	}
-	
+	// useEffect(()=>{
+	// 	fetch('/submit')
+	// })
+	const [status, setStatus] = React.useState("");
 	const [rubric, setRubricData] = React.useState([
 		{
 			questionName: "",
@@ -25,6 +30,37 @@ const DynamicForm = () => {
 			],
 		},
 	])
+	const [rubricName, setRubricName] = React.useState('default')
+
+	// const handleSubmit = async (event) => {
+	// 	setStatus(""); // Reset status
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("rubric", rubric);
+  //   const resp = await axios.post(UPLOAD_ENDPOINT, formData, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //   });
+  //   setStatus(resp.status === 200 ? "Thank you!" : "Error.");
+  // };
+
+	let customConfig = {
+    headers: {
+    'Content-Type': 'application/json'
+    }
+	};
+
+
+	const axios_post = ()=>{
+		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
+			console.log(response);
+		}).catch(error => {
+			console.log("this is error", error);
+		});
+	}
+	
+
 	const handleAddQuestion = () => {
     console.log("ISSUES")
     console.log(rubric.slice(-1)[0].id)
@@ -58,20 +94,20 @@ const DynamicForm = () => {
 		console.log(thing[0])
 		setRubricData(_questionMembers)
 	}
-	const insertCriteriaToQuestion = (questionID, insertAboveIndexID)=>{
-		let data = [...cloneDeep(rubric)];
-		let index = data.findIndex(question => question.id === questionID);
-		let thing = {...data[index].criterions.slice(-1)}
-		let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
-		data[index].criterions=addAfter(data[index].criterions,criteriaIndex,
-			{
-						body: "insertTEST",
-						grade: 0,
-						id: thing[0].id+1,
-			}
-		)
-		setRubricData(data)
-	}
+	// const insertCriteriaToQuestion = (questionID, insertAboveIndexID)=>{
+	// 	let data = [...cloneDeep(rubric)];
+	// 	let index = data.findIndex(question => question.id === questionID);
+	// 	let thing = {...data[index].criterions.slice(-1)}
+	// 	let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
+	// 	data[index].criterions=addAfter(data[index].criterions,criteriaIndex,
+	// 		{
+	// 					body: "insertTEST",
+	// 					grade: 0,
+	// 					id: thing[0].id+1,
+	// 		}
+	// 	)
+	// 	setRubricData(data)
+	// }
 	
 
 
@@ -103,6 +139,7 @@ const DynamicForm = () => {
 
 	const saveRubric = () => {
 		console.table(rubric)
+		// console.log(rubric)
 	}
 
 	const removeCriterion = (questionID,criteriaID) => {
@@ -124,8 +161,19 @@ const DynamicForm = () => {
 			setRubricData(data)
 		}
 	}
+
+	const handleNameChange = (
+		event,
+	) => {
+		setRubricName(event.target.value)
+		console.log(rubricName)
+	}
+
+
 	return (
     <div>
+			<label htmlFor="rubric_name">Name of Question</label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text"/>
 			<div className="row-section">
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
@@ -173,7 +221,7 @@ const DynamicForm = () => {
 					</div>
 				))}
 				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
-				<button className="btn" onClick={saveRubric}>
+				<button className="btn" onClick={axios_post}>
 					Submit rubric data
 				</button>
 			</div>
