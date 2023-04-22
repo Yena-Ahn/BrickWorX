@@ -89,6 +89,14 @@ app.get("/getRubric", async function(req, res) {
   
 });
 
+app.get("/list", async function(req, res) {
+  let result = JSON.parse(JSON.stringify(await getAllRubric()));
+  res.json(result);
+})
+
+
+
+
   const getLastId = () => {
     return new Promise((resolve, reject) => {
       let query = 'SELECT LAST_INSERT_ID();';
@@ -117,6 +125,19 @@ app.get("/getRubric", async function(req, res) {
       })
     })
   };
+
+  const getAllRubric = () => {
+    return new Promise((resolve, reject) => {
+      let query = "SELECT * FROM Rubrics;";
+      db.query(query, (err,res) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(res);
+      })
+    })
+  }
 
 
 
