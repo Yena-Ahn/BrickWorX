@@ -85,7 +85,25 @@ app.post('/submit', async function(request, response) {
 app.get("/getRubric", async function(req, res) {
   let id = req.query.id;
   let result = JSON.parse(JSON.stringify(await getRubric(id)));
-  res.json(result);
+  let uniqueQ = JSON.parse(JSON.stringify(await getUniqueQuestion(id)));
+  let resultArray = [];
+  uniqueQ.forEach(element => {
+    let criterions = [];
+    let questionJson = {};
+    result.forEach(resultEle => {
+      if (resultEle.question_id == element.question_id) {
+        if (!Object.keys(questionJson).length) {
+          questionJson.questionName = resultEle.question_name;
+          questionJson.id = resultEle.id;
+        }
+        criterions.push({body: resultEle.text, grade: resultEle.grade, id: resultEle.id});
+      }
+    })
+    questionJson.criterions = criterions;
+    resultArray.push(questionJson);
+  });
+
+  res.json(resultArray);
   
 });
 
@@ -112,9 +130,10 @@ app.get("/list", async function(req, res) {
     })
   };
 
+
   const getRubric = (id) => {
     return new Promise((resolve, reject) => {
-      let query = "SELECT * FROM Rubrics WHERE id = ?;";
+      let query = "SELECT Question.question_name, Question.question_id, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Question, Rubric_block WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id;";
       db.query(query, [id], (err, res) => {
         if (err) {
           reject(err);
@@ -125,6 +144,20 @@ app.get("/list", async function(req, res) {
       })
     })
   };
+
+  const getUniqueQuestion = (id) => {
+    return new Promise((resolve, reject) => {
+      let query = "SELECT DISTINCT Question.question_id FROM Rubrics, Question, Rubric_block WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id;";
+      db.query(query, [id], (err, res) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve(res);
+      })
+    })
+  }
 
   const getAllRubric = () => {
     return new Promise((resolve, reject) => {
