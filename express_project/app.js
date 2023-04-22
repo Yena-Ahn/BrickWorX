@@ -94,7 +94,7 @@ app.get("/getRubric", async function(req, res) {
       if (resultEle.question_id == element.question_id) {
         if (!Object.keys(questionJson).length) {
           questionJson.questionName = resultEle.question_name;
-          questionJson.id = resultEle.id;
+          questionJson.id = resultEle.question_id;
         }
         criterions.push({body: resultEle.text, grade: resultEle.grade, id: resultEle.id});
       }
