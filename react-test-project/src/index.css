@@ -1,13 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
-
-* {
+  * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Verdana', sans-serif;
 }
 
 .container {
@@ -47,7 +45,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
 }
-
+/*
 .btn {
   display: inline-block;
   background: #000;
@@ -62,7 +60,7 @@ body {
   font-family: inherit;
   width: 150px;
   height: 50px;
-}
+} 
 
 .btn:focus {
   outline: none;
@@ -76,7 +74,7 @@ body {
   display: block;
   width: 100%;
 }
-
+*/
 .task {
   background: #f4f4f4;
   margin: 5px;
@@ -296,20 +294,24 @@ h2{
     margin-top:40px;
     align-items: flex-end;
     margin-bottom:40px;
+   
+    
 }
 .dynamic-form button {
    padding:10px 10px;
    max-height: 40px;
+   
 }
 .input-group{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-right:10px;
+    
 
 }
 
-.input-group input{     
+.input-group input, textarea{     
       padding:10px 10px;
       margin-top:10px;
       
@@ -321,13 +323,15 @@ h2{
 
 .row-section{
     margin-top:40px;
+    width:70%;
+    margin:auto;
 }
 .row-section  h3{
     color:#365262;
     margin-top:30px;
 }
 .row-section__inner{
-    border:1px solid grey;
+    border:3px solid black;
     padding:20px;
     margin-bottom:20px;
 }
@@ -337,7 +341,8 @@ h2{
 .row-section .btn-primary{
     margin-top:20px;
 }
+/*
 .btn-primary{
     background-color:#365262;
     color:white;
-}
+} */

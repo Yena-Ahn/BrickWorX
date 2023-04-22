@@ -3,6 +3,7 @@ import { cloneDeep } from "lodash"
 import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+import * as Icon from 'react-bootstrap-icons';
 
 const DynamicForm = () => {
 	//just usefull to have
@@ -172,57 +173,71 @@ const DynamicForm = () => {
 
 	return (
     <div>
-			<label htmlFor="rubric_name">Name of Question</label>
+			<label htmlFor="rubric_name">Name of Assignment</label>
 			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text"/>
 			<div className="row-section">
+				
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
 						<h2>question {index+1}</h2>
 						<p>&nbsp;</p>
 
 						<div className="input-group">
-							<label htmlFor="Question">Name of Question</label>
+							{/*<label htmlFor="Question">Name of Question</label>*/}
 							<input
 								name="Question"
 								onChange={(e) => handleQuestionData(question.id, e)}
+								placeholder="Enter Question Name"
 								type="text"
+								
 							/>
-							<h3>criterions</h3>
+							
+							{/*<h3>criterions</h3>*/}
 							{question.criterions.map((criterion) => (
 								<div className="form-row" key={criterion.id}>
 									<div className="input-group">
-										<label htmlFor="body">criteria</label>
-										<input
-											name="body"
-											type="text"
-											onChange={(e) =>
-												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}
-										/>
-									</div>
-									<div className="input-group">
-										<label htmlFor="grade">Grade for criterion</label>
+										<label htmlFor="grade">Marks</label>
 										<input
 											name="grade"
 											type="number"
+											placeholder="0"
+											textAlign="center"
+											onChange={(e) =>
+												handleCriteriaInQuestionData(question.id, criterion.id, e)
+											}
+											style={{width:"60px", height:"60px", textAlign:"center"}}
+										/>
+									</div>
+									<div className="input-group">
+										<label htmlFor="body">criteria</label>
+										<textarea
+											name="body"
+											type="textarea"
+											rows="4"
+											placeholder="Enter criteria for this mark..."
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
 										/>
 									</div>
-									<button className='btn' onClick={() => removeCriterion(question.id,criterion.id)}>Remove</button>
-									<button className='btn' onClick={() => addCriteriaToQuestion(question.id)}>+</button>
+									<button className='btn' onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill />Remove</button>
+									<button className='btn' onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill />Add Row</button>
 								</div>
+							
 							))}
+						
 						</div>
-						<button className='btn' onClick={() => {removeQuestion(question.id)}}>Remove Question</button>
+						
+						<button className='btn' onClick={() => {removeQuestion(question.id)}}><Icon.X/> Remove Question</button>
 						<button className='btn' onClick={() => {}}>TEST BUTTON</button>
 
 					</div>
 				))}
-				<button className='btn' onClick={handleAddQuestion}>Add new block</button> <br />
-				<button className="btn" onClick={axios_post}>
-					Submit rubric data
+				
+				<button className='btn' 
+					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</button> <br />
+				<button className="btn" onClick={axios_post} style={{align:"right"}}>
+					Save and Publish <Icon.FileEarmarkPostFill />
 				</button>
 			</div>
 		</div>
