@@ -1,7 +1,4 @@
 const mysql = require("mysql");
-// const sqlite = require("sqlite3");
-// const md5 = require("md5");
-let instance = null;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -11,25 +8,17 @@ config = {
     port: process.env.DB_PORT,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+    connectionLimit: 10,
     multipleStatements: true
 }
 
 
 const db = mysql.createConnection(config);
-
 db.connect((err) => {
-        if(err) {
-            console.log(err.message);
-        };
-        console.log('db ' + db.state);
-    });
+    if (err) throw err;
+    console.log("Connected to Database.")
+})
 
-// class DbService {
-//     static getDbServiceInstance() {
-//         return instance ? instance : new DbService();
-//     }
-// }
 
-module.exports = {
-    connection : mysql.createConnection(config)
-}
+
+module.exports = {connection: db};
