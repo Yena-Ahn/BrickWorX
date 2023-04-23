@@ -1,4 +1,4 @@
-  * {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -109,7 +109,7 @@ body {
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .form-control-check {
@@ -240,7 +240,7 @@ body{
 
 h1{
     color:#365262;
-    font-size:30px;
+    font-size:26px;
     font-weight: 500;
 }
 h2{
@@ -322,8 +322,8 @@ h2{
 }
 
 .row-section{
-    margin-top:40px;
-    width:70%;
+    /*margin-top:40px;*/
+    width:60%;
     margin:auto;
 }
 .row-section  h3{
@@ -333,13 +333,19 @@ h2{
 .row-section__inner{
     border:3px solid black;
     padding:20px;
-    margin-bottom:20px;
+    /*margin-bottom:10px;*/
 }
 .row-section .form-row{
-    margin-top:25px;
+   margin-top:10px;
 }
 .row-section .btn-primary{
     margin-top:20px;
+}
+
+.questionTitleStyle {
+  font-size:22px;
+  font-weight:bold;
+  width:45%;
 }
 /*
 .btn-primary{

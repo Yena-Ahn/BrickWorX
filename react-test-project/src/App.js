@@ -2,7 +2,7 @@
 //import './App.css';
 import Navbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-//import { Button, Icons} from "react-bootstrap";
+import { Button, Icons} from "react-bootstrap";
 import * as Icon from 'react-bootstrap-icons';
 
 //import Header from "./components/Header";

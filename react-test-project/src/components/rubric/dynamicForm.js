@@ -4,6 +4,7 @@ import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
+import { Button, Row, Col} from "react-bootstrap";
 
 const DynamicForm = () => {
 	//just usefull to have
@@ -173,14 +174,15 @@ const DynamicForm = () => {
 
 	return (
     <div>
-			<label htmlFor="rubric_name">Name of Assignment</label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text"/>
+			<label htmlFor="rubric_name" className="questionTitleStyle">Name of Assignment</label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Assignment 1" className="questionTitleStyle" style={{width:"250px"}}/>
+			<p>&nbsp;</p>
 			<div className="row-section">
 				
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
 						<h2>question {index+1}</h2>
-						<p>&nbsp;</p>
+						{/*<p>&nbsp;</p>*/}
 
 						<div className="input-group">
 							{/*<label htmlFor="Question">Name of Question</label>*/}
@@ -189,7 +191,7 @@ const DynamicForm = () => {
 								onChange={(e) => handleQuestionData(question.id, e)}
 								placeholder="Enter Question Name"
 								type="text"
-								
+								className="questionTitleStyle"
 							/>
 							
 							{/*<h3>criterions</h3>*/}
@@ -205,7 +207,7 @@ const DynamicForm = () => {
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
-											style={{width:"60px", height:"60px", textAlign:"center"}}
+											style={{width:"65px", height:"65px", textAlign:"center"}}
 										/>
 									</div>
 									<div className="input-group">
@@ -215,9 +217,11 @@ const DynamicForm = () => {
 											type="textarea"
 											rows="4"
 											placeholder="Enter criteria for this mark..."
+											contentEditable="true"
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
+											
 										/>
 									</div>
 									<button className='btn' onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill />Remove</button>
@@ -228,17 +232,17 @@ const DynamicForm = () => {
 						
 						</div>
 						
-						<button className='btn' onClick={() => {removeQuestion(question.id)}}><Icon.X/> Remove Question</button>
-						<button className='btn' onClick={() => {}}>TEST BUTTON</button>
+						<Button variant="danger" className='btn' onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
+						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
 					</div>
 				))}
 				
-				<button className='btn' 
-					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</button> <br />
-				<button className="btn" onClick={axios_post} style={{align:"right"}}>
+				<Button variant="outline-success" className='btn' 
+					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br />
+				<Button variant="outline-primary" onClick={axios_post} style={{align:"right"}}>
 					Save and Publish <Icon.FileEarmarkPostFill />
-				</button>
+				</Button>
 			</div>
 		</div>
 	)

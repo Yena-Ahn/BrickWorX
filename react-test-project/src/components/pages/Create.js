@@ -9,7 +9,7 @@ const Create = () => {
   return (
     <div>
       <h1>
-        TOOOL HERE DYNAMIC FORM
+        Create Rubric
       </h1>
       {/*<RubricRow />*/}
       {/* <RubricContainer DATA={DATA}/> */}
