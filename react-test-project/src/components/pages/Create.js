@@ -6,8 +6,6 @@ const Create = () => {
       <h1>
         TOOOL HERE DYNAMIC FORM
       </h1>
-      {/*<RubricRow />*/}
-      {/* <RubricContainer DATA={DATA}/> */}
       <DynamicForm/>
     </div>
   );
