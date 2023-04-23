@@ -51,6 +51,14 @@ const MarkingComp = () => {
 	const [rubric, setRubricData] = React.useState(rubricABC.rubric)
     const [grades, setGrades] = React.useState([])
 	const [rubricName, setRubricName] = React.useState('default')
+	const [assignmentList, setlist] = React.useState(null)
+	const [assignment, setAssignment] = React.useState('select an assignment')
+
+	React.useEffect(() => {
+		axios.get('/csvcolumns').then((response) => {
+		  setlist(response.data);
+		});
+	}, []);
 
     const sumGrade = (questionID)=>{
         let sum = 0;
@@ -107,10 +115,21 @@ const MarkingComp = () => {
 		setRubricName(event.target.value)
 		console.log(rubricName)
 	}
+
+	const chngAssignDropdown = (e) => {
+		setAssignment(e.target.value)
+	}
+
+
 	return (
     <div>
-			<label htmlFor="rubric_name">Name of Question</label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text"/>
+		{/* {JSON.stringify(assignmentList)} */}
+		<select style={{whiteSpace:"pre-line"}} onChange={chngAssignDropdown}> 
+		<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
+		{assignmentList?assignmentList.map((item) => <option value={item}>{item}</option>):'loading'}
+		</select>
+		    <span style={{whiteSpace:"pre-line"}}><label>rubric name: &nbsp;</label></span>
+			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
 			<div className="row-section">
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>

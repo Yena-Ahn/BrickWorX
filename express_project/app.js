@@ -50,17 +50,19 @@ app.get('/uploads', (req, res) => {
 
 
 // CSV Bullshit
-var columns={}
-var parse = require('csv-parse');
-var parser = parse.parse({columns: true}, function (err, records) {
-  columns=[...records][0]
-  console.log(Object.keys(columns));
-  console.log('////////////////////////////////////////////////////')
-	//console.log(records);
-});
+// var columns={}
+// var parse = require('csv-parse');
+// var parser = parse.parse({columns: true}, function (err, records) {
+//   columns=[...records][0]
+//   console.log(Object.keys(columns));
+//   console.log('////////////////////////////////////////////////////')
+// 	//console.log(records);
+// });
 
-fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
+// fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
 
+
+//later make query specific rubric
 app.get('/csvcolumns', (req, res) => {
   var columns={}
   var parse = require('csv-parse');
