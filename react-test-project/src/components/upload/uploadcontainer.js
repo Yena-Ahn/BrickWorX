@@ -6,19 +6,26 @@ export default class FilesUploadComponent extends Component {
         this.onFileChange = this.onFileChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            profileImg: ''
+            filecsv: ''
         }
+        console.log(props.change)
+        //props.change[0]('fruit.csv')
+        //console.log(props.change)
+        this.updateCSV=props.change[0]
+
     }
     onFileChange(e) {
-        this.setState({ profileImg: e.target.files[0] })
+        this.setState({ filecsv: e.target.files[0] })
     }
     onSubmit(e) {
+        console.log(this.state.filecsv.name)
         e.preventDefault()
         const formData = new FormData()
-        formData.append('file', this.state.profileImg)
+        formData.append('file', this.state.filecsv)
         axios.post("/uploadFileAPI", formData, {
         }).then(res => {
             console.log(res)
+            this.updateCSV(this.state.filecsv.name)
         })
     }
 

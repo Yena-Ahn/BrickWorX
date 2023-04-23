@@ -9,7 +9,12 @@ import Create from "./components/pages/Create";
 import Mark from "./components/pages/Mark";
 import Review from "./components/pages/Review";
 import Download from "./components/pages/Download";
+import React from "react";
 function App() {
+
+  const [latestCSV, setCSVNAME] = React.useState('apples.csv');
+  const updateCSNAME = (newName)=>{setCSVNAME(newName)}
+
   return (
     // <div className="container">
     //   <h1>
@@ -19,17 +24,20 @@ function App() {
     //   <Header />
 
     // </div>
+    <div>
     <Router>
     <Navbar />
     <Routes>
-        <Route exact path='/' element={<UPLOAD />} />
-        <Route path='/Upload' element={<UPLOAD/>} />
+        <Route exact path='/' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
+        <Route path='/Upload' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
         <Route path='/Create' element={<Create />} />
         <Route path='/Mark' element={<Mark/>} />
         <Route path='/Review' element={<Review/>} />
         <Route path='/Download' element={<Download/>} />
     </Routes>
     </Router>
+    <p> {latestCSV}</p>
+    </div>
     
   );
 }
