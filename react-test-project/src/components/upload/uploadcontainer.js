@@ -24,8 +24,10 @@ export default class FilesUploadComponent extends Component {
         formData.append('file', this.state.filecsv)
         axios.post("/uploadFileAPI", formData, {
         }).then(res => {
-            console.log(res)
+          console.log(res)
+          if(res.status===200){
             this.updateCSV(this.state.filecsv.name)
+          }
         })
     }
 
