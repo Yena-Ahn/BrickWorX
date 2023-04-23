@@ -39,7 +39,7 @@ var rubricABC = {
     ]
 }
 
-const MarkingComp = () => {
+const MarkingComp = ({setdefualtassignment}) => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
     return [
@@ -53,6 +53,9 @@ const MarkingComp = () => {
 	const [rubricName, setRubricName] = React.useState('default')
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
+
+
+
 
 	React.useEffect(() => {
 		axios.get('/csvcolumns').then((response) => {
@@ -120,14 +123,25 @@ const MarkingComp = () => {
 		setAssignment(e.target.value)
 	}
 
+	const handleSubmit= (event)=>{
+		event.preventDefault();
+		console.log('submitting')
+		console.log(event)
+		setdefualtassignment[0](assignment)
+	}
+
 
 	return (
     <div>
 		{/* {JSON.stringify(assignmentList)} */}
-		<select style={{whiteSpace:"pre-line"}} onChange={chngAssignDropdown}> 
-		<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
-		{assignmentList?assignmentList.map((item) => <option value={item}>{item}</option>):'loading'}
-		</select>
+		<form onSubmit={handleSubmit}>
+			<select style={{whiteSpace:"pre-line"}} onChange={chngAssignDropdown}> 
+			<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
+			{assignmentList?assignmentList.map((item) => <option value={item}>{item}</option>):'loading'}
+			</select>
+			<button className="btn" type="submit">Submit</button>
+		</form>
+
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>rubric name: </h1></span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>

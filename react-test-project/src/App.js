@@ -13,7 +13,10 @@ import React from "react";
 function App() {
 
   const [latestCSV, setCSVNAME] = React.useState('apples.csv');
+  const [chosenAssignment, setChosenAssignment] = React.useState('');
   const updateCSNAME = (newName)=>{setCSVNAME(newName)}
+  const updateAssign = (newName)=>{setChosenAssignment(newName)}
+
 
   return (
     // <div className="container">
@@ -31,7 +34,7 @@ function App() {
         <Route exact path='/' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
         <Route path='/Upload' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
         <Route path='/Create' element={<Create />} />
-        <Route path='/Mark' element={<Mark/>} />
+        <Route path='/Mark' element={<Mark setdefualtassignment={[updateAssign, chosenAssignment]} />} />
         <Route path='/Review' element={<Review/>} />
         <Route path='/Download' element={<Download/>} />
     </Routes>
