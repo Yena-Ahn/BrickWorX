@@ -171,7 +171,7 @@ app.post('/submit', async function(request, response) {
 
     for (let question = 0; question < rubric.rubric.length; question++) {
       if (rubricId !== null) { // Check if rubricId is defined before using it
-        let question_name = rubric.rubric[question].Question;
+        let question_name = rubric.rubric[question].questionName;
         sqlQuery = "INSERT INTO Question (rubric_id, question_name) VALUES (?, ?);";
         try {
           await db.query(sqlQuery, [rubricId, question_name]);

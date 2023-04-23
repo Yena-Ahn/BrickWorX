@@ -172,7 +172,7 @@ const DynamicForm = () => {
 
 	return (
     <div>
-			<label htmlFor="rubric_name">Name of Question</label>
+			<label htmlFor="rubric_name">Name of Rubric</label>
 			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text"/>
 			<div className="row-section">
 				{rubric.map((question,index) => (
@@ -181,9 +181,9 @@ const DynamicForm = () => {
 						<p>&nbsp;</p>
 
 						<div className="input-group">
-							<label htmlFor="Question">Name of Question</label>
+							<label htmlFor="questionName">Name of Question</label>
 							<input
-								name="Question"
+								name="questionName"
 								onChange={(e) => handleQuestionData(question.id, e)}
 								type="text"
 							/>
