@@ -128,7 +128,8 @@ const MarkingComp = () => {
 		<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
 		{assignmentList?assignmentList.map((item) => <option value={item}>{item}</option>):'loading'}
 		</select>
-		    <span style={{whiteSpace:"pre-line"}}><label>rubric name: &nbsp;</label></span>
+			<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
+		    <span style={{whiteSpace:"pre-line"}}><h1>rubric name: </h1></span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
 			<div className="row-section">
 				{rubric.map((question,index) => (
@@ -152,9 +153,9 @@ const MarkingComp = () => {
 								</div>
 							))}
                             <div className="rubricItem">
-										<h2>max grade</h2>
-										<h1>{sumGrade(question.id)}</h1>
-									</div>
+								<h2>max grade</h2>
+								<h1>{sumGrade(question.id)}</h1>
+							</div>
 						</div>
 						<button className='btn' onClick={() => {}}>TEST BUTTON</button>
 
