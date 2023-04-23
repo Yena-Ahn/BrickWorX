@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const util = require("util");
 const multer=require('multer')
+const fs = require('fs');
 const path = require('path')
 
 
@@ -13,6 +14,50 @@ dotenv.config();
 const dbService = require("./dbService.js");
 const { get } = require("http");
 const db = dbService.connection;
+const storageDir = './uploads/';
+
+//var serveIndex = require('serve-index');
+
+// app.use(express.static(__dirname + "/"))
+// app.use('/uploads', serveIndex(__dirname + '/uploads'));
+
+
+
+
+
+
+app.get('/uploads', (req, res) => {
+  const fullPath = process.cwd() + req.path //(not __dirname)
+  const dir = fs.opendirSync(fullPath)
+  let entity
+  let listing = []
+  while((entity = dir.readSync()) !== null) {
+      if(entity.isFile()) {
+          listing.push({ type: 'f', name: entity.name })
+      } else if(entity.isDirectory()) {
+          listing.push({ type: 'd', name: entity.name })
+      }
+  }
+  dir.closeSync()
+  res.send(listing)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,6 +67,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname) //Appending extension
   }
 })
+
 let upload = multer({ storage: storage, dest: 'uploads/' })
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +75,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
+app.get('/listCSV', (req, res)=>{
+  
+})
 
 app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
   const file = req.file;
