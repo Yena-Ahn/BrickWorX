@@ -7,6 +7,7 @@ const util = require("util");
 const multer=require('multer')
 const fs = require('fs');
 const path = require('path')
+const csv = require('csv')
 
 
 dotenv.config();
@@ -48,6 +49,41 @@ app.get('/uploads', (req, res) => {
 
 
 
+// CSV Bullshit
+var columns={}
+var parse = require('csv-parse');
+var parser = parse.parse({columns: true}, function (err, records) {
+  columns=[...records][0]
+  console.log(Object.keys(columns));
+  console.log('////////////////////////////////////////////////////')
+	//console.log(records);
+});
+
+fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -74,10 +110,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
-
-app.get('/listCSV', (req, res)=>{
-  
-})
 
 app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
   const file = req.file;
