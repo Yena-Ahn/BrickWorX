@@ -174,8 +174,8 @@ const DynamicForm = () => {
 
 	return (
     <div>
-			<label htmlFor="rubric_name" className="questionTitleStyle">Name of Assignment</label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Assignment 1" className="questionTitleStyle" style={{width:"250px"}}/>
+			<label htmlFor="rubric_name" className="questionTitleStyle">Name of rubric</label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="rubric_name" className="questionTitleStyle" style={{width:"250px"}}/>
 			<p>&nbsp;</p>
 			<div className="row-section">
 				
