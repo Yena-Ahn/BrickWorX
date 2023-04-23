@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+    cb(null, file.originalname) //Appending extension
   }
 })
 let upload = multer({ storage: storage, dest: 'uploads/' })
@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+
 
 app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
   const file = req.file;
