@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const util = require("util");
+const multer=require('multer')
 
 dotenv.config();
 
@@ -11,11 +12,31 @@ const dbService = require("./dbService.js");
 const { get } = require("http");
 const db = dbService.connection;
 
+const storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+      callBack(null, 'uploads')
+  },
+  filename: (req, file, callBack) => {
+      callBack(null, `${file.originalname}`)
+  }
+})
+let upload = multer({ dest: 'uploads/' })
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
+app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
+  const file = req.file;
+  console.log(file.filename);
+  if (!file) {
+    const error = new Error('No File')
+    error.httpStatusCode = 400
+    return next(error)
+  }
+    res.send(file);
+})
 
 app.post('/submit', async function(request, response) {
   //try {
