@@ -5,6 +5,8 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const util = require("util");
 const multer=require('multer')
+const path = require('path')
+
 
 dotenv.config();
 
@@ -13,14 +15,14 @@ const { get } = require("http");
 const db = dbService.connection;
 
 const storage = multer.diskStorage({
-  destination: (req, file, callBack) => {
-      callBack(null, 'uploads')
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
   },
-  filename: (req, file, callBack) => {
-      callBack(null, `${file.originalname}`)
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
   }
 })
-let upload = multer({ dest: 'uploads/' })
+let upload = multer({ storage: storage, dest: 'uploads/' })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -37,6 +39,7 @@ app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
   }
     res.send(file);
 })
+
 
 app.post('/submit', async function(request, response) {
   //try {
