@@ -48,9 +48,9 @@ const MarkingComp = ({setdefualtassignment}) => {
         ...array.slice(index)
     ]
 	}
-	const [rubric, setRubricData] = React.useState(rubricABC.rubric)
+	const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
     const [grades, setGrades] = React.useState([])
-	const [rubricName, setRubricName] = React.useState('default')
+	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
 
@@ -112,12 +112,6 @@ const MarkingComp = ({setdefualtassignment}) => {
 		setRubricData(_questionMembers)
 	}
 
-	const handleNameChange = (
-		event,
-	) => {
-		setRubricName(event.target.value)
-		console.log(rubricName)
-	}
 
 	const chngAssignDropdown = (e) => {
 		setAssignment(e.target.value)

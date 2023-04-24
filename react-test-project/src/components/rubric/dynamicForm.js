@@ -4,7 +4,7 @@ import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
-const DynamicForm = () => {
+const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
     return [
@@ -55,6 +55,7 @@ const DynamicForm = () => {
 	const axios_post = ()=>{
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
+			setRubricSuper[0]({rubricName, rubric})
 		}).catch(error => {
 			console.log("this is error", error);
 		});

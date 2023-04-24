@@ -1,12 +1,12 @@
 import DynamicForm from "../rubric/dynamicForm";
 
-const Create = () => {
+const Create = ({setRubricSuper}) => {
   return (
     <div>
       <h1>
         TOOOL HERE DYNAMIC FORM
       </h1>
-      <DynamicForm/>
+      <DynamicForm setRubricSuper={setRubricSuper}/>
     </div>
   );
 };
