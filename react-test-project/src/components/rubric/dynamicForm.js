@@ -58,7 +58,8 @@ const DynamicForm = () => {
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
-			console.log("this is error", error);
+			/*console.log("this is error", error);*/
+			console.log("this is error", error.response.data);
 		});
 	}
 	
@@ -141,7 +142,7 @@ const DynamicForm = () => {
 
 	const saveRubric = () => {
 		console.table(rubric)
-		// console.log(rubric)
+		console.log(rubric)
 	}
 
 	const removeCriterion = (questionID,criteriaID) => {
@@ -203,7 +204,7 @@ const DynamicForm = () => {
 											name="grade"
 											type="number"
 											placeholder="0"
-											textAlign="center"
+											
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
@@ -214,10 +215,9 @@ const DynamicForm = () => {
 										<label htmlFor="body">criteria</label>
 										<textarea
 											name="body"
-											type="textarea"
+											/*type="textarea"*/
 											rows="4"
 											placeholder="Enter criteria for this mark..."
-											contentEditable="true"
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
