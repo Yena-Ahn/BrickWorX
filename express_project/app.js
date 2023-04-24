@@ -74,9 +74,20 @@ app.get('/csvcolumns', (req, res) => {
     //console.log(records);
   });
   fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
-
-
 })
+
+
+app.get('/csvStudents', (req, res) => {
+  var columns={}
+  var parse = require('csv-parse');
+  var parser = parse.parse({columns: true}, function (err, records) {
+    res.send(records)
+    //console.log(records);
+  });
+  fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
+})
+
+
 
 
 

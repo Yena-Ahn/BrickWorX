@@ -53,13 +53,19 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
-
-
-
+	const [students, setStudents] = React.useState([])
+	const [currentStudent, setCurrentStudent] = React.useState('select a student')
+	const [tempStudent, setTempStudent] = React.useState('select a student')
 
 	React.useEffect(() => {
 		axios.get('/csvcolumns').then((response) => {
 		  setlist(response.data);
+		});
+	}, []);
+
+	React.useEffect(() => {
+		axios.get('/csvStudents').then((response) => {
+		  setStudents(response.data);
 		});
 	}, []);
 
@@ -117,12 +123,24 @@ const MarkingComp = ({setdefualtassignment}) => {
 		setAssignment(e.target.value)
 	}
 
+	const chngStudentDropdown = (e) => {
+		setTempStudent(e.target.value)
+	}
+
 	const handleSubmit= (event)=>{
 		event.preventDefault();
 		console.log('submitting')
 		console.log(event)
 		setdefualtassignment[0](assignment)
 	}
+
+	const handleSubmitStudent= (event)=>{
+		event.preventDefault();
+		console.log('submitting')
+		console.log(event)
+		setCurrentStudent(tempStudent)
+	}
+
 
 
 	return (
@@ -135,7 +153,16 @@ const MarkingComp = ({setdefualtassignment}) => {
 			</select>
 			<button className="btn" type="submit">Submit</button>
 		</form>
-
+		<form onSubmit={handleSubmitStudent}>
+			<select style={{whiteSpace:"pre-line"}} onChange={chngStudentDropdown}> 
+			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
+			{students?students.map((item) => <option value={item.ID}>{item.ID}</option>):'loading'}
+			</select>
+			<button className="btn" type="submit">Submit</button>
+		</form>
+		<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
+		    <span style={{whiteSpace:"pre-line"}}><h1>student ID: </h1></span>
+			<span style={{whiteSpace:"pre-line"}}>{<h2>{currentStudent}</h2>}</span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>rubric name: </h1></span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
