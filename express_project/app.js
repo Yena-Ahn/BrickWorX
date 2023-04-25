@@ -9,17 +9,15 @@ const fs = require('fs');
 const path = require('path')
 const csv = require('csv')
 const request = require('request');
+const AWS = require('aws-sdk');
+AWS.config.update({
+  accessKeyId: 'AKIAZHFMAG6LSSEUDBOB',
+  secretAccessKey: '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'
+});
 
-const {
-  S3Client,
-  PutObjectCommand
-} = require("@aws-sdk/client-s3");
-const s3Config = {
-  accessKeyId: process.env.ACCESS_KEY,
-  secretAccessKey: process.env.SECRET_KEY,
-  region: process.env.REGION_NAME,
-};
-const s3Client = new S3Client(s3Config);
+var s3 = new AWS.S3();
+
+
 
 
 dotenv.config();
@@ -140,7 +138,9 @@ const storage = multer.diskStorage({
   }
 })
 
-let upload = multer({ storage: storage, dest: 'uploads/' })
+let upload = multer({ storage: storage, 
+  dest: 'uploads/', 
+})
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -149,6 +149,22 @@ app.use(express.json());
 
 app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
   const file = req.file;
+  // console.log(file);
+  const params = {
+    Bucket: process.env.BUCKET_NAME,
+    Key: "rubrics/" +file.filename,
+    Body: file.data
+  };
+
+  s3.putObject(params, function (perr, pres) {
+    if (perr) {
+      console.log("Error uploading data: ", perr);
+    } else {
+      console.log("Successfully uploaded data to myBucket/myKey");
+    }
+  });
+
+  
   console.log(file.filename);
   if (!file) {
     const error = new Error('No File')
@@ -159,23 +175,27 @@ app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
 })
 
 
-app.post("/s3upload", async (req, res) => {
-  const file = req.file;
-  const fileName = file.filename
-  console.log(file.filename);
 
-  const bucketParams = {
-    Bucket: process.env.BUCKET_NAME,
-    Key: "rubrics/" + fileName,
-    Body: file.data,
-  };
-  try {
-    const data = await s3Client.send(new PutObjectCommand(bucketParams));
-    res.send(data)
-  } catch (err) {
-    console.log("S3 Error", err);
-  }
-});
+// app.post("/s3upload", async (req, res) => {
+
+//   const fileContent = fs.readFileSync(fileName);
+
+//   // Setting up S3 upload parameters
+//   const params = {
+//       Bucket: process.env.BUCKET_NAME,
+//       Key: filename,
+//       Body: fileContent
+//   };
+
+//   // Uploading files to the bucket
+//   s3.upload(params, function(err, data) {
+//       if (err) {
+//           throw err;
+//       }
+//       console.log(`File uploaded successfully. ${data.Location}`);
+//   });
+// }
+// );
 
 
 app.post('/submit', async function(request, response) {
