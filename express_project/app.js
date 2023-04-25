@@ -121,10 +121,27 @@ app.get('/s3JSON', function(req, res){
 app.get('/s3select', function(req, res){
   url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
   fileName = req.query.fn
-  query = req.query.q
+  // query = req.query.q
   console.log(fileName)
-  console.log(query)
-  // working on this 
+  // console.log(query)
+  const params = {
+    Bucket: process.env.BUCKET_NAME,
+    Key: "rubrics"+fileName,
+    ExpressionType: 'SQL',
+	  Expression: 'SELECT * FROM S3Object',
+    InputSerialization: {
+      CSV: {
+        FileHeaderInfo: 'USE',
+        RecordDelimiter: '\n',
+        FieldDelimiter: ','
+      }
+    },
+    OutputSerialization: {
+      CSV: {}
+    }
+  };
+
+  
 
 })
 
