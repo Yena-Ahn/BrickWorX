@@ -119,6 +119,17 @@ app.get('/s3JSON', function(req, res){
   request((url+fileName)).pipe(parser);
 });
 
+// S3 select query on the specified file 
+app.get('/s3select', function(req, res){
+  url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
+  fileName = req.query.fn
+  query = req.query.q
+  console.log(fileName)
+  console.log(query)
+  // working on this 
+
+})
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
