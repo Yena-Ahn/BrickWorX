@@ -8,6 +8,7 @@ const multer=require('multer')
 const fs = require('fs');
 const path = require('path')
 const csv = require('csv')
+const request = require('request');
 const {
   S3Client,
   PutObjectCommand
@@ -92,11 +93,12 @@ app.get('/csvStudents', (req, res) => {
   fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
 })
 
-
-
-
-
-
+app.get('/s3download', function(req, res){
+  url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
+  fileName = req.body.fileName
+  request(url+fileName)
+  .pipe(res.set('Content-Type', 'application/csv'))
+});
 
 
 const storage = multer.diskStorage({
@@ -134,7 +136,7 @@ app.post("/s3upload", async (req, res) => {
 
   const bucketParams = {
     Bucket: process.env.BUCKET_NAME,
-    Key: fileName,
+    Key: "rubrics/" + fileName,
     Body: file.data,
   };
   try {
