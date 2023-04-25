@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path')
 const csv = require('csv')
 const request = require('request');
+
 const {
   S3Client,
   PutObjectCommand
@@ -95,9 +96,26 @@ app.get('/csvStudents', (req, res) => {
 
 app.get('/s3download', function(req, res){
   url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
-  fileName = req.body.fileName
+  fileName = req.query.fn
+  console.log(fileName)
   request(url+fileName)
   .pipe(res.set('Content-Type', 'application/csv'))
+});
+
+app.get('/s3JSON', function(req, res){
+  url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
+  fileName = req.query.fn
+  console.log(fileName)
+  var columns={}
+  var parse = require('csv-parse');
+  var parser = parse.parse({columns: true}, function (err, records) {
+    columns=[...records][0]
+    console.log(Object.keys(columns));
+    console.log('////////////////////////////////////////////////////')
+    res.send(Object.keys(columns))
+    //console.log(records);
+  });
+  request((url+fileName)).pipe(parser);
 });
 
 
