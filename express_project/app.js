@@ -147,7 +147,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
+app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => { // file uploaded to s3 alongside uploads folder
   const file = req.file;
   // console.log(file);
   const params = {
@@ -164,7 +164,6 @@ app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
     }
   });
 
-  
   console.log(file.filename);
   if (!file) {
     const error = new Error('No File')
@@ -174,28 +173,6 @@ app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
     res.send(file);
 })
 
-
-
-// app.post("/s3upload", async (req, res) => {
-
-//   const fileContent = fs.readFileSync(fileName);
-
-//   // Setting up S3 upload parameters
-//   const params = {
-//       Bucket: process.env.BUCKET_NAME,
-//       Key: filename,
-//       Body: fileContent
-//   };
-
-//   // Uploading files to the bucket
-//   s3.upload(params, function(err, data) {
-//       if (err) {
-//           throw err;
-//       }
-//       console.log(`File uploaded successfully. ${data.Location}`);
-//   });
-// }
-// );
 
 
 app.post('/submit', async function(request, response) {
