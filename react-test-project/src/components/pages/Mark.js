@@ -1,9 +1,12 @@
-const Mark = () => {
+import MarkingComp from "../rubric/markingrubric";
+
+const Mark = ({setdefualtassignment}) => {
   return (
     <div>
       <h1>
-        Marking
+        Marking: {setdefualtassignment[1]}
       </h1>
+      <MarkingComp setdefualtassignment={setdefualtassignment}/>
     </div>
   );
 };

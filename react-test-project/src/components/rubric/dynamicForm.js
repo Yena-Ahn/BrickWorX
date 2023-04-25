@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
 import { Button, Row, Col} from "react-bootstrap";
 
-const DynamicForm = () => {
+const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
     return [
@@ -57,6 +57,7 @@ const DynamicForm = () => {
 	const axios_post = ()=>{
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
+			setRubricSuper[0]({rubricName, rubric})
 		}).catch(error => {
 			/*console.log("this is error", error);*/
 			console.log("this is error", error.response.data);
@@ -142,7 +143,7 @@ const DynamicForm = () => {
 
 	const saveRubric = () => {
 		console.table(rubric)
-		console.log(rubric)
+		//console.log(rubric)
 	}
 
 	const removeCriterion = (questionID,criteriaID) => {
@@ -186,9 +187,9 @@ const DynamicForm = () => {
 						{/*<p>&nbsp;</p>*/}
 
 						<div className="input-group">
-							{/*<label htmlFor="Question">Name of Question</label>*/}
+							<label htmlFor="questionName">Name of Question</label>
 							<input
-								name="Question"
+								name="questionName"
 								onChange={(e) => handleQuestionData(question.id, e)}
 								placeholder="Enter Question Name"
 								type="text"
