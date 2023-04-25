@@ -8,6 +8,16 @@ const multer=require('multer')
 const fs = require('fs');
 const path = require('path')
 const csv = require('csv')
+const {
+  S3Client,
+  PutObjectCommand
+} = require("@aws-sdk/client-s3");
+const s3Config = {
+  accessKeyId: process.env.ACCESS_KEY,
+  secretAccessKey: process.env.SECRET_KEY,
+  region: process.env.REGION_NAME,
+};
+const s3Client = new S3Client(s3Config);
 
 
 dotenv.config();
@@ -42,11 +52,6 @@ app.get('/uploads', (req, res) => {
   dir.closeSync()
   res.send(listing)
 })
-
-
-
-
-
 
 
 // CSV Bullshit
@@ -94,35 +99,6 @@ app.get('/csvStudents', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -149,6 +125,25 @@ app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
   }
     res.send(file);
 })
+
+
+app.post("/s3upload", async (req, res) => {
+  const file = req.file;
+  const fileName = file.filename
+  console.log(file.filename);
+
+  const bucketParams = {
+    Bucket: process.env.BUCKET_NAME,
+    Key: fileName,
+    Body: file.data,
+  };
+  try {
+    const data = await s3Client.send(new PutObjectCommand(bucketParams));
+    res.send(data)
+  } catch (err) {
+    console.log("S3 Error", err);
+  }
+});
 
 
 app.post('/submit', async function(request, response) {
