@@ -183,15 +183,15 @@ const DynamicForm = ({setRubricSuper}) => {
 				
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
-						<h2>question {index+1}</h2>
+						<h2>Question {index+1}</h2>
 						{/*<p>&nbsp;</p>*/}
 
 						<div className="input-group">
-							<label htmlFor="questionName">Name of Question</label>
+							{/*<label htmlFor="questionName">Name of Question</label>*/}
 							<input
 								name="questionName"
 								onChange={(e) => handleQuestionData(question.id, e)}
-								placeholder="Enter Question Name"
+								placeholder="Name of Question"
 								type="text"
 								className="questionTitleStyle"
 							/>
@@ -200,33 +200,36 @@ const DynamicForm = ({setRubricSuper}) => {
 							{question.criterions.map((criterion) => (
 								<div className="form-row" key={criterion.id}>
 									<div className="input-group">
-										<label htmlFor="grade">Marks</label>
-										<input
-											name="grade"
-											type="number"
-											placeholder="0"
-											
-											onChange={(e) =>
-												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}
-											style={{width:"65px", height:"65px", textAlign:"center"}}
-										/>
-									</div>
-									<div className="input-group">
-										<label htmlFor="body">criteria</label>
+										{/*<label htmlFor="body">criteria</label>*/}
 										<textarea
 											name="body"
 											/*type="textarea"*/
-											rows="4"
+											rows="6"
 											placeholder="Enter criteria for this mark..."
+											
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
-											
 										/>
 									</div>
-									<button className='btn' onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill />Remove</button>
-									<button className='btn' onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill />Add Row</button>
+									<div className="sidebtn-group">
+										<div className="input-group">
+											{/*<label htmlFor="grade">Marks</label>*/}
+											<input
+												name="grade"
+												type="number"
+												placeholder="0"
+												
+												onChange={(e) =>
+													handleCriteriaInQuestionData(question.id, criterion.id, e)
+												}
+												style={{width:"65px", height:"65px", textAlign:"center"}}
+											/>
+										</div>
+									
+										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill /></Button><p></p>
+										<Button className='sidebtn' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
+									</div>
 								</div>
 							
 							))}
