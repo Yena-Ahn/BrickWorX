@@ -109,7 +109,7 @@ body {
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .form-control-check {
@@ -334,6 +334,7 @@ h2{
     border:3px solid #365262;
     border-radius: 15px;
     padding:20px;
+    margin-bottom:20px;
     /*margin-bottom:10px;*/
     
 }
@@ -355,7 +356,7 @@ h2{
 .questionTitleStyle {
   font-size:22px;
   font-weight:bold;
-  width:45%;
+  width:35%;
 }
 /*
 .btn-primary{
