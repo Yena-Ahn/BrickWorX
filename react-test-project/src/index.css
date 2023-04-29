@@ -345,6 +345,9 @@ h2{
 .sidebtn-group{
   justify-content: center;
 }
+.sidebtn{
+  width:65px;
+}
 
 
 .questionTitleStyle {

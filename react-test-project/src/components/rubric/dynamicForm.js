@@ -227,7 +227,7 @@ const DynamicForm = ({setRubricSuper}) => {
 											/>
 										</div>
 									
-										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill /></Button><p></p>
+										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill /></Button><br></br>
 										<Button className='sidebtn' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
 									</div>
 								</div>
