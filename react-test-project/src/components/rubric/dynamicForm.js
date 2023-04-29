@@ -204,7 +204,7 @@ const DynamicForm = ({setRubricSuper}) => {
 										<textarea
 											name="body"
 											/*type="textarea"*/
-											rows="6"
+											rows="8"
 											placeholder="Enter criteria for this mark..."
 											
 											onChange={(e) =>
@@ -225,7 +225,7 @@ const DynamicForm = ({setRubricSuper}) => {
 												}
 												style={{width:"65px", height:"65px", textAlign:"center"}}
 											/>
-										</div>
+										</div><br></br>
 									
 										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill /></Button><br></br>
 										<Button className='sidebtn' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>

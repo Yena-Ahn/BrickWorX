@@ -343,7 +343,9 @@ h2{
 
 
 .sidebtn-group{
-  justify-content: center;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
 }
 .sidebtn{
   width:65px;
