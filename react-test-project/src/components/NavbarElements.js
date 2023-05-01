@@ -8,10 +8,10 @@ import styled from "styled-components";
 //
 export const Nav = styled.nav`
 background: #00467F;
-height: 85px;
+height: 100px;
 display: flex;
 justify-content: space-between;
-padding: 0.2rem calc((100vw - 1000px) / 2);
+padding: 0.1rem calc((100vw - 1000px) / 2);
 z-index: 12;
 `;
 
@@ -21,6 +21,7 @@ display: flex;
 align-items: center;
 text-decoration: none;
 padding: 0 1rem;
+margin: 0 50px;
 height: 100%;
 cursor: pointer;
 &.active {
