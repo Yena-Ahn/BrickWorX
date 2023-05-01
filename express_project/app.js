@@ -100,6 +100,24 @@ app.get('/s3download', function(req, res){
   request(url+fileName).pipe(res.set('Content-Type', 'application/csv'))
 });
 
+// request a list of all files in the bucket
+app.get('/s3list', function(req, res){
+  var dir = 'rubrics';
+  var params = { 
+    Bucket: 'csvrubricbucket',
+    Prefix: dir
+   }
+   
+   s3.listObjects(params, function (err, data) {
+    if(err)throw err;
+    console.log(data);
+    res.send(data["Contents"].map((data, idx) => (data["Key"].split("/").pop())));
+   });
+
+});
+
+
+
 // Request the specified file in JSON format
 app.get('/s3JSON', function(req, res){
   url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
