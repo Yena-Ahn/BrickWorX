@@ -8,7 +8,7 @@ const Navbar = () => {
       <Nav>
         <NavMenu>
           <NavLink to="/Upload" activeStyle>
-            upload canvas csv
+            Upload Canvas CSV
           </NavLink>
           <NavLink to="/Create" activeStyle>
             Create Rubric
@@ -17,10 +17,10 @@ const Navbar = () => {
             Mark
           </NavLink>
           <NavLink to="/Review" activeStyle>
-            review
+            Review
           </NavLink>
           <NavLink to="/Download" activeStyle>
-            download canvas csv
+            Download Canvas CSV
           </NavLink>
         </NavMenu>
       </Nav>
