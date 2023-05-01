@@ -26,7 +26,9 @@ height: 100%;
 cursor: pointer;
 &.active {
 	color: #009AC7;
+	background-color: #BEC3C4;
 }
+
 `;
 
 export const Bars = styled(FaBars)`
@@ -46,7 +48,8 @@ color: #808080;
 export const NavMenu = styled.div`
 display: flex;
 align-items: center;
-margin-right: -24px;
+margin-right: -130px;
+margin-left: -20px;
 /* Second Nav */
 /* margin-right: 24px; */
 /* Third Nav */
