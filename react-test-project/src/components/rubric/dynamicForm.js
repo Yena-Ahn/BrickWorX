@@ -196,9 +196,9 @@ const DynamicForm = ({setRubricSuper}) => {
 								className="questionTitleStyle"
 							/>
 							<Table bordered style={{marginTop:"10px", marginBottom:"0px"}}>
-								<thead style={{textAlign:"center"}}>
+								<thead style={{textAlign:"center", backgroundColor:"#F2F2F2"}}>
 									<tr>
-										<th style={{width:"630px"}}><strong>Criteria</strong></th>
+										<th style={{minWidth:"630px", }}><strong>Criteria</strong></th>
 										<th><strong>Mark</strong></th>
 									</tr>
 								</thead>
