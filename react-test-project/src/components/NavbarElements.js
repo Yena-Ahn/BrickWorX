@@ -29,6 +29,14 @@ cursor: pointer;
 	background-color: #BEC3C4;
 }
 
+&:hover {
+	background-color: #D9D9D9;
+	color: #00467F;
+}
+
+&:focus {
+	color: #009AC7;
+}
 `;
 
 export const Bars = styled(FaBars)`
