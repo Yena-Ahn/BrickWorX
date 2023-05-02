@@ -1,10 +1,10 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { useEffect } from "react"
+import React, { /*useEffect */} from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
-import { Button, Row, Col} from "react-bootstrap";
+import { Button} from "react-bootstrap";
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -176,9 +176,9 @@ const DynamicForm = ({setRubricSuper}) => {
 
 	return (
     <div>
-			<label htmlFor="rubric_name" className="questionTitleStyle">Name of rubric</label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="rubric_name" className="questionTitleStyle" style={{width:"250px"}}/>
-			<p>&nbsp;</p>
+			<label htmlFor="rubric_name"><h1>Name of Rubric</h1></label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" className="rubricTitleStyle" style={{width:"250px"}}/>
+
 			<div className="row-section">
 				
 				{rubric.map((question,index) => (
@@ -204,7 +204,7 @@ const DynamicForm = ({setRubricSuper}) => {
 										<textarea
 											name="body"
 											/*type="textarea"*/
-											rows="8"
+											rows="6"
 											placeholder="Enter criteria for this mark..."
 											
 											onChange={(e) =>
@@ -212,7 +212,9 @@ const DynamicForm = ({setRubricSuper}) => {
 											}
 										/>
 									</div>
+									
 									<div className="sidebtn-group">
+										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
 										<div className="input-group">
 											{/*<label htmlFor="grade">Marks</label>*/}
 											<input
@@ -225,30 +227,33 @@ const DynamicForm = ({setRubricSuper}) => {
 												}
 												style={{width:"65px", height:"65px", textAlign:"center"}}
 											/>
-										</div><br></br>
+										</div>
 									
-										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill /></Button><br></br>
-										<Button className='sidebtn' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
+										
+										<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
 									</div>
+									<hr></hr>
 								</div>
 							
 							))}
 						
 						</div>
 						
-						<Button variant="danger" className='btn' onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
+						<Button variant="danger" onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
 					</div>
 				))}
 				
 				<Button variant="outline-success" className='btn' 
-					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br />
-				<Button variant="outline-primary" onClick={axios_post} style={{align:"right"}}>
+					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br></br>
+				
+			</div>
+			<Button variant="outline-primary" onClick={axios_post} className="fixedbtn">
 					Save and Publish <Icon.FileEarmarkPostFill />
 				</Button>
-			</div>
 		</div>
+		
 	)
 }
 
