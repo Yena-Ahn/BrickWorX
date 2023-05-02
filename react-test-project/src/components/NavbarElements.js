@@ -20,13 +20,15 @@ color: white;
 display: flex;
 align-items: center;
 text-decoration: none;
-padding: 0 1.3rem;
-margin: 0 30px;
+padding: 0 2rem;
+margin: 0 20px;
 height: 100%;
 cursor: pointer;
 &.active {
 	color: #009AC7;
 	background-color: #F2F2F2;
+	text-decoration: underline;
+	font-weight: bold;
 }
 
 &:hover {
