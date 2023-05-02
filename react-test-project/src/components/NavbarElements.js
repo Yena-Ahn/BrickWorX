@@ -8,7 +8,7 @@ import styled from "styled-components";
 //
 export const Nav = styled.nav`
 background: #00467F;
-height: 100px;
+height: 75px;
 display: flex;
 justify-content: space-between;
 padding: 0.1rem calc((100vw - 1000px) / 2);
@@ -20,18 +20,20 @@ color: white;
 display: flex;
 align-items: center;
 text-decoration: none;
-padding: 0 1rem;
-margin: 0 50px;
+padding: 0 1.3rem;
+margin: 0 30px;
 height: 100%;
 cursor: pointer;
 &.active {
 	color: #009AC7;
-	background-color: #BEC3C4;
+	background-color: #F2F2F2;
 }
 
 &:hover {
-	background-color: #D9D9D9;
+	text-decoration: none;
+	background-color: #F2F2F2;
 	color: #00467F;
+	font-weight: bold;
 }
 
 &:focus {
@@ -57,7 +59,7 @@ export const NavMenu = styled.div`
 display: flex;
 align-items: center;
 margin-right: -130px;
-margin-left: -30px;
+margin-left: 30px;
 /* Second Nav */
 /* margin-right: 24px; */
 /* Third Nav */
