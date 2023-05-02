@@ -4,7 +4,7 @@ import React, { /*useEffect */} from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
-import { Button} from "react-bootstrap";
+import { Button, Table} from "react-bootstrap";
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -195,7 +195,15 @@ const DynamicForm = ({setRubricSuper}) => {
 								type="text"
 								className="questionTitleStyle"
 							/>
-							
+							<Table bordered style={{marginTop:"10px", marginBottom:"0px"}}>
+								<thead style={{textAlign:"center"}}>
+									<tr>
+										<th style={{width:"630px"}}><strong>Criteria</strong></th>
+										<th><strong>Mark</strong></th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</Table>
 							{/*<h3>criterions</h3>*/}
 							{question.criterions.map((criterion) => (
 								<div className="form-row" key={criterion.id}>
