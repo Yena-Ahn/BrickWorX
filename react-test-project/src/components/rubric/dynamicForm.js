@@ -195,14 +195,15 @@ const DynamicForm = ({setRubricSuper}) => {
 								type="text"
 								className="questionTitleStyle"
 							/>
-							<Table bordered style={{marginTop:"10px", marginBottom:"0px"}}>
-								<thead style={{textAlign:"center", backgroundColor:"#F2F2F2"}}>
+							<Table bordered className="rubricTable">
+								<thead className="rubricHead">
 									<tr>
-										<th style={{minWidth:"630px", }}><strong>Criteria</strong></th>
+										<th className="criteriaWidth"><strong>Criteria</strong></th>
 										<th><strong>Mark</strong></th>
 									</tr>
 								</thead>
-								<tbody></tbody>
+								<tbody>
+								</tbody>
 							</Table>
 							{/*<h3>criterions</h3>*/}
 							{question.criterions.map((criterion) => (
@@ -211,10 +212,8 @@ const DynamicForm = ({setRubricSuper}) => {
 										{/*<label htmlFor="body">criteria</label>*/}
 										<textarea
 											name="body"
-											/*type="textarea"*/
 											rows="6"
 											placeholder="Enter criteria for this mark..."
-											
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
@@ -242,7 +241,7 @@ const DynamicForm = ({setRubricSuper}) => {
 									</div>
 									<hr></hr>
 								</div>
-							
+								
 							))}
 						
 						</div>

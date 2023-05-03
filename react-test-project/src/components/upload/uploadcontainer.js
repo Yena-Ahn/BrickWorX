@@ -35,7 +35,7 @@ export default class FilesUploadComponent extends Component {
 
     render() {
         return (
-            <div className="container" style={{width:"650px"}}>
+            <div className="container shadow" style={{width:"650px"}}>
                 <div className="row">
                     
                     <Form onSubmit={this.onSubmit}>
