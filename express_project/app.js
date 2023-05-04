@@ -201,10 +201,10 @@ let upload = multer({ storage: storage,
 let uploads3 = multer({
   storage: multerS3({
       s3: s3,
-
       bucket: process.env.BUCKET_NAME,
       key: function (req, file, cb) {
           console.log(file);
+          console.log(file.mimetype);
           cb(null, "rubrics/" + file.originalname); 
       }
   })
@@ -217,7 +217,7 @@ app.use(express.json());
 
 app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // file uploaded to s3 alongside uploads folder
   try{  
-  res.send('file');
+  res.send('file'); // uploads incorrect filetype - needs resolving
   } catch{
     next(err);
   }
