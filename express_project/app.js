@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const util = require("util");
 const multer=require('multer')
+const multerS3 = require('multer-s3'); // requires specifically v 2.10.0 for compatibility 
 const fs = require('fs');
 const path = require('path')
 const csv = require('csv')
@@ -12,12 +13,21 @@ const request = require('request');
 const AWS = require('aws-sdk');
 AWS.config.update({
   accessKeyId: 'AKIAZHFMAG6LSSEUDBOB',
-  secretAccessKey: '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'
+  secretAccessKey: 'YqzUoi2HCRo7oOGqWIsTGkUYSeJauqlAUzrnT1ur',
+  apiVersion: '2006-03-01', 
+  signatureVersion: "v3"
 });
 
 var s3 = new AWS.S3();
 
 
+app.use(function (err, req, res, next) {
+  if (err) {
+    console.log('Error', err);
+  } else {
+    console.log('404')
+  }
+});
 
 
 dotenv.config();
@@ -177,35 +187,29 @@ let upload = multer({ storage: storage,
   dest: 'uploads/', 
 })
 
+let uploads3 = multer({
+  storage: multerS3({
+      s3: s3,
+
+      bucket: process.env.BUCKET_NAME,
+      key: function (req, file, cb) {
+          console.log(file);
+          cb(null, "rubrics/" + file.originalname); 
+      }
+  })
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => { // file uploaded to s3 alongside uploads folder
-  const file = req.file;
-  // console.log(file);
-  const params = {
-    Bucket: process.env.BUCKET_NAME,
-    Key: "rubrics/" +file.filename,
-    Body: file.data
-  };
-
-  s3.putObject(params, function (perr, pres) {
-    if (perr) {
-      console.log("Error uploading data: ", perr);
-    } else {
-      console.log("Successfully uploaded data to myBucket/myKey");
-    }
-  });
-
-  console.log(file.filename);
-  if (!file) {
-    const error = new Error('No File')
-    error.httpStatusCode = 400
-    return next(error)
+app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // file uploaded to s3 alongside uploads folder
+  try{  
+  res.send('file');
+  } catch{
+    next(err);
   }
-    res.send(file);
 })
 
 
