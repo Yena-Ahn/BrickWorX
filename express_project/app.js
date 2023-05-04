@@ -139,14 +139,15 @@ app.get('/s3JSON', function(req, res, next){
     var columns={}
     var parse = require('csv-parse');
     var parser = parse.parse({columns: true}, function (err, records) {
-      columns=[...records][0]
-      console.log(Object.keys(columns));
+      rows=[...records];
+      console.log(typeof rows);
+      console.log(Object.entries(rows));
       console.log('////////////////////////////////////////////////////')
-      res.send(Object.keys(columns))
+      res.send(Object.entries(rows))
       //console.log(records);
     });
     request((url+fileName)).on('response', function(response) {
-      if (response.statusCode == 200 && response.headers['content-type'] == 'text/csv') {
+      if (response.statusCode == 200) {
         return response.pipe(parser).on('error', console.error);
         }
         console.log("Error: No data returned! check your filename");
