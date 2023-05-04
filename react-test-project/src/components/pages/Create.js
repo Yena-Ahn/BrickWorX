@@ -4,7 +4,7 @@ const Create = ({setRubricSuper}) => {
   return (
     <div>
       <h1>
-        TOOOL HERE DYNAMIC FORM
+        Create Rubric
       </h1>
       <DynamicForm setRubricSuper={setRubricSuper}/>
     </div>

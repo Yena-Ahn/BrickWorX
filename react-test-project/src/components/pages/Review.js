@@ -2,7 +2,7 @@ const Review = () => {
   return (
     <div>
       <h1>
-      Reviewsdfgfdfdgsdsfggfdsgfdsdfgs
+      Review Rubric
       </h1>
     </div>
   );

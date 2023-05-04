@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import * as Icon from 'react-bootstrap-icons';
+import { Button, Form} from "react-bootstrap";
 export default class FilesUploadComponent extends Component {
     constructor(props) {
         super(props);
@@ -33,16 +35,22 @@ export default class FilesUploadComponent extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container" style={{width:"650px"}}>
                 <div className="row">
-                    <form onSubmit={this.onSubmit}>
+                    
+                    <Form onSubmit={this.onSubmit}>
+                       
                         <div className="form-group">
-                            <input type="file" name='file' onChange={this.onFileChange} />
+                            <Form.Group controlId="formFileLg" className="mb-3">
+                                <Form.Label><h2>Upload Canvas Gradebook:</h2></Form.Label>
+                                {/*<input type="file" name='file' onChange={this.onFileChange} className="fileUpload" />*/}
+                                <Form.Control type="file" name="file" onChange={this.onFileChange} style ={{width:"350px", margin:"auto"}} className="center"/>
+                            </Form.Group>
                         </div>
                         <div className="form-group">
-                            <button className="btn btn-primary" type="submit">Upload</button>
+                            <Button type="submit"><Icon.Upload/> Upload</Button>
                         </div>
-                    </form>
+                    </Form>
                 </div>
             </div>
         )
