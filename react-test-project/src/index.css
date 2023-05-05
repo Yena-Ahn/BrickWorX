@@ -296,9 +296,9 @@ h2{
 
 .form-row{
     display: flex;
-    margin-top:40px;
+    margin-top:10px;
     align-items: flex-end;
-    margin-bottom:40px;
+    margin-bottom:10px;
    
     
 }
@@ -336,10 +336,11 @@ h2{
     margin-top:30px;
 }
 .row-section__inner{
-    border:3px solid #365262;
+    border:1.5px solid #365262;
     border-radius: 15px;
     padding:20px;
     margin-bottom:20px;
+    background-color:#F2F2F2;
     /*margin-bottom:10px;*/
     
 }
@@ -355,22 +356,30 @@ h2{
 }
 
 .rubricTitleStyle{
-  margin-bottom:10px;
+  
   color:#365262;
   font-size:26px;
   font-weight: 500;
-  justify-content: center;
+  align-items: center;
+  margin-bottom:5px;
 }
 
 .rubricTable {
-  
   margin-top:10px;
 }
 
 .rubricHead {
-  background-color:#F2F2F2;
+  background-color:#00467F;
   text-align:center;
+  color:white;
+ 
 }
+textarea, input{
+  border-color:#00467F;
+  border-width: 1px;
+  border-radius:5px;
+}
+
 .criteriaWidth{
   width:88%;
 }

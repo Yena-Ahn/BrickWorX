@@ -1,7 +1,7 @@
 const Download = () => {
   return (
     <div>
-      <h1>
+      <h1 style={{textAlign:"center"}}>
       Download
       </h1>
     </div>

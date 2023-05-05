@@ -4,7 +4,7 @@ import React, { /*useEffect */} from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
-import { Button, Table} from "react-bootstrap";
+import { Button, Table, Modal} from "react-bootstrap";
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -58,9 +58,11 @@ const DynamicForm = ({setRubricSuper}) => {
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
 			setRubricSuper[0]({rubricName, rubric})
+			/*this.setSuccessModalState ({isOpenSuccess: true })*/
 		}).catch(error => {
 			/*console.log("this is error", error);*/
 			console.log("this is error", error.response.data);
+			/*this.setErrorSaveModalState ({isOpenError: true})*/
 		});
 	}
 	
@@ -175,14 +177,16 @@ const DynamicForm = ({setRubricSuper}) => {
 
 
 	return (
+		
     <div>
-			<label htmlFor="rubric_name"><h1>Name of Rubric</h1></label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" className="rubricTitleStyle" style={{width:"250px"}}/>
-
+		<div className="rubricTitleStyle">
+			<label htmlFor="rubric_name"><h2 style={{textAlign:"center", marginRight:"10px"}}>Name of Rubric</h2></label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" style={{width:"250px"}}/>
+		</div>
 			<div className="row-section">
 				
 				{rubric.map((question,index) => (
-					<div className="row-section__inner" key={question.id}>
+					<div className="row-section__inner shadow" key={question.id}>
 						<h2>Question {index+1}</h2>
 						{/*<p>&nbsp;</p>*/}
 
@@ -205,21 +209,19 @@ const DynamicForm = ({setRubricSuper}) => {
 								<tbody>
 								</tbody>
 							</Table>
-							{/*<h3>criterions</h3>*/}
+							
 							{question.criterions.map((criterion) => (
 								<div className="form-row" key={criterion.id}>
 									<div className="input-group">
-										{/*<label htmlFor="body">criteria</label>*/}
 										<textarea
 											name="body"
 											rows="6"
 											placeholder="Enter criteria for this mark..."
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}
-										/>
-									</div>
-									
+											}/>
+										</div>
+
 									<div className="sidebtn-group">
 										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
 										<div className="input-group">
@@ -261,7 +263,9 @@ const DynamicForm = ({setRubricSuper}) => {
 				</Button>
 		</div>
 		
+		
 	)
+	
 }
 
 export default DynamicForm
