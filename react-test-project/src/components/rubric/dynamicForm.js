@@ -179,9 +179,15 @@ const DynamicForm = ({setRubricSuper}) => {
 	return (
 		
     <div>
-		<div className="rubricTitleStyle">
+		<div className="rubricTitleStyle" style={{display:"center"}}>
 			<label htmlFor="rubric_name"><h2 style={{textAlign:"center", marginRight:"10px"}}>Name of Rubric</h2></label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" style={{width:"250px"}}/>
+			<input 
+				name="rubric_name" 
+				onChange={(e) => handleNameChange(e)} 
+				type="text" placeholder="Rubric Name" 
+				className="questionTitleStyle"
+				style={{fontSize:"26px"}}
+				/>
 		</div>
 			<div className="row-section">
 				
@@ -254,11 +260,11 @@ const DynamicForm = ({setRubricSuper}) => {
 					</div>
 				))}
 				
-				<Button variant="outline-success" className='btn' 
+				<Button variant="success  text-left" className="createNewQuestionBtn text-left"
 					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br></br>
 				
 			</div>
-			<Button variant="outline-primary" onClick={axios_post} className="fixedbtn">
+			<Button variant="primary" onClick={axios_post} className="fixedbtn">
 					Save and Publish <Icon.FileEarmarkPostFill />
 				</Button>
 		</div>
