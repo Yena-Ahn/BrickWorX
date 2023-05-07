@@ -19,11 +19,6 @@ AWS.config.update({
 });
 
 var s3 = new AWS.S3();
-
-
-
-
-
 dotenv.config();
 
 const dbService = require("./dbService.js");
@@ -140,7 +135,6 @@ app.get('/s3JSON', function(req, res, next){
     var parse = require('csv-parse');
     var parser = parse.parse({columns: true}, function (err, records) {
       rows=[...records];
-      console.log(typeof rows);
       console.log(Object.entries(rows));
       console.log('////////////////////////////////////////////////////')
       res.send(Object.entries(rows))
@@ -203,11 +197,21 @@ let uploads3 = multer({
   storage: multerS3({
       s3: s3,
       bucket: process.env.BUCKET_NAME,
+      
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
       key: function (req, file, cb) {
           console.log(file);
-          console.log(file.mimetype);
+          console.log(file.contentType);
+
           cb(null, "rubrics/" + file.originalname); 
-      }
+      }, 
+      contentType: function (req, file, cb) {
+        file.contentType = "text/csv";
+        console.log(file.contentType);
+        cb(null, "text/csv"); 
+    }
   })
 });
 
