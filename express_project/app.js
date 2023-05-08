@@ -5,11 +5,20 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const util = require("util");
 const multer=require('multer')
+const multerS3 = require('multer-s3'); // requires specifically v 2.10.0 for compatibility 
 const fs = require('fs');
 const path = require('path')
 const csv = require('csv')
+const request = require('request');
+const AWS = require('aws-sdk');
+AWS.config.update({
+  accessKeyId: 'AKIAZHFMAG6LSSEUDBOB',
+  secretAccessKey: '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',
+  apiVersion: '2006-03-01', 
+  signatureVersion: "v3"
+});
 
-
+var s3 = new AWS.S3();
 dotenv.config();
 
 const dbService = require("./dbService.js");
@@ -42,11 +51,6 @@ app.get('/uploads', (req, res) => {
   dir.closeSync()
   res.send(listing)
 })
-
-
-
-
-
 
 
 // CSV Bullshit
@@ -87,40 +91,93 @@ app.get('/csvStudents', (req, res) => {
   fs.createReadStream(__dirname+'/uploads/CanvasExportExample.csv').pipe(parser);
 })
 
+// Download the specified file from the rubrics directory of the s3 bucket
+app.get('/s3download', function(req, res, next){
+  try{ 
+    url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
+    fileName = req.query.fn
+    console.log(fileName)
+    request(url+fileName).pipe(res.set('Content-Type', 'application/csv'))
+  } catch{
+    next(err);
+  }
+});
+
+// request a list of all files in the bucket
+app.get('/s3list', function(req, res, next){
+  try{ 
+    var dir = 'rubrics';
+    var params = { 
+      Bucket: 'csvrubricbucket',
+      Prefix: dir
+    }
+    
+    s3.listObjects(params, function (err, data) {
+      if(err)throw err;
+      console.log(data);
+      res.send(data["Contents"].map((data, idx) => (data["Key"].split("/").pop())));
+    });
+  } catch {
+    next(err);
+  }
+
+});
 
 
 
+// Request the specified file in JSON format
+app.get('/s3JSON', function(req, res, next){
+  try{ 
+    url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
+    fileName = req.query.fn
+    console.log(fileName)
+    var columns={}
+    var parse = require('csv-parse');
+    var parser = parse.parse({columns: true}, function (err, records) {
+      rows=[...records];
+      console.log(Object.entries(rows));
+      console.log('////////////////////////////////////////////////////')
+      res.send(Object.entries(rows))
+      //console.log(records);
+    });
+    request((url+fileName)).on('response', function(response) {
+      if (response.statusCode == 200) {
+        return response.pipe(parser).on('error', console.error);
+        }
+        console.log("Error: No data returned! check your filename");
+      })
+  } catch {
+    next(err);
+  }
+});
 
+// // S3 select query on the specified file 
+// app.get('/s3select', function(req, res){
+//   url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
+//   fileName = req.query.fn
+//   // query = req.query.q
+//   console.log(fileName)
+//   // console.log(query)
+//   const params = {
+//     Bucket: process.env.BUCKET_NAME,
+//     Key: "rubrics"+fileName,
+//     ExpressionType: 'SQL',
+// 	  Expression: 'SELECT * FROM S3Object',
+//     InputSerialization: {
+//       CSV: {
+//         FileHeaderInfo: 'USE',
+//         RecordDelimiter: '\n',
+//         FieldDelimiter: ','
+//       }
+//     },
+//     OutputSerialization: {
+//       CSV: {}
+//     }
+//   };
 
+  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// })
 
 
 const storage = multer.diskStorage({
@@ -132,23 +189,45 @@ const storage = multer.diskStorage({
   }
 })
 
-let upload = multer({ storage: storage, dest: 'uploads/' })
+let upload = multer({ storage: storage, 
+  dest: 'uploads/', 
+})
+
+let uploads3 = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: process.env.BUCKET_NAME,
+      
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function (req, file, cb) {
+          console.log(file);
+          console.log(file.contentType);
+
+          cb(null, "rubrics/" + file.originalname); 
+      }, 
+      contentType: function (req, file, cb) {
+        file.contentType = "text/csv";
+        console.log(file.contentType);
+        cb(null, "text/csv"); 
+    }
+  })
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.post('/uploadFileAPI', upload.single('file'), (req, res, next) => {
-  const file = req.file;
-  console.log(file.filename);
-  if (!file) {
-    const error = new Error('No File')
-    error.httpStatusCode = 400
-    return next(error)
+app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // file uploaded to s3 alongside uploads folder
+  try{  
+  res.send('file'); // uploads incorrect filetype - needs resolving
+  } catch{
+    next(err);
   }
-    res.send(file);
 })
+
 
 
 app.post('/submit', async function(request, response) {
@@ -309,3 +388,11 @@ app.get("/list", async function(req, res) {
 
 
 app.listen(3001, ()=>{console.log('server started on port 3001')});
+
+app.use(function (err, req, res, next) {
+  if (err) {
+    console.log('Error', err);
+  } else {
+    console.log('404')
+  }
+});
