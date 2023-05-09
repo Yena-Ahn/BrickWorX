@@ -39,6 +39,8 @@ var rubricABC = {
     ]
 }
 
+const testJson=[["0",{"Student":"    Points Possible","ID":"","SIS User ID":"","SIS Login ID":"","Section":"","Assignment One (4757)":"100","Assignment Two (4766)":"100","Assignments Current Score":"(read only)","Assignments Unposted Current Score":"(read only)","Assignments Final Score":"(read only)","Assignments Unposted Final Score":"(read only)","Final Exam Current Score":"(read only)","Final Exam Unposted Current Score":"(read only)","Final Exam Final Score":"(read only)","Final Exam Unposted Final Score":"(read only)","Current Score":"(read only)","Unposted Current Score":"(read only)","Final Score":"(read only)","Unposted Final Score":"(read only)","Current Grade":"(read only)","Unposted Current Grade":"(read only)","Final Grade":"(read only)","Unposted Final Grade":"(read only)"}],["1",{"Student":"student, Test","ID":"83299","SIS User ID":"tstu999","SIS Login ID":"10000000","Section":"Programming for dummies","Assignment One (4757)":"60","Assignment Two (4766)":"70","Assignments Current Score":"","Assignments Unposted Current Score":"","Assignments Final Score":"","Assignments Unposted Final Score":"","Final Exam Current Score":"","Final Exam Unposted Current Score":"","Final Exam Final Score":"","Final Exam Unposted Final Score":"","Current Score":"65","Unposted Current Score":"","Final Score":"65","Unposted Final Score":"","Current Grade":"B-","Unposted Current Grade":"","Final Grade":"B-","Unposted Final Grade":""}],["2",{"Student":"student, Test","ID":"7932548","SIS User ID":"tstu999","SIS Login ID":"10000000","Section":"Programming for dummies","Assignment One (4757)":"60","Assignment Two (4766)":"70","Assignments Current Score":"","Assignments Unposted Current Score":"","Assignments Final Score":"","Assignments Unposted Final Score":"","Final Exam Current Score":"","Final Exam Unposted Current Score":"","Final Exam Final Score":"","Final Exam Unposted Final Score":"","Current Score":"65","Unposted Current Score":"","Final Score":"65","Unposted Final Score":"","Current Grade":"B-","Unposted Current Grade":"","Final Grade":"B-","Unposted Final Grade":""}]]
+
 const MarkingComp = ({setdefualtassignment}) => {
 	//just usefull to have
 	function addAfter(array, index, newItem) {
@@ -86,6 +88,14 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const axios_post = ()=>{
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
+			console.log(response);
+		}).catch(error => {
+			console.log("this is error", error);
+		});
+	}
+
+	const testpost = ()=>{
+		axios.post("http://localhost:3001/jsonToCsv",  {testJson}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -192,7 +202,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 								<h1>{sumGrade(question.id)}</h1>
 							</div>
 						</div>
-						<button className='btn' onClick={() => {}}>TEST BUTTON</button>
+						<button className='btn' onClick={testpost}>CSV JSON UPLOAD TEST BUTTON</button>
 
 					</div>
 				))}

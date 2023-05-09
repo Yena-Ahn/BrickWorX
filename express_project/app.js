@@ -229,6 +229,12 @@ app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // fil
 })
 
 
+app.post('/jsonToCsv', async function(request, response) {
+  console.log('apples')
+  console.log(request.body);      // your JSON
+})
+
+
 
 app.post('/submit', async function(request, response) {
   //try {
