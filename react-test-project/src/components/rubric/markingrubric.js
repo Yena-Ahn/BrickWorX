@@ -192,16 +192,22 @@ const MarkingComp = ({setdefualtassignment}) => {
 										<div className="box2">{criterion.body}</div>
 									</div>
 									<div className="rubricItem">
-										<h2>points per section:</h2>
+										<h2>marks:</h2>
 										<h1>{criterion.grade}</h1>
+										
 									</div>
+									<hr style={{"margin":30}}></hr>
+
 								</div>
 							))}
-                            <div className="rubricItem">
-								<h2>max grade</h2>
-								<h1>{sumGrade(question.id)}</h1>
+                <div className="rubricItem">
+								<h2>Marks:{"\n"}</h2>
+								<input></input>
+								<h1>/{sumGrade(question.id)}</h1>
 							</div>
+							
 						</div>
+						
 						<button className='btn' onClick={testpost}>CSV JSON UPLOAD TEST BUTTON</button>
 
 					</div>
