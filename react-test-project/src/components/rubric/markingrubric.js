@@ -50,8 +50,12 @@ const MarkingComp = ({setdefualtassignment}) => {
         ...array.slice(index)
     ]
 	}
+
+	
+
+
 	const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
-    const [grades, setGrades] = React.useState([])
+  const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return [0]}):rubricABC.rubric.map((item,index)=>{return [0]}))
 	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
@@ -100,19 +104,22 @@ const MarkingComp = ({setdefualtassignment}) => {
 		}).catch(error => {
 			console.log("this is error", error);
 		});
+
+		//other test code unrelated
+
+		let test_thing = rubricABC.rubric.map((item,index)=>{
+			return []
+		})
+
+		console.log("total questions TEST")
+		console.log(rubricABC.rubric.length)
+		console.log(test_thing)
+		console.log(grades)
 	}
 
 
 
-	const handleQuestionData = (
-		id,
-		event,
-	) => {
-		const index = rubric.findIndex((question) => question.id === id)
-		let _questionMembers = [...rubric]
-		_questionMembers[index][event.target.name] = event.target.value
-		setRubricData(_questionMembers)
-	}
+	
 	const handleCriteriaInQuestionData = (
 		questionID,
 		criteriaID,
@@ -149,6 +156,18 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('submitting')
 		console.log(event)
 		setCurrentStudent(tempStudent)
+	}
+
+	const handleQuestionData = (
+		id,
+		event,
+	) => {
+		const index = rubric.findIndex((question) => question.id === id)
+		let updatedgrade = [...grades]
+		updatedgrade[index]= event.target.value
+		console.log('TEST GRADES STORED')
+		console.log(updatedgrade)
+		setGrades(updatedgrade)
 	}
 
 
@@ -202,7 +221,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							))}
                 <div className="rubricItem">
 								<h2>Marks:{"\n"}</h2>
-								<input></input>
+								<input type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{sumGrade(question.id)}</h1>
 							</div>
 							
