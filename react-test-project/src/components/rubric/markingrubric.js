@@ -96,16 +96,16 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 
 	//needs to be changed
-	const axios_post = ()=>{
-		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
-			console.log(response);
-		}).catch(error => {
-			console.log("this is error", error);
-		});
-	}
+	// const axios_post = ()=>{
+	// 	axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
+	// 		console.log(response);
+	// 	}).catch(error => {
+	// 		console.log("this is error", error);
+	// 	});
+	// }
 
 	const testpost = ()=>{
-		axios.post("http://localhost:3001/jsonToCsv",  {testJson}, customConfig).then(response => {
+		axios.post("http://localhost:3001/jsonToCsv",  {students}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -242,7 +242,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 					</div>
 				))}
-				<button className="btn" onClick={axios_post}>
+				<button className="btn" onClick={testpost}>
 					Submit rubric data
 				</button>
 			</div>
