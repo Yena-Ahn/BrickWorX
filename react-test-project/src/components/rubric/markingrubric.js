@@ -232,7 +232,8 @@ const MarkingComp = ({setdefualtassignment}) => {
                 <div className="rubricItem">
 								<h2>Marks:{"\n"}</h2>
 								<input key={index+10} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
-								<h1>/{sumGrade(question.id)}</h1>
+								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
+								
 							</div>
 							
 						</div>
