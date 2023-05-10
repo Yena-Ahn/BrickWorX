@@ -173,6 +173,9 @@ const DynamicForm = ({setRubricSuper}) => {
 		console.log(rubricName)
 	}
 
+	function lastMemberCrit (question){
+		 return [...question.criterions.slice(-1)]
+	}
 
 	return (
     <div>
@@ -180,7 +183,6 @@ const DynamicForm = ({setRubricSuper}) => {
 			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" className="rubricTitleStyle" style={{width:"250px"}}/>
 
 			<div className="row-section">
-				
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
 						<h2>Question {index+1}</h2>
@@ -195,6 +197,11 @@ const DynamicForm = ({setRubricSuper}) => {
 								type="text"
 								className="questionTitleStyle"
 							/>
+							<h3>marks:</h3> 
+							{JSON.parse(JSON.stringify(...question.criterions.slice(-1))).grade}
+							{/* {...question.criterions.slice(-1)["grade"]} */}
+
+
 							<Table bordered style={{marginTop:"10px", marginBottom:"0px"}}>
 								<thead style={{textAlign:"center", backgroundColor:"#F2F2F2"}}>
 									<tr>
