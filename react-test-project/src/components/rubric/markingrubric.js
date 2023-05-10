@@ -184,14 +184,18 @@ const MarkingComp = ({setdefualtassignment}) => {
 		<form onSubmit={handleSubmit}>
 			<select style={{whiteSpace:"pre-line"}} onChange={chngAssignDropdown}> 
 			<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
-			{assignmentList?assignmentList.map((item) => <option value={item}>{item}</option>):'loading'}
+			{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
 			</select>
 			<button className="btn" type="submit">Submit</button>
 		</form>
 		<form onSubmit={handleSubmitStudent}>
 			<select style={{whiteSpace:"pre-line"}} onChange={chngStudentDropdown}> 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
-			{students?students.map((item) => <option key={item.ID} value={item.ID}>{item.ID}</option>):'loading'}
+			{students?students.map((item,index) => <option key={index} value={item[1]['SIS User ID']}>{item[1]['SIS User ID']}</option>):'loading'}
+			
+			
+			{/* {students?students.map((item,index) => {console.log('ugh');console.log(item[1].ID)} ):'TEST'} */}
+
 			</select>
 			<button className="btn" type="submit">Submit</button>
 		</form>
