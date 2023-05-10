@@ -70,7 +70,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	}, []);
 
 	React.useEffect(() => {
-		axios.get('/csvStudents').then((response) => {
+		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
+			console.log(response.data)
 		  setStudents(response.data);
 		});
 	}, []);
@@ -89,7 +90,12 @@ const MarkingComp = ({setdefualtassignment}) => {
     }
 	};
 
+	const add_grade_to_student = ()=>{}
 
+
+
+
+	//needs to be changed
 	const axios_post = ()=>{
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
@@ -185,7 +191,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		<form onSubmit={handleSubmitStudent}>
 			<select style={{whiteSpace:"pre-line"}} onChange={chngStudentDropdown}> 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
-			{students?students.map((item) => <option value={item.ID}>{item.ID}</option>):'loading'}
+			{students?students.map((item) => <option key={item.ID} value={item.ID}>{item.ID}</option>):'loading'}
 			</select>
 			<button className="btn" type="submit">Submit</button>
 		</form>
@@ -221,7 +227,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							))}
                 <div className="rubricItem">
 								<h2>Marks:{"\n"}</h2>
-								<input type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
+								<input key={index+10} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{sumGrade(question.id)}</h1>
 							</div>
 							
