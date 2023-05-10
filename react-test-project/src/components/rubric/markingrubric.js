@@ -90,9 +90,6 @@ const MarkingComp = ({setdefualtassignment}) => {
     }
 	};
 
-	const add_grade_to_student = ()=>{}
-
-
 
 
 	//needs to be changed
@@ -103,8 +100,16 @@ const MarkingComp = ({setdefualtassignment}) => {
 	// 		console.log("this is error", error);
 	// 	});
 	// }
+	const updateStudentGrade = () => {
+		console.log('TESTSTUDENT UPDATE')
+		console.log(students)
+		let apples=students.filter(item=>item[1]['SIS User ID']===currentStudent)
+		console.log(apples)
+		//console.log(students[1][1])
+	}
 
 	const testpost = ()=>{
+		updateStudentGrade(currentStudent)
 		axios.post("http://localhost:3001/jsonToCsv",  {students}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
