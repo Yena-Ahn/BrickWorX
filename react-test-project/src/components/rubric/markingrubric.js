@@ -111,7 +111,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 			let grades_arr_int = grades.map(function(str) {return parseInt(str); });
 			console.log('int ARR')
 			console.log(grades_arr_int)
-			shallowCopy[currentStudentIndex][1][assignment]=toString(grades_arr_int.reduce((partialSum, a) => partialSum + a, 0));
+			let sum_grade=grades_arr_int.reduce((partialSum, a) => partialSum + a, 0)
+			console.log(sum_grade)
+			shallowCopy[currentStudentIndex][1][assignment]=sum_grade.toString();
 			console.log(shallowCopy)
 		}else{
 			//make pop up later
@@ -127,36 +129,15 @@ const MarkingComp = ({setdefualtassignment}) => {
 		}).catch(error => {
 			console.log("this is error", error);
 		});
-
 		//other test code unrelated
-
 		let test_thing = rubricABC.rubric.map((item,index)=>{
 			return []
 		})
-
 		console.log("total questions TEST")
 		console.log(rubricABC.rubric.length)
 		console.log(test_thing)
 		console.log(grades)
 		console.log("_________________")
-	}
-
-
-
-	
-	const handleCriteriaInQuestionData = (
-		questionID,
-		criteriaID,
-		event,
-	) => {
-		const questionIndex = rubric.findIndex((question) => question.id === questionID)
-		let _questionMembers = [...rubric]
-		const memberIndex = rubric[questionIndex].criterions.findIndex(
-			(m) => m.id === criteriaID,
-		)
-		_questionMembers[questionIndex].criterions[memberIndex][event.target.name] =
-			event.target.value
-		setRubricData(_questionMembers)
 	}
 
 
