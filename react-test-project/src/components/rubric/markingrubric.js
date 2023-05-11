@@ -186,10 +186,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 		return rubric.map((question,index) => {return question.criterions.slice(-1)[0].grade}).map(function(str) {return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)
 	}
 	const gradeClick = (indexCrit,indexQuest)=>{
-		let mark = rubric[indexQuest].criterions[indexCrit]
+		let mark = rubric[indexQuest].criterions[indexCrit].grade
+		let grades_shallow=[...grades]
 		console.log("MARK")
 		console.log(mark)
-		//grades[indexQuest]=mark
+		grades_shallow[indexQuest]=mark
+		setGrades(grades_shallow)
 	}
 
 
@@ -242,13 +244,13 @@ const MarkingComp = ({setdefualtassignment}) => {
 										<h1>{criterion.grade}</h1>
 									</div>
 
-									<hr style={{"margin":15}}></hr>
+									<hr style={{"margin":15}}></hr>	
 
 								</div>
 							))}
                 <div className="rubricItem">
 								<h2>Marks:{"\n"}</h2>
-								<input defaultValue={0} key={index+10} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
+								<input key={index+10} value={grades[index]} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
 								
 							</div>
