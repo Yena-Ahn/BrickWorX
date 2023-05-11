@@ -185,7 +185,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const rubricGradeMax = ()=>{
 		return rubric.map((question,index) => {return question.criterions.slice(-1)[0].grade}).map(function(str) {return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)
 	}
-
+	const gradeClick = (indexCrit,indexQuest)=>{
+		let mark = rubric[indexQuest].criterions[indexCrit]
+		console.log("MARK")
+		console.log(mark)
+		//grades[indexQuest]=mark
+	}
 
 
 	return (
@@ -226,17 +231,18 @@ const MarkingComp = ({setdefualtassignment}) => {
 							<label htmlFor="Question">Question:</label>
 							<h1>{question.questionName}</h1>
 							<h3>criterions</h3>
-							{question.criterions.map((criterion) => (
-								<div className="" key={criterion.id}>
+							{question.criterions.map((criterion,indexC) => (
+								<div className="btn btn-outline-success" onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+									<hr style={{"margin":15}}></hr>
 									<div className="input-group">
 										<div className="box2">{criterion.body}</div>
 									</div>
 									<div className="rubricItem">
 										<h2>marks:</h2>
 										<h1>{criterion.grade}</h1>
-										
 									</div>
-									<hr style={{"margin":30}}></hr>
+
+									<hr style={{"margin":15}}></hr>
 
 								</div>
 							))}
