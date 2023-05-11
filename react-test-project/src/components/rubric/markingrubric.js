@@ -61,7 +61,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [assignment, setAssignment] = React.useState('select an assignment')
 	const [students, setStudents] = React.useState([])
 	const [currentStudent, setCurrentStudent] = React.useState('select a student')
+	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
 	const [tempStudent, setTempStudent] = React.useState('select a student')
+	const [tempIndex, setTempIndex] = React.useState(0)
 
 	React.useEffect(() => {
 		axios.get('/csvcolumns').then((response) => {
@@ -70,17 +72,16 @@ const MarkingComp = ({setdefualtassignment}) => {
 	}, []);
 
 	React.useEffect(() => {
+		//hard coded temperarily
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
-			console.log(response.data)
+			//console.log(response.data)
 		  setStudents(response.data);
 		});
 	}, []);
 
     const sumGrade = (questionID)=>{
         let sum = 0;
-        rubric[questionID].criterions.forEach((criteria)=>{
-            sum += parseInt(criteria.grade)
-        })
+        //stubb
         return sum;
     }
 
@@ -103,13 +104,24 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const updateStudentGrade = () => {
 		console.log('TESTSTUDENT UPDATE')
 		console.log(students)
-		let apples=students.filter(item=>item[1]['SIS User ID']===currentStudent)
-		console.log(apples)
+		//let apples=students.filter(item=>item[1]['SIS User ID']===currentStudent)
+		if(currentStudentIndex>0&&assignment){
+			let shallowCopy=[...students]
+			console.log(shallowCopy[currentStudentIndex][1][assignment])
+			let grades_arr_int = grades.map(function(str) {return parseInt(str); });
+			console.log('int ARR')
+			console.log(grades_arr_int)
+			shallowCopy[currentStudentIndex][1][assignment]=toString(grades_arr_int.reduce((partialSum, a) => partialSum + a, 0));
+			console.log(shallowCopy)
+		}else{
+			//make pop up later
+			console.log('ERROR please select assignment and student')
+		}
 		//console.log(students[1][1])
 	}
 
 	const testpost = ()=>{
-		updateStudentGrade(currentStudent)
+		updateStudentGrade()
 		axios.post("http://localhost:3001/jsonToCsv",  {students}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
@@ -126,6 +138,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log(rubricABC.rubric.length)
 		console.log(test_thing)
 		console.log(grades)
+		console.log("_________________")
 	}
 
 
@@ -152,7 +165,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 	}
 
 	const chngStudentDropdown = (e) => {
-		setTempStudent(e.target.value)
+		let student_info = e.target.value.split(',')
+		setTempStudent(student_info[0])
+		setTempIndex(parseInt(student_info[1]))
+
 	}
 
 	const handleSubmit= (event)=>{
@@ -167,6 +183,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('submitting')
 		console.log(event)
 		setCurrentStudent(tempStudent)
+		setCurrentStudentIndex(tempIndex)
+		console.log("CHOSEN STUDENT")
+		console.log(tempStudent)
 	}
 
 	const handleQuestionData = (
@@ -179,6 +198,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('TEST GRADES STORED')
 		console.log(updatedgrade)
 		setGrades(updatedgrade)
+	}
+
+	const rubricGradeMax = ()=>{
+		return rubric.map((question,index) => {return question.criterions.slice(-1)[0].grade}).map(function(str) {return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)
 	}
 
 
@@ -196,7 +219,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 		<form onSubmit={handleSubmitStudent}>
 			<select style={{whiteSpace:"pre-line"}} onChange={chngStudentDropdown}> 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
-			{students?students.map((item,index) => <option key={index} value={item[1]['SIS User ID']}>{item[1]['SIS User ID']}</option>):'loading'}
+			{/* //maybe include array index somehow */}
+			{students?students.map((item,index) => <option key={index} value={[item[1]['SIS User ID'],index]}>{item[1]['SIS User ID']}</option>):'loading'}
 			
 			
 			{/* {students?students.map((item,index) => {console.log('ugh');console.log(item[1].ID)} ):'TEST'} */}
@@ -206,7 +230,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		</form>
 		<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>student ID: </h1></span>
-			<span style={{whiteSpace:"pre-line"}}>{<h2>{currentStudent}</h2>}</span>
+			<span style={{whiteSpace:"pre-line"}}>{<h2>{currentStudent}, {currentStudentIndex}</h2>}</span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>rubric name: </h1></span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
@@ -236,7 +260,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							))}
                 <div className="rubricItem">
 								<h2>Marks:{"\n"}</h2>
-								<input key={index+10} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
+								<input defaultValue={0} key={index+10} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
 								
 							</div>
@@ -247,6 +271,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 					</div>
 				))}
+				<h1>Total grade={grades.map(function(str) {return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)}/
+				{rubricGradeMax()}
+				</h1>
 				<button className="btn" onClick={testpost}>
 					Submit rubric data
 				</button>
