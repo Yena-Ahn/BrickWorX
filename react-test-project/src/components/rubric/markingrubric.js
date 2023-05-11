@@ -115,6 +115,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			console.log(sum_grade)
 			shallowCopy[currentStudentIndex][1][assignment]=sum_grade.toString();
 			console.log(shallowCopy)
+			setStudents(shallowCopy)
 		}else{
 			//make pop up later
 			console.log('ERROR please select assignment and student')
