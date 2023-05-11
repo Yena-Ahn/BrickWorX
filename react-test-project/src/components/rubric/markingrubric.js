@@ -55,7 +55,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 
 	const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
-  const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return [0]}):rubricABC.rubric.map((item,index)=>{return [0]}))
+  const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return '0'}):rubricABC.rubric.map((item,index)=>{return '0'}))
 	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
@@ -236,6 +236,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							{question.criterions.map((criterion,indexC) => (
 								<div className="btn btn-outline-success" onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									<hr style={{"margin":15}}></hr>
+									Grading criteria
 									<div className="input-group">
 										<div className="box2">{criterion.body}</div>
 									</div>
