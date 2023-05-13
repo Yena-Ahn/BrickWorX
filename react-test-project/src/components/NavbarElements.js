@@ -7,14 +7,15 @@ import styled from "styled-components";
 //
 //
 export const Nav = styled.nav`
-position: fixed;
+overflow: hidden;
+position: sticky;
 top: 0;
 width: 100%;
 background: #00467F;
 height: 75px;
 display: flex;
 justify-content: space-between;
-padding: 0.1rem calc((100vw - 1000px) / 2);
+padding: 0.05rem calc((100vw - 1000px) / 2);
 z-index: 12;
 `;
 
@@ -24,7 +25,7 @@ display: flex;
 align-items: center;
 text-decoration: none;
 padding: 0 2rem;
-margin: 0 1px;
+margin: 0 0.5px;
 height: 100%;
 cursor: pointer;
 &.active {
