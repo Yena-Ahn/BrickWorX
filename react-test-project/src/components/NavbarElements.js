@@ -7,6 +7,9 @@ import styled from "styled-components";
 //
 //
 export const Nav = styled.nav`
+position: fixed;
+top: 0;
+width: 100%;
 background: #00467F;
 height: 75px;
 display: flex;
