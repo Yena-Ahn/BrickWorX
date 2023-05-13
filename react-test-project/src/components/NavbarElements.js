@@ -21,22 +21,23 @@ display: flex;
 align-items: center;
 text-decoration: none;
 padding: 0 2rem;
-margin: 0 20px;
+margin: 0 1px;
 height: 100%;
 cursor: pointer;
 &.active {
 	color: #009AC7;
-	background-color: #F2F2F2;
+	background-color: rgba(242,242,242,.85);
 	text-decoration: underline;
 	font-weight: bold;
 }
 
 &:hover {
 	text-decoration: none;
-	background-color: #F2F2F2;
+	background-color: rgba(242,242,242,.85);;
 	color: #00467F;
 	font-weight: bold;
 }
+
 
 &:focus {
 	color: #009AC7;
