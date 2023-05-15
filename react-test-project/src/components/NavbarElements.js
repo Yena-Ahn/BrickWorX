@@ -25,7 +25,7 @@ display: flex;
 align-items: center;
 text-decoration: none;
 padding: 0 2rem;
-margin: 0 0.5px;
+margin: 0 0.4px;
 height: 100%;
 cursor: pointer;
 &.active {
