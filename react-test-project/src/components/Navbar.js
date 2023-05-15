@@ -7,20 +7,20 @@ const Navbar = () => {
     <>
       <Nav>
         <NavMenu>
-          <NavLink to="/Upload" activeStyle>
-            Upload Canvas CSV
+          <NavLink to="/Upload" title={"Upload Canvas CSV"} activeStyle>
+            <p>Upload Canvas CSV</p>
           </NavLink>
-          <NavLink to="/Create" activeStyle>
-            Create Rubric
+          <NavLink to="/Create" title={"Create Rubric"} activeStyle>
+            <p>Create Rubric</p>
           </NavLink>
-          <NavLink to="/Mark" activeStyle>
-            Mark
+          <NavLink to="/Mark" title={"Mark"} activeStyle>
+            <p>Mark</p>
           </NavLink>
-          <NavLink to="/Review" activeStyle>
-            Review
+          <NavLink to="/Review" title={"Review"} activeStyle>
+            <p>Review</p>
           </NavLink>
-          <NavLink to="/Download" activeStyle>
-            Download Canvas CSV
+          <NavLink to="/Download" title={"Download Canvas CSV"} activeStyle>
+            <p>Download Canvas CSV</p>
           </NavLink>
         </NavMenu>
       </Nav>
