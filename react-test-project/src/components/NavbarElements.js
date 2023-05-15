@@ -12,7 +12,7 @@ position: sticky;
 top: 0;
 width: 100%;
 background: #00467F;
-height: 75px;
+height: 60px;
 display: flex;
 justify-content: space-between;
 padding: 0.05rem calc((100vw - 1000px) / 2);
@@ -25,8 +25,9 @@ display: flex;
 align-items: center;
 text-decoration: none;
 padding: 0 2rem;
-margin: 0 0.4px;
+margin: 0 0;
 height: 100%;
+width: auto;
 cursor: pointer;
 &.active {
 	color: #009AC7;
@@ -36,6 +37,7 @@ cursor: pointer;
 }
 
 &:hover {
+	width: auto;
 	text-decoration: none;
 	background-color: rgba(242,242,242,.85);;
 	color: #00467F;
