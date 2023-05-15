@@ -10,7 +10,6 @@ export const Nav = styled.nav`
 overflow: hidden;
 position: sticky;
 top: 0;
-width: 100%;
 background: #00467F;
 height: 60px;
 display: flex;
@@ -24,29 +23,54 @@ color: white;
 display: flex;
 align-items: center;
 text-decoration: none;
-padding: 0 2rem;
+padding: 0 1.9rem;
 margin: 0 0;
 height: 100%;
-width: auto;
 cursor: pointer;
+justify-content: space-around;
+
+&.active:before {
+	position: absolute;
+	color: #009AC7;
+	font-weight: bold;
+	text-decoration: underline;
+	content: ${({title}) => `"${title}"`};
+}
+
 &.active {
 	color: #009AC7;
 	background-color: rgba(242,242,242,.85);
 	text-decoration: underline;
-	font-weight: bold;
+
+	p {
+		visibility: hidden;
+	}
 }
 
 &:hover {
-	width: auto;
 	text-decoration: none;
-	background-color: rgba(242,242,242,.85);;
+	background-color: rgba(242,242,242,.85);
 	color: #00467F;
-	font-weight: bold;
+
+	p {
+		visibility: hidden;
+	}
 }
 
+&:hover:before {
+	position: absolute;
+	color: #00467F;
+	font-weight: bold;
+	content: ${({title}) => `"${title}"`};
+}
 
 &:focus {
 	color: #009AC7;
+}
+
+& p {
+	display: flex;
+	margin: auto;
 }
 `;
 
@@ -65,11 +89,11 @@ color: #808080;
 `;
 
 export const NavMenu = styled.div`
-display: flex;
-align-items: center;
-/* margin: 0 auto; */
-margin-right: -130px; 
-margin-left: 30px; 
+display: inline-flex;
+justify-content: center;
+margin: 0 auto;
+/* margin-right: -130px; */
+/* margin-left: 30px; */
 /* Second Nav */
 /* margin-right: 24px; */
 /* Third Nav */
