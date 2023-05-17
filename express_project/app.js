@@ -137,8 +137,8 @@ app.get('/s3JSON', function(req, res, next){
     console.log(fileName)
     var columns={}
     var parse = require('csv-parse');
-    var parser = parse.parse({columns: true}, function (err, records) {
-      rows=[...records];
+    var parser = parse.parse({columns: true, cast: true}, function (err, records) {
+      rows = [...records];
       console.log(Object.entries(rows));
       console.log('////////////////////////////////////////////////////')
       res.send(Object.entries(rows))
@@ -240,12 +240,44 @@ app.post('/jsonToCsv', async function(request, response) {
   var filename = request.query.filename;
   var file = fs.createWriteStream(__dirname+`/${filename}.csv`); 
   file.on('error', function(err) { console.log(err.message)});
+  //const parser = new Parser({ quote: '' });
   jsonList.forEach(function(v) { 
-    file.write(parse(v[1])); 
-    console.log(parse(v[1]));
+    // let rgx = /"/g;
+    // file.write(parse(v[1]).replace(rgx, '')); 
+    // console.log(parse(v[1]).replace(rgx, ''));
   });
   file.end();
 })
+
+app.post('/modifyCsv', async function(request, response) {
+  //var csv = request.body;
+  var csv = "Student,ID,SIS User ID,SIS Login ID,Section,Assignment One (4757),Assignment Two (4766),Assignments Current Score,Assignments Unposted Current Score,Assignments Final Score,Assignments Unposted Final Score,Final Exam Current Score,Final Exam Unposted Current Score,Final Exam Final Score,Final Exam Unposted Final Score,Assignments Current Score,Assignments Unposted Current Score,Assignments Final Score,Assignments Unposted Final Score,Current Score,Unposted Current Score,Final Score,Unposted Final Score,Current Grade,Unposted Current Grade,Final Grade,Unposted Final Grade";
+  
+  var additionalJson = request.body.testJson;
+  csv += '\n';
+  additionalJson.forEach(element => {
+    Object.keys(element[1]).forEach(keys => {
+      if (keys == "Student") {
+        if (element[0]!="0") {
+          csv += '"' + element[1][keys] + '",';
+        } else {
+          csv += element[1][keys] + ",";
+        }  
+      } else {
+        csv += element[1][keys] + ",";
+      }
+    })
+    csv += "\n";
+  });
+  var filename = request.query.fieldName;
+  var file = fs.createWriteStream(__dirname + `/${filename}.csv`);
+  file.on('error', function(err) { console.log(err.message)});
+  file.write(csv);
+  file.end();
+})
+
+
+
 
 /*
 const jsonToCsv = (json) => {
