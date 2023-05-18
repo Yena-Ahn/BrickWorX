@@ -55,7 +55,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 
 	const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
-  const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return '0'}):rubricABC.rubric.map((item,index)=>{return '0'}))
+  const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
@@ -194,6 +194,18 @@ const MarkingComp = ({setdefualtassignment}) => {
 		setGrades(grades_shallow)
 	}
 
+	const gradeZero = (indexQuest)=>{
+		let mark = 0
+		let grades_shallow=[...grades]
+		console.log("MARK")
+		console.log(mark)
+		grades_shallow[indexQuest]=mark
+		setGrades(grades_shallow)
+	}
+
+
+
+
 
 	return (
     <div>
@@ -225,8 +237,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
 			<div className="row-section">
 				{rubric.map((question,index) => (
-					<div className="row-section__inner" key={question.id}>
+					<div className="row-section__inner" style={grades[index]===0||grades[index]?{backgroundColor:'#90EE90'}:{backgroundColor:'white'}} key={question.id}>
 						<h2>question {index+1}</h2>
+						{grades[index]===0||grades[index]?<h1 style={{color:'green'}}>MARKED</h1>:<h2 style={{color:'red'}}>NOT MARKED</h2>}
 						<p>&nbsp;</p>
 
 						<div className="input-group">
@@ -234,7 +247,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							<h1>{question.questionName}</h1>
 							<h3>criterions</h3>
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success" onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade)?{backgroundColor:'black'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									<hr style={{"margin":15}}></hr>
 									Grading criteria
 									<div className="input-group">
@@ -258,7 +271,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							
 						</div>
 						
-						<button className='btn' onClick={testpost}>CSV JSON UPLOAD TEST BUTTON</button>
+						<button className='btn btn-danger' onClick={() => gradeZero(index)}>set mark to zero</button>
 
 					</div>
 				))}
