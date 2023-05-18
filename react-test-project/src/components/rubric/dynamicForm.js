@@ -143,6 +143,12 @@ const DynamicForm = ({setRubricSuper}) => {
 		setRubricData(_questionMembers)
 	}
 
+	const setInputHeight =(element, defaultHeight) => {
+		const target = element.target ? element.target : element;
+		target.style.height = defaultHeight;
+		target.style.height = `${target.scrollHeight}px`;
+	}
+
 	const saveRubric = () => {
 		console.table(rubric)
 		//console.log(rubric)
@@ -225,7 +231,9 @@ const DynamicForm = ({setRubricSuper}) => {
 											placeholder="Enter criteria for this mark..."
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}/>
+											}
+											onInput={(e) => setInputHeight(e, "170px")}
+											className="criteriaTextWidth"/>
 										</div>
 
 									<div className="sidebtn-group">
@@ -247,7 +255,7 @@ const DynamicForm = ({setRubricSuper}) => {
 										
 										<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
 									</div>
-									<hr></hr>
+									
 								</div>
 								
 							))}
@@ -260,12 +268,12 @@ const DynamicForm = ({setRubricSuper}) => {
 					</div>
 				))}
 				
-				<Button variant="success  text-left" className="createNewQuestionBtn text-left"
+				<Button variant="success  text-left" size ="lg" className="createNewQuestionBtn text-left"
 					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br></br>
 				
 			</div>
-			<Button variant="primary" onClick={axios_post} className="fixedbtn">
-					Save and Publish <Icon.FileEarmarkPostFill />
+			<Button variant="success" size="lg" onClick={axios_post} className="fixedbtn">
+			<Icon.FileEarmarkPostFill/><strong> Publish</strong> 
 				</Button>
 		</div>
 		
