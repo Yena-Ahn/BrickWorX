@@ -3,3 +3,4 @@ react-test-project\node_modules
 
 .idea
 .vscode
+.DS_Store
