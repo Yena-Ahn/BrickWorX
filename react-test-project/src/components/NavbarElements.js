@@ -31,15 +31,14 @@ justify-content: space-around;
 
 &.active:before {
 	position: absolute;
-	color: #009AC7;
+	color: white;
 	font-weight: bold;
 	text-decoration: underline;
 	content: ${({title}) => `"${title}"`};
 }
 
 &.active {
-	color: #009AC7;
-	background-color: rgba(242,242,242,.85);
+	color: white;
 	text-decoration: underline;
 
 	p {
@@ -65,7 +64,7 @@ justify-content: space-around;
 }
 
 &:focus {
-	color: #009AC7;
+	color: #00467F;
 }
 
 & p {
