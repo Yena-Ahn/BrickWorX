@@ -31,14 +31,15 @@ justify-content: space-around;
 
 &.active:before {
 	position: absolute;
-	color: white;
+	color: #00467F;
 	font-weight: bold;
 	text-decoration: underline;
 	content: ${({title}) => `"${title}"`};
 }
 
 &.active {
-	color: white;
+	color: #00467F;
+	background-color: rgba(242,242,242,.85);
 	text-decoration: underline;
 
 	p {
