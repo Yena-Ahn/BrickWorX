@@ -1,3 +1,4 @@
+
 import DynamicForm from "../rubric/dynamicForm";
 
 const Create = ({setRubricSuper}) => {
@@ -10,5 +11,6 @@ const Create = ({setRubricSuper}) => {
     </div>
   );
 };
+
 
 export default Create;

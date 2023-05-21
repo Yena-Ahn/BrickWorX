@@ -1,3 +1,4 @@
+
 import FilesUploadComponent from "../upload/uploadcontainer";
 const UPLOAD = ({ change }) => {
   return (
@@ -9,5 +10,6 @@ const UPLOAD = ({ change }) => {
     </div>
   );
 };
+
 
 export default UPLOAD;

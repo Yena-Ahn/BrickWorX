@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
@@ -55,4 +56,3 @@ export default class FilesUploadComponent extends Component {
             </div>
         )
     }
-}

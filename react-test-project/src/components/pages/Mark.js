@@ -1,3 +1,4 @@
+
 import MarkingComp from "../rubric/markingrubric";
 
 const Mark = ({setdefualtassignment}) => {
@@ -10,5 +11,7 @@ const Mark = ({setdefualtassignment}) => {
     </div>
   );
 };
+
+
 
 export default Mark;

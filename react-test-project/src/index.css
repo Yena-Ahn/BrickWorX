@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,22 +10,21 @@ body {
 }
 
 .container {
-  
+  max-width: 80%;
   display: flex;
   margin: 20px auto;
   /* overflow: auto; */
+
   width:60%;
   min-height:200px;
   border: 1.5px solid #00467F;
   /*padding: 30px;*/
   border-radius: 4px;
+
   justify-content: center;
   flex-direction: column;
-  text-align:center;
-  background-color:#F2F2F2;
 
 }
-
 
 .box2 {
   border: 1px solid greenyellow;
@@ -113,7 +113,7 @@ body {
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .form-control-check {
@@ -310,8 +310,8 @@ h2{
       
 }
 .form-row button {
-  padding:10px 10px;
-  max-height: 40px;
+   padding:10px 10px;
+   max-height: 40px;
 }
 
 .row-section{
@@ -326,13 +326,14 @@ h2{
 
 
 .row-section__inner{
+
     border:1.5px solid #365262;
     border-radius: 15px;
     padding:20px;
     margin-bottom:20px;
     background-color:#F2F2F2;
+
     /*margin-bottom:10px;*/
-    
 }
 .row-section .form-row{
   margin-top:10px;
@@ -443,8 +444,3 @@ hr {
   width:35%;
   padding-left:5px;
 }
-/*
-.btn-primary{
-    background-color:#365262;
-    color:white;
-} */
