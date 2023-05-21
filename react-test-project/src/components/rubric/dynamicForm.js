@@ -202,7 +202,7 @@ const DynamicForm = ({setRubricSuper}) => {
 						<h2>Question {index+1}</h2>
 						{/*<p>&nbsp;</p>*/}
 
-						<div className="input-group">
+						
 							{/*<label htmlFor="questionName">Name of Question</label>*/}
 							<input
 								name="questionName"
@@ -214,8 +214,9 @@ const DynamicForm = ({setRubricSuper}) => {
 							<Table bordered className="rubricTable">
 								<thead className="rubricHead">
 									<tr>
-										<th className="criteriaWidth"><strong>Criteria</strong></th>
 										<th><strong>Mark</strong></th>
+										<th className="criteriaWidth"><strong>Criteria</strong></th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -223,22 +224,9 @@ const DynamicForm = ({setRubricSuper}) => {
 							</Table>
 							
 							{question.criterions.map((criterion) => (
+								
 								<div className="form-row" key={criterion.id}>
-									<div className="input-group">
-										<textarea
-											name="body"
-											rows="6"
-											placeholder="Enter criteria for this mark..."
-											onChange={(e) =>
-												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}
-											onInput={(e) => setInputHeight(e, "170px")}
-											className="criteriaTextWidth"/>
-										</div>
-
-									<div className="sidebtn-group">
-										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
-										<div className="input-group">
+									<div className="creation-input-group">
 											{/*<label htmlFor="grade">Marks</label>*/}
 											<input
 												name="grade"
@@ -248,19 +236,34 @@ const DynamicForm = ({setRubricSuper}) => {
 												onChange={(e) =>
 													handleCriteriaInQuestionData(question.id, criterion.id, e)
 												}
-												style={{width:"65px", height:"65px", textAlign:"center"}}
+												className="markBoxStyle"
+												
 											/>
-										</div>
-									
 										
-										<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
+									
+										<textarea
+											name="body"
+											rows="3"
+											placeholder="Enter criteria for this mark..."
+											onChange={(e) =>
+												handleCriteriaInQuestionData(question.id, criterion.id, e)
+											}
+											onInput={(e) => setInputHeight(e, "100px")}
+											className="criteriaTextWidth"
+											style={{display:"inline"}}/>
+											<div className="sidebtn-group">
+												<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
+												<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
 									</div>
+									</div>
+
+									
 									
 								</div>
 								
 							))}
 						
-						</div>
+						
 						
 						<Button variant="danger" onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
