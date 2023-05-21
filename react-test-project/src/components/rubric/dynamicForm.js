@@ -1,10 +1,10 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { useEffect } from "react"
+import React, { /*useEffect */} from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
-import { Button, Row, Col} from "react-bootstrap";
+import { Button, Table} from "react-bootstrap";
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -176,76 +176,92 @@ const DynamicForm = ({setRubricSuper}) => {
 
 	return (
     <div>
-			<label htmlFor="rubric_name" className="questionTitleStyle">Name of rubric</label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="rubric_name" className="questionTitleStyle" style={{width:"250px"}}/>
-			<p>&nbsp;</p>
+			<label htmlFor="rubric_name"><h1>Name of Rubric</h1></label>
+			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" className="rubricTitleStyle" style={{width:"250px"}}/>
+
 			<div className="row-section">
 				
 				{rubric.map((question,index) => (
 					<div className="row-section__inner" key={question.id}>
-						<h2>question {index+1}</h2>
+						<h2>Question {index+1}</h2>
 						{/*<p>&nbsp;</p>*/}
 
 						<div className="input-group">
-							<label htmlFor="questionName">Name of Question</label>
+							{/*<label htmlFor="questionName">Name of Question</label>*/}
 							<input
 								name="questionName"
 								onChange={(e) => handleQuestionData(question.id, e)}
-								placeholder="Enter Question Name"
+								placeholder="Name of Question"
 								type="text"
 								className="questionTitleStyle"
 							/>
-							
+							<Table bordered style={{marginTop:"10px", marginBottom:"0px"}}>
+								<thead style={{textAlign:"center", backgroundColor:"#F2F2F2"}}>
+									<tr>
+										<th style={{minWidth:"630px", }}><strong>Criteria</strong></th>
+										<th><strong>Mark</strong></th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</Table>
 							{/*<h3>criterions</h3>*/}
 							{question.criterions.map((criterion) => (
 								<div className="form-row" key={criterion.id}>
 									<div className="input-group">
-										<label htmlFor="grade">Marks</label>
-										<input
-											name="grade"
-											type="number"
-											placeholder="0"
-											
-											onChange={(e) =>
-												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}
-											style={{width:"65px", height:"65px", textAlign:"center"}}
-										/>
-									</div>
-									<div className="input-group">
-										<label htmlFor="body">criteria</label>
+										{/*<label htmlFor="body">criteria</label>*/}
 										<textarea
 											name="body"
 											/*type="textarea"*/
-											rows="4"
+											rows="6"
 											placeholder="Enter criteria for this mark..."
+											
 											onChange={(e) =>
 												handleCriteriaInQuestionData(question.id, criterion.id, e)
 											}
-											
 										/>
 									</div>
-									<button className='btn' onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill />Remove</button>
-									<button className='btn' onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill />Add Row</button>
+									
+									<div className="sidebtn-group">
+										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
+										<div className="input-group">
+											{/*<label htmlFor="grade">Marks</label>*/}
+											<input
+												name="grade"
+												type="number"
+												placeholder="0"
+												
+												onChange={(e) =>
+													handleCriteriaInQuestionData(question.id, criterion.id, e)
+												}
+												style={{width:"65px", height:"65px", textAlign:"center"}}
+											/>
+										</div>
+									
+										
+										<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
+									</div>
+									<hr></hr>
 								</div>
 							
 							))}
 						
 						</div>
 						
-						<Button variant="danger" className='btn' onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
+						<Button variant="danger" onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
 					</div>
 				))}
 				
 				<Button variant="outline-success" className='btn' 
-					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br />
-				<Button variant="outline-primary" onClick={axios_post} style={{align:"right"}}>
+					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br></br>
+				
+			</div>
+			<Button variant="outline-primary" onClick={axios_post} className="fixedbtn">
 					Save and Publish <Icon.FileEarmarkPostFill />
 				</Button>
-			</div>
 		</div>
+		
 	)
 }
 

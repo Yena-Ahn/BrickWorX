@@ -3,7 +3,7 @@ const UPLOAD = ({ change }) => {
   return (
     <div>
       <h1>
-        UPLOAD HERE STUFF
+        Upload Gradebook
       </h1>
       <FilesUploadComponent change={change} />
     </div>
