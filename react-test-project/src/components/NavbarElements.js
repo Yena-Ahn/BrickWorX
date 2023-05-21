@@ -39,7 +39,7 @@ justify-content: space-around;
 
 &.active {
 	color: #00467F;
-	background-color: rgba(242,242,242,.85);
+	background-color: #FFFFFF;
 	text-decoration: underline;
 
 	p {
@@ -49,7 +49,7 @@ justify-content: space-around;
 
 &:hover {
 	text-decoration: none;
-	background-color: rgba(242,242,242,.85);
+	background-color: #FFFFFF;
 	color: #00467F;
 
 	p {
