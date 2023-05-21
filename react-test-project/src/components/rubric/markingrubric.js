@@ -281,7 +281,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 					</div>
 				))}
-				<h1>Total grade={grades.map(function(str) {return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)}/
+				<h1>Total grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
 				<button className="btn" onClick={testpost}>
