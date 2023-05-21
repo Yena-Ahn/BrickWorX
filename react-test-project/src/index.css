@@ -12,12 +12,15 @@ body {
 .container {
   max-width: 80%;
   display: flex;
-  margin: 30px auto;
+  margin: 20px auto;
   /* overflow: auto; */
-  min-height: 300px;
-  border: 5px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
+
+  width:60%;
+  min-height:200px;
+  border: 1.5px solid #00467F;
+  /*padding: 30px;*/
+  border-radius: 4px;
+
   justify-content: center;
   flex-direction: column;
 
@@ -145,7 +148,7 @@ something to be redone
 
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
-
+/*
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -154,7 +157,7 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
+/*table, caption, tbody, tfoot,*/  tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
@@ -185,15 +188,16 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
+/*
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
+*/
+/*
 body{
     font-family: 'Rubik', sans-serif;
-}
+}*/
 
 
 .app{
@@ -290,27 +294,15 @@ h2{
     padding:10px;
 }
 
-.form-row{
-    display: flex;
-    margin-top:40px;
-    align-items: flex-end;
-    margin-bottom:40px;
-   
-    
-}
+
 .dynamic-form button {
    padding:10px 10px;
    max-height: 40px;
    
 }
-.input-group{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right:10px;
-    
 
-}
+
+
 
 .input-group input, textarea{     
       padding:10px 10px;
@@ -324,27 +316,131 @@ h2{
 
 .row-section{
     /*margin-top:40px;*/
-    width:60%;
+    width:80%;
     margin:auto;
 }
 .row-section  h3{
     color:#365262;
     margin-top:30px;
 }
+
+
 .row-section__inner{
-    border:3px solid black;
+
+    border:1.5px solid #365262;
+    border-radius: 15px;
     padding:20px;
+    margin-bottom:20px;
+    background-color:#F2F2F2;
+
     /*margin-bottom:10px;*/
 }
 .row-section .form-row{
-   margin-top:10px;
+  margin-top:10px;
+  padding-bottom:15px;
+  border-bottom: 1.5px solid #4A4A4C;
 }
-.row-section .btn-primary{
-    margin-top:20px;
+/*Upload page stuff*/
+.fileUpload{
+  margin-left: 15px;
+}
+.form-group{
+  margin-bottom:15px;
+  
+}
+ /*Creation page stuff*/
+.rubricTitleStyle{
+  color:#365262;
+  font-size:26px;
+  font-weight: 500;
+  align-items: center;
+  margin-bottom:5px;
+  margin-left:20%;
 }
 
+.rubricTable {
+  margin-top:5px;
+}
+
+.rubricHead {
+  background-color:#00467F;
+  text-align:center;
+  color:white;
+ 
+}
+textarea, input{
+  border-color:#00467F;
+  border-width: 1px;
+  /*border-radius:5px;*/
+}
+
+
+.input-group{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right:10px;
+}
+
+.creation-input-group{
+  vertical-align:top;
+  margin-top:10px;
+}
+
+.criteriaWidth{
+  width:89%;
+}
+.criteriaTextWidth{
+  min-height:100px;
+  width:85%;
+  margin-left: 20px;
+  left: 0px;
+}
+
+.markBoxStyle{
+  width:11%;
+  height:100px;
+  vertical-align:top;
+  padding:auto;
+  font-size:40px;
+  text-align:center;
+}
+
+.sidebtn{
+  margin-bottom:-40px;
+}
+
+.sidebtn-add{
+  position:relative;
+  top:-70px;
+  left:100%;
+  
+}
+
+.sidebtn-delete{
+  position:relative;
+  left:-9%;
+  top:-70px;
+}
+.createNewQuestionBtn{
+  width:100%;
+  text-align:left;
+}
+.text-left{
+  text-align:left !important;
+}
+.fixedbtn{
+  position: fixed;
+  bottom: 10px;
+  right: 0.25%;
+}
+
+hr {  
+  margin-top: 20px;
+}
 .questionTitleStyle {
   font-size:22px;
   font-weight:bold;
-  width:45%;
+  width:35%;
+  padding-left:5px;
 }
