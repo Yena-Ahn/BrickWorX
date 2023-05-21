@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,22 +10,18 @@ body {
 }
 
 .container {
-  
+  max-width: 80%;
   display: flex;
   margin: 30px auto;
   /* overflow: auto; */
-  width:60%;
-  min-height:200px;
-  border: 3px solid steelblue;
-  /*padding: 30px;*/
+  min-height: 300px;
+  border: 5px solid steelblue;
+  padding: 30px;
   border-radius: 5px;
   justify-content: center;
   flex-direction: column;
-  text-align:center;
-  background-color:#F2F2F2;
 
 }
-
 
 .box2 {
   border: 1px solid greenyellow;
@@ -113,7 +110,7 @@ body {
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .form-control-check {
@@ -321,8 +318,8 @@ h2{
       
 }
 .form-row button {
-  padding:10px 10px;
-  max-height: 40px;
+   padding:10px 10px;
+   max-height: 40px;
 }
 
 .row-section{
@@ -335,58 +332,19 @@ h2{
     margin-top:30px;
 }
 .row-section__inner{
-    border:3px solid #365262;
-    border-radius: 15px;
+    border:3px solid black;
     padding:20px;
-    margin-bottom:20px;
     /*margin-bottom:10px;*/
-    
 }
 .row-section .form-row{
-  margin-top:10px;
+   margin-top:10px;
 }
-.fileUpload{
-  margin-left: 15px;
-}
-.form-group{
-  margin-bottom:15px;
-  
+.row-section .btn-primary{
+    margin-top:20px;
 }
 
-.rubricTitleStyle{
-  margin-bottom:10px;
-  color:#365262;
-  font-size:26px;
-  font-weight: 500;
-  justify-content: center;
-}
-
-.sidebtn-group{
-  display:flex;
-  flex-direction:column;
-  justify-content: space-between;
-}
-.sidebtn{
-  width:65px;
-  vertical-align: baseline;
-}
-
-.fixedbtn{
-  position: fixed;
-  bottom: 0;
-  right: 0;
-}
-
-hr {  
-  margin-top: 20px;
-}
 .questionTitleStyle {
   font-size:22px;
   font-weight:bold;
-  width:35%;
+  width:45%;
 }
-/*
-.btn-primary{
-    background-color:#365262;
-    color:white;
-} */
