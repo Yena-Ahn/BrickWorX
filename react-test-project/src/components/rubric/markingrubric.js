@@ -190,7 +190,13 @@ const MarkingComp = ({setdefualtassignment}) => {
 		let grades_shallow=[...grades]
 		console.log("MARK")
 		console.log(mark)
-		grades_shallow[indexQuest]=mark
+
+		if(grades_shallow[indexQuest]!=mark){
+			grades_shallow[indexQuest]=mark
+		}else{
+			grades_shallow[indexQuest]=''
+		}
+
 		setGrades(grades_shallow)
 	}
 
