@@ -56,3 +56,4 @@ export default class FilesUploadComponent extends Component {
             </div>
         )
     }
+}
