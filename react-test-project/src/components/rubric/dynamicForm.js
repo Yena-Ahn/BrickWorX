@@ -226,6 +226,7 @@ const DynamicForm = ({setRubricSuper}) => {
 							{question.criterions.map((criterion) => (
 								
 								<div className="form-row" key={criterion.id}>
+									
 									<div className="creation-input-group">
 											{/*<label htmlFor="grade">Marks</label>*/}
 											<input
@@ -251,10 +252,14 @@ const DynamicForm = ({setRubricSuper}) => {
 											onInput={(e) => setInputHeight(e, "100px")}
 											className="criteriaTextWidth"
 											style={{display:"inline"}}/>
-											<div className="sidebtn-group">
-												<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
-												<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
-									</div>
+											<div className="sidebtn">
+												<Button className='sidebtn-delete' size="lg" 
+														variant ="outline-danger" 
+														onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill/></Button>
+												<Button className='sidebtn-add'  size="lg"
+														variant="success" 
+														onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill/></Button>
+											</div>
 									</div>
 
 									
@@ -265,7 +270,7 @@ const DynamicForm = ({setRubricSuper}) => {
 						
 						
 						
-						<Button variant="danger" onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
+						<Button variant="danger" style={{marginTop:"5px"}} onClick={() => {removeQuestion(question.id)}} ><Icon.X/> Delete Question</Button>
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
 					</div>

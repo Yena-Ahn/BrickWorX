@@ -11,7 +11,7 @@ body {
 .container {
   
   display: flex;
-  margin: 30px auto;
+  margin: 20px auto;
   /* overflow: auto; */
   width:60%;
   min-height:200px;
@@ -372,10 +372,7 @@ textarea, input{
   border-width: 1px;
   /*border-radius:5px;*/
 }
-.creation-input-group{
-  
-  vertical-align:top;
-}
+
 
 .input-group{
   display: flex;
@@ -383,6 +380,12 @@ textarea, input{
   align-items: flex-start;
   margin-right:10px;
 }
+
+.creation-input-group{
+  vertical-align:top;
+  margin-top:10px;
+}
+
 .criteriaWidth{
   width:89%;
 }
@@ -390,7 +393,7 @@ textarea, input{
   min-height:100px;
   width:85%;
   margin-left: 20px;
-  
+  left: 0px;
 }
 
 .markBoxStyle{
@@ -401,17 +404,23 @@ textarea, input{
   font-size:40px;
   text-align:center;
 }
-.sidebtn-group{
-  display:flex;
-  flex-direction:column;
-  
-}
+
 .sidebtn{
-  width:90%;
-  vertical-align: baseline;
-  margin-top:5px;
+  margin-bottom:-40px;
 }
 
+.sidebtn-add{
+  position:relative;
+  top:-70px;
+  left:100%;
+  
+}
+
+.sidebtn-delete{
+  position:relative;
+  left:-9%;
+  top:-70px;
+}
 .createNewQuestionBtn{
   width:100%;
   text-align:left;
