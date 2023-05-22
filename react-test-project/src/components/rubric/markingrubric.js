@@ -274,7 +274,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							</Table>
 							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'black'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									
 									
 									<div className="input-group">
