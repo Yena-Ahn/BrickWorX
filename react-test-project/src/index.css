@@ -9,15 +9,15 @@ body {
 }
 
 .container {
-  
+  max-width:80%;
   display: flex;
-  margin: 30px auto;
+  margin: 20px auto;
   /* overflow: auto; */
   width:60%;
   min-height:200px;
-  border: 3px solid steelblue;
+  border: 1.5px solid #00467F;
   /*padding: 30px;*/
-  border-radius: 5px;
+  border-radius: 4px;
   justify-content: center;
   flex-direction: column;
   text-align:center;
@@ -27,11 +27,12 @@ body {
 
 
 .box2 {
-  border: 1px solid greenyellow;
+  border: 1.5px solid #367d36;
   min-height:80px;
-  width:80%;
   text-align:left;
   padding-left: 15px;
+  padding-top:5px;
+
 }
 
 .rubricItem {
@@ -116,7 +117,7 @@ body {
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .form-control-check {
@@ -151,7 +152,7 @@ something to be redone
 
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
-
+/*
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -160,7 +161,7 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
+/*table, caption, tbody, tfoot,*/  tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
@@ -191,15 +192,16 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
+/*
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
+*/
+/*
 body{
     font-family: 'Rubik', sans-serif;
-}
+}*/
 
 
 .app{
@@ -296,32 +298,16 @@ h2{
     padding:10px;
 }
 
-.form-row{
-    display: flex;
-    margin-top:40px;
-    align-items: flex-end;
-    margin-bottom:40px;
-   
-    
-}
-.dynamic-form button {
-   padding:10px 10px;
-   max-height: 40px;
-   
-}
-.input-group{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right:10px;
-    vertical-align:top;
-    
 
+.dynamic-form button {
+  padding:10px 10px;
+  max-height: 40px;
 }
+
 
 .input-group input, textarea{     
-      padding:10px 10px;
-      margin-top:10px;
+  padding:10px 10px;
+  margin-top:10px;
       
 }
 .form-row button {
@@ -338,17 +324,22 @@ h2{
     color:#365262;
     margin-top:30px;
 }
+
+
 .row-section__inner{
-    border:3px solid #365262;
+    border:1.5px solid #365262;
     border-radius: 15px;
     padding:20px;
     margin-bottom:20px;
-    /*margin-bottom:10px;*/
+    background-color:#F2F2F2;
     
 }
 .row-section .form-row{
   margin-top:10px;
+  padding-bottom:15px;
+  border-bottom: 1.5px solid #4A4A4C;
 }
+/*Upload page stuff*/
 .fileUpload{
   margin-left: 15px;
 }
@@ -356,13 +347,52 @@ h2{
   margin-bottom:15px;
   
 }
-
+ /*Creation page stuff*/
 .rubricTitleStyle{
-  margin-bottom:10px;
   color:#365262;
   font-size:26px;
   font-weight: 500;
-  justify-content: center;
+  align-items: center;
+  margin-bottom:5px;
+  margin-left:20%;
+}
+
+.rubricTable {
+  margin-top:5px;
+}
+
+.rubricHead {
+  background-color:#00467F;
+  text-align:center;
+  color:white;
+ 
+}
+
+textarea, input{
+  border-color:#00467F;
+  border-width: 1px;
+  /*border-radius:5px;*/
+}
+
+
+.input-group{
+  width:100%;
+}
+
+.creation-input-group{
+  vertical-align:top;
+  margin-top:10px;
+}
+
+.criteriaWidth{
+  width:89%;
+  
+}
+.criteriaTextWidth{
+  min-height:100px;
+  width:85%;
+  margin-left: 20px;
+ 
 }
 .rubricTable {
   margin-top:5px;
@@ -378,15 +408,6 @@ h2{
   width:89%;
 }
 
-.sidebtn-group{
-  display:flex;
-  flex-direction:column;
-  justify-content: space-between;
-}
-.sidebtn{
-  width:65px;
-  vertical-align: baseline;
-}
 .markBoxStyle{
   width:11%;
   height:100px;
@@ -395,10 +416,33 @@ h2{
   font-size:40px;
   text-align:center;
 }
+
+.sidebtn{
+  margin-bottom:-40px;
+}
+
+.sidebtn-add{
+  position:relative;
+  top:-70px;
+  left:100%;
+  
+}
+.sidebtn-delete{
+  position:relative;
+  left:-9%;
+  top:-70px;
+}
+.createNewQuestionBtn{
+  width:100%;
+  text-align:left;
+}
+.text-left{
+  text-align:left !important;
+}
 .fixedbtn{
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 0.25%;
 }
 
 hr {  
@@ -408,6 +452,7 @@ hr {
   font-size:22px;
   font-weight:bold;
   width:35%;
+  padding-left:5px;
 }
 /*
 .btn-primary{

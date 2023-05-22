@@ -254,7 +254,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
 			<div className="row-section">
 				{rubric.map((question,index) => (
-					<div className="row-section__inner" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
+					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
@@ -273,32 +273,38 @@ const MarkingComp = ({setdefualtassignment}) => {
 							</Table>
 							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade)?{backgroundColor:'#90ee90'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success" 
+									style={(grades[index]>=criterion.grade)?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} 
+									onClick={() => gradeClick(indexC,index)} 
+									key={criterion.id}>
 									
 									<div className="input-group">
-										<h1 className='markBoxStyle' style={{display:"inline"}}>{criterion.grade}</h1>
-										<div className="box2">{criterion.body}</div>
+										<h1 className='markBoxStyle' style={{display:"inline", border:"solid 1.5px black"}}>{criterion.grade}</h1>
+										<div className="criteriaWidth">
+											<div className="box2">{criterion.body}</div>
+										</div>
 									</div>
 								</div>
 							))}
-                <div className="rubricItem">
+							<p>&nbsp;</p>
+                
+							
+						</div>
+						<div className="rubricItem">
 								<h2>Total Marks:{"\n"}</h2>
 								<input style={{textAlign:"center", fontSize:"25px"}} key={index+10} value={grades[index]} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
 								
 							</div>
-							
-						</div>
-						
-						<Button className='btn btn-danger' onClick={() => gradeZero(index)}>set mark to zero</Button>
+						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
 
 					</div>
 				))}
 				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
-				<Button variant='success' onClick={testpost}>
-					Submit rubric data
+				<Button variant='success' onClick={testpost} >
+					Submit Rubric Data
 				</Button>
 			</div>
 		</div>
