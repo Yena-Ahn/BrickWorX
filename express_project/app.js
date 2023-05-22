@@ -293,11 +293,18 @@ app.post('/jsonToCsv', async function(request, response) {
   }
   console.log(csv);
 
-  var filename = request.query.fieldName;
-  var file = fs.createWriteStream(__dirname + `/${filename}.csv`);
-  file.on('error', function(err) { console.log(err.message)});
-  file.write(csv);
-  file.end();
+  //var filename = request.query.fieldName; --> use this to get file name
+  var filename = "marking.csv"; // this is for checking if it saves s3 successfully. 
+  uploadParams = {Bucket: process.env.BUCKET_NAME, 
+    Key:"marking/" + filename, 
+    Body:csv};
+  s3.upload (uploadParams, function (err, data) {
+    if (err) {
+      console.log("Error", err);
+    } if (data) {
+      console.log("Upload Success", data.Location);
+    }
+  });
 });
 
 // app.post('modifyCsv', async function(req, res) {
