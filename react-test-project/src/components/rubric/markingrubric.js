@@ -6,38 +6,54 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
-var rubricABC = {
-    "rubricName": "rubric",
-    "rubric": [
-        {
-            "questionName": "abc",
-            "id": 0,
-            "criterions": [
-                {
-                    "body": "apples were fresh",
-                    "grade": "2",
-                    "id": 0
-                },
-                {
-                    "body": "apples were apples",
-                    "grade": "5",
-                    "id": 1
-                }
-            ],
-        },
-        {
-            "questionName": "submitted",
-            "id": 1,
-            "criterions": [
-                {
-                    "body": "yes or no",
-                    "grade": "1",
-                    "id": 0
-                }
-            ],
-        }
-    ]
-}
+// var rubricABC = {
+//     "rubricName": "rubric",
+//     "rubric": [
+//         {
+//             "questionName": "abc",
+//             "id": 0,
+//             "criterions": [
+//                 {
+//                     "body": "apples were fresh",
+//                     "grade": "2",
+//                     "id": 0
+//                 },
+//                 {
+//                     "body": "apples were apples",
+//                     "grade": "5",
+//                     "id": 1
+//                 }
+//             ],
+//         },
+//         {
+//             "questionName": "submitted",
+//             "id": 1,
+//             "criterions": [
+//                 {
+//                     "body": "yes or no",
+//                     "grade": "1",
+//                     "id": 0
+//                 }
+//             ],
+//         }
+//     ]
+// }
+var rubricABC = 
+{
+	"rubricName": "rubric",
+	"rubric":
+		[{
+			questionName: '',
+			id: 0,
+			criterions: [
+				{ body: '', grade: '-2', id: 0 },
+				{ body: '', grade: '-1', id: 1 },
+				{ body: '', grade: 0, id: 2 },
+				{ body: '', grade: '1', id: 3 }
+			]
+		}]
+	}
+
 
 const testJson=[["0",{"Student":"    Points Possible","ID":"","SIS User ID":"","SIS Login ID":"","Section":"","Assignment One (4757)":"100","Assignment Two (4766)":"100","Assignments Current Score":"(read only)","Assignments Unposted Current Score":"(read only)","Assignments Final Score":"(read only)","Assignments Unposted Final Score":"(read only)","Final Exam Current Score":"(read only)","Final Exam Unposted Current Score":"(read only)","Final Exam Final Score":"(read only)","Final Exam Unposted Final Score":"(read only)","Current Score":"(read only)","Unposted Current Score":"(read only)","Final Score":"(read only)","Unposted Final Score":"(read only)","Current Grade":"(read only)","Unposted Current Grade":"(read only)","Final Grade":"(read only)","Unposted Final Grade":"(read only)"}],["1",{"Student":"student, Test","ID":"83299","SIS User ID":"tstu999","SIS Login ID":"10000000","Section":"Programming for dummies","Assignment One (4757)":"60","Assignment Two (4766)":"70","Assignments Current Score":"","Assignments Unposted Current Score":"","Assignments Final Score":"","Assignments Unposted Final Score":"","Final Exam Current Score":"","Final Exam Unposted Current Score":"","Final Exam Final Score":"","Final Exam Unposted Final Score":"","Current Score":"65","Unposted Current Score":"","Final Score":"65","Unposted Final Score":"","Current Grade":"B-","Unposted Current Grade":"","Final Grade":"B-","Unposted Final Grade":""}],["2",{"Student":"student, Test","ID":"7932548","SIS User ID":"tstu999","SIS Login ID":"10000000","Section":"Programming for dummies","Assignment One (4757)":"60","Assignment Two (4766)":"70","Assignments Current Score":"","Assignments Unposted Current Score":"","Assignments Final Score":"","Assignments Unposted Final Score":"","Final Exam Current Score":"","Final Exam Unposted Current Score":"","Final Exam Final Score":"","Final Exam Unposted Final Score":"","Current Score":"65","Unposted Current Score":"","Final Score":"65","Unposted Final Score":"","Current Grade":"B-","Unposted Current Grade":"","Final Grade":"B-","Unposted Final Grade":""}]]
 
@@ -191,7 +207,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log("MARK")
 		console.log(mark)
 
-		if(grades_shallow[indexQuest]!=mark){
+		if(grades_shallow[indexQuest]!==mark){
 			grades_shallow[indexQuest]=mark
 		}else{
 			grades_shallow[indexQuest]=''
@@ -253,7 +269,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							<h1>{question.questionName}</h1>
 							<h3>criterions</h3>
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade)?{backgroundColor:'black'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'black'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									<hr style={{"margin":15}}></hr>
 									Grading criteria
 									<div className="input-group">
