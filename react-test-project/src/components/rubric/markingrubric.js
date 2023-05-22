@@ -275,8 +275,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 							
 							{question.criterions.map((criterion,indexC) => (
 								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'black'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
-									<hr style={{"margin":15}}></hr>
-									Grading criteria
+									
+									
 									<div className="input-group">
 										<h1 className='markBoxStyle' style={{display:"inline", border:"solid 1.5px black"}}>{criterion.grade}</h1>
 										<div className="criteriaWidth">
