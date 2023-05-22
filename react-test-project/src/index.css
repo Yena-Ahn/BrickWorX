@@ -28,7 +28,10 @@ body {
 
 .box2 {
   border: 1px solid greenyellow;
-  padding: 50px;
+  min-height:80px;
+  width:80%;
+  text-align:left;
+  padding-left: 15px;
 }
 
 .rubricItem {
@@ -311,6 +314,7 @@ h2{
     flex-direction: column;
     align-items: flex-start;
     margin-right:10px;
+    vertical-align:top;
     
 
 }
@@ -327,7 +331,7 @@ h2{
 
 .row-section{
     /*margin-top:40px;*/
-    width:60%;
+    width:80%;
     margin:auto;
 }
 .row-section  h3{
@@ -360,6 +364,19 @@ h2{
   font-weight: 500;
   justify-content: center;
 }
+.rubricTable {
+  margin-top:5px;
+}
+
+.rubricHead {
+  background-color:#00467F;
+  text-align:center;
+  color:white;
+ 
+}
+.criteriaWidth{
+  width:89%;
+}
 
 .sidebtn-group{
   display:flex;
@@ -370,7 +387,14 @@ h2{
   width:65px;
   vertical-align: baseline;
 }
-
+.markBoxStyle{
+  width:11%;
+  height:100px;
+  vertical-align:top;
+  padding:auto;
+  font-size:40px;
+  text-align:center;
+}
 .fixedbtn{
   position: fixed;
   bottom: 0;

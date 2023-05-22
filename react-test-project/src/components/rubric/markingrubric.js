@@ -3,24 +3,35 @@ import { cloneDeep } from "lodash"
 import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-
+import {Button, Table, Form} from 'react-bootstrap'
 
 
 var rubricABC = {
     "rubricName": "rubric",
     "rubric": [
         {
-            "questionName": "abc",
+            "questionName": "Tactics",
             "id": 0,
             "criterions": [
                 {
-                    "body": "apples were fresh",
-                    "grade": "2",
+                    "body": "No attempt is made to provide tactics. None",
+                    "grade": "0",
                     "id": 0
                 },
                 {
-                    "body": "apples were apples",
-                    "grade": "5",
+                    "body": "They talk about something they call \"tactics\", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. \"load balancer\", \"cache\") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown",
+                    "grade": "1",
+                    "id": 1
+                },
+				{
+                    "body": "	One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient",
+                    "grade": "2",
+                    "id": 1
+                }
+				,
+				{
+                    "body": "Two recognisable tactics are provided and the justification is plausible.",
+                    "grade": "3",
                     "id": 1
                 }
             ],
@@ -191,7 +202,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log("MARK")
 		console.log(mark)
 
-		if(grades_shallow[indexQuest]!=mark){
+		if(grades_shallow[indexQuest]!==mark){
 			grades_shallow[indexQuest]=mark
 		}else{
 			grades_shallow[indexQuest]=''
@@ -216,15 +227,15 @@ const MarkingComp = ({setdefualtassignment}) => {
 	return (
     <div>
 		{/* {JSON.stringify(assignmentList)} */}
-		<form onSubmit={handleSubmit}>
-			<select style={{whiteSpace:"pre-line"}} onChange={chngAssignDropdown}> 
+		<Form onSubmit={handleSubmit}>
+			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngAssignDropdown}> 
 			<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
 			{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
-			</select>
-			<button className="btn" type="submit">Submit</button>
-		</form>
-		<form onSubmit={handleSubmitStudent}>
-			<select style={{whiteSpace:"pre-line"}} onChange={chngStudentDropdown}> 
+			</Form.Select>
+			<Button className="btn" type="submit">Submit Assignment</Button>
+		</Form>
+		<Form onSubmit={handleSubmitStudent}>
+			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngStudentDropdown} > 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
 			{/* //maybe include array index somehow */}
 			{students?students.map((item,index) => <option key={index} value={[item[1]['SIS User ID'],index]}>{item[1]['SIS User ID']}</option>):'loading'}
@@ -232,61 +243,63 @@ const MarkingComp = ({setdefualtassignment}) => {
 			
 			{/* {students?students.map((item,index) => {console.log('ugh');console.log(item[1].ID)} ):'TEST'} */}
 
-			</select>
-			<button className="btn" type="submit">Submit</button>
-		</form>
+			</Form.Select>
+			<Button className="btn" type="submit">Submit Student</Button>
+		</Form>
 		<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
-		    <span style={{whiteSpace:"pre-line"}}><h1>student ID: </h1></span>
+		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: </h1></span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{currentStudent}, {currentStudentIndex}</h2>}</span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
-		    <span style={{whiteSpace:"pre-line"}}><h1>rubric name: </h1></span>
+		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: </h1></span>
 			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
 			<div className="row-section">
 				{rubric.map((question,index) => (
-					<div className="row-section__inner" style={grades[index]===0||grades[index]?{backgroundColor:'#90EE90'}:{backgroundColor:'white'}} key={question.id}>
-						<h2>question {index+1}</h2>
-						{grades[index]===0||grades[index]?<h1 style={{color:'green'}}>MARKED</h1>:<h2 style={{color:'red'}}>NOT MARKED</h2>}
-						<p>&nbsp;</p>
+					<div className="row-section__inner" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
+						<h2>Question {index+1}: {question.questionName}</h2>
+						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
+						
 
 						<div className="input-group">
-							<label htmlFor="Question">Question:</label>
-							<h1>{question.questionName}</h1>
-							<h3>criterions</h3>
+						<Table bordered className="rubricTable">
+								<thead className="rubricHead">
+									<tr>
+										<th><strong>Mark</strong></th>
+										<th className="criteriaWidth"><strong>Criteria</strong></th>
+										
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</Table>
+							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade)?{backgroundColor:'black'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
-									<hr style={{"margin":15}}></hr>
-									Grading criteria
+								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade)?{backgroundColor:'#90ee90'}:{backgroundColor:'white'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+									
 									<div className="input-group">
+										<h1 className='markBoxStyle' style={{display:"inline"}}>{criterion.grade}</h1>
 										<div className="box2">{criterion.body}</div>
 									</div>
-									<div className="rubricItem">
-										<h2>marks:</h2>
-										<h1>{criterion.grade}</h1>
-									</div>
-
-									<hr style={{"margin":15}}></hr>	
-
 								</div>
 							))}
                 <div className="rubricItem">
-								<h2>Marks:{"\n"}</h2>
-								<input key={index+10} value={grades[index]} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
+								<h2>Total Marks:{"\n"}</h2>
+								<input style={{textAlign:"center", fontSize:"25px"}} key={index+10} value={grades[index]} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
 								
 							</div>
 							
 						</div>
 						
-						<button className='btn btn-danger' onClick={() => gradeZero(index)}>set mark to zero</button>
+						<Button className='btn btn-danger' onClick={() => gradeZero(index)}>set mark to zero</Button>
 
 					</div>
 				))}
-				<h1>Total grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
+				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
-				<button className="btn" onClick={testpost}>
+				<Button variant='success' onClick={testpost}>
 					Submit rubric data
-				</button>
+				</Button>
 			</div>
 		</div>
 	)
