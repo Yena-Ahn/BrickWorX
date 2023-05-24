@@ -24,7 +24,7 @@ var rubricABC = {
                     "id": 1
                 },
 				{
-                    "body": "	One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient",
+                    "body": "	One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.",
                     "grade": "2",
                     "id": 1
                 }
@@ -247,12 +247,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 			</Form.Select>
 			<Button className="btn" type="submit">Submit Student</Button>
 		</Form>
-		<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
-		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: </h1></span>
-			<span style={{whiteSpace:"pre-line"}}>{<h2>{currentStudent}, {currentStudentIndex}</h2>}</span>
-			<span style={{whiteSpace:"pre-line"}}>{<h2>{' '}</h2>}</span>
-		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: </h1></span>
-			<span style={{whiteSpace:"pre-line"}}>{<h2>{rubricName}</h2>}</span>
+		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: {currentStudent}, {currentStudentIndex}</h1></span>
+		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: {rubricName}</h1></span>
+			
 			<div className="row-section">
 				{rubric.map((question,index) => (
 					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
@@ -274,15 +271,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 							</Table>
 							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success form-row" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									
+										<div className='markBoxStyle2'>{criterion.grade}</div>
+										<div className="box2">{criterion.body}</div>
+										
 									
-									<div className="input-group">
-										<h1 className='markBoxStyle' style={{display:"inline", border:"solid 1.5px black"}}>{criterion.grade}</h1>
-										<div className="criteriaWidth">
-											<div className="box2">{criterion.body}</div>
-										</div>
-									</div>
 								</div>
 							))}
 							<p>&nbsp;</p>
@@ -294,7 +288,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 								<input style={{textAlign:"center", fontSize:"25px"}} key={index+10} value={grades[index]} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
 								
-							</div>
+						</div>
 						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
 
 					</div>
@@ -302,7 +296,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
-				<Button variant='success' onClick={testpost} >
+				<Button className='fixedbtn' variant='success' onClick={testpost} >
 					Submit Rubric Data
 				</Button>
 			</div>
