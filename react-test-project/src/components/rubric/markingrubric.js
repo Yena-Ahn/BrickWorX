@@ -49,7 +49,8 @@ var rubricABC =
 				{ body: '', grade: '-2', id: 0 },
 				{ body: '', grade: '-1', id: 1 },
 				{ body: '', grade: 0, id: 2 },
-				{ body: '', grade: '1', id: 3 }
+				{ body: '', grade: '1', id: 3 },
+				{ body: '', grade: '10', id: 4 }
 			]
 		}]
 	}
