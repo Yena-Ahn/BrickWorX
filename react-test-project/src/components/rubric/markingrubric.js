@@ -114,23 +114,23 @@ const MarkingComp = ({setdefualtassignment}) => {
 	// 	});
 	// }
 	const updateStudentGrade = () => {
-		console.log('TESTSTUDENT UPDATE')
-		console.log(students)
+		//console.log('TESTSTUDENT UPDATE')
+		//console.log(students)
 		//let apples=students.filter(item=>item[1]['SIS User ID']===currentStudent)
 		if(currentStudentIndex>0&&assignment){
 			let shallowCopy=[...students]
-			console.log(shallowCopy[currentStudentIndex][1][assignment])
+			//console.log(shallowCopy[currentStudentIndex][1][assignment])
 			let grades_arr_int = grades.map(function(str) {return parseInt(str); });
-			console.log('int ARR')
-			console.log(grades_arr_int)
+			//console.log('int ARR')
+			//console.log(grades_arr_int)
 			let sum_grade=grades_arr_int.reduce((partialSum, a) => partialSum + a, 0)
-			console.log(sum_grade)
+			//console.log(sum_grade)
 			shallowCopy[currentStudentIndex][1][assignment]=sum_grade.toString();
-			console.log(shallowCopy)
+			//console.log(shallowCopy)
 			setStudents(shallowCopy)
 		}else{
 			//make pop up later
-			console.log('ERROR please select assignment and student')
+			//console.log('ERROR please select assignment and student')
 		}
 		//console.log(students[1][1])
 	}
@@ -146,11 +146,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 		let test_thing = rubricABC.rubric.map((item,index)=>{
 			return []
 		})
-		console.log("total questions TEST")
-		console.log(rubricABC.rubric.length)
-		console.log(test_thing)
-		console.log(grades)
-		console.log("_________________")
+		//console.log("total questions TEST")
+		//console.log(rubricABC.rubric.length)
+		//console.log(test_thing)
+		//console.log(grades)
+		//console.log("_________________")
 	}
 
 
@@ -200,8 +200,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const gradeClick = (indexCrit,indexQuest)=>{
 		let mark = rubric[indexQuest].criterions[indexCrit].grade
 		let grades_shallow=[...grades]
-		console.log("MARK")
-		console.log(mark)
+		//console.log("MARK")
+		//console.log(mark)
 
 		if(grades_shallow[indexQuest]!==mark){
 			grades_shallow[indexQuest]=mark
@@ -215,8 +215,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const gradeZero = (indexQuest)=>{
 		let mark = 0
 		let grades_shallow=[...grades]
-		console.log("MARK")
-		console.log(mark)
+		//console.log("MARK")
+		//console.log(mark)
 		grades_shallow[indexQuest]=mark
 		setGrades(grades_shallow)
 	}
@@ -271,7 +271,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 							</Table>
 							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success form-row" style={(grades[index]>=criterion.grade&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success form-row" style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+									{console.log(criterion.grade)}
+									{console.log(grades[index]>=criterion.grade&&grades[index]!=='')}
+									grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}
+									{/* grade doesn not equal nothing:{valueOf(grades[index]!=='')} */}
+
 									
 										<div className='markBoxStyle2'>{criterion.grade}</div>
 										<div className="box2">{criterion.body}</div>
