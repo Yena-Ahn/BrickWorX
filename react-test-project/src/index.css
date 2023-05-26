@@ -470,3 +470,6 @@ hr {
   float:left;
 }
 
+.btn-outline-success-rubric:hover{
+  color:black !important;
+}

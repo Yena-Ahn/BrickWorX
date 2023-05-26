@@ -26,13 +26,13 @@ var rubricABC = {
 				{
                     "body": "	One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.",
                     "grade": "2",
-                    "id": 1
+                    "id": 2
                 }
 				,
 				{
                     "body": "Two recognisable tactics are provided and the justification is plausible.",
                     "grade": "3",
-                    "id": 1
+                    "id": 3
                 }
             ],
         },
@@ -271,10 +271,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 							</Table>
 							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success form-row" style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="btn btn-outline-success-rubric form-row" style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									{console.log(criterion.grade)}
 									{console.log(grades[index]>=criterion.grade&&grades[index]!=='')}
-									grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}
+									{/*grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}*/}
 									{/* grade doesn not equal nothing:{valueOf(grades[index]!=='')} */}
 
 									
@@ -301,7 +301,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
-				<Button className='fixedbtn' variant='success' onClick={testpost} >
+				<Button className='fixedbtn' variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					Submit Rubric Data
 				</Button>
 			</div>
