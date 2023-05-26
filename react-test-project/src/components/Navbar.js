@@ -6,7 +6,10 @@ import { Nav, NavLink, NavMenu }
 const Navbar = () => {
   return (
     <>
+      
       <Nav>
+      <img src="../UoA_White.png" alt="logo" width="59" height="57.9" padding-right=""/>  
+      <h3 alt="BrickWorx" color="white" display="flex" justify-content="space-around" align-items="center" > BrickWorx </h3>  
         <NavMenu>
           <NavLink to="/Upload" title={"Upload Canvas CSV"} activeStyle>
             <p>Upload Canvas CSV</p>
