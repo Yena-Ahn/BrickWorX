@@ -24,7 +24,7 @@ var rubricABC = {
                     "id": 1
                 },
 				{
-                    "body": "	One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.",
+                    "body": "One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.",
                     "grade": "2",
                     "id": 2
                 }
@@ -228,14 +228,14 @@ const MarkingComp = ({setdefualtassignment}) => {
 	return (
     <div>
 		{/* {JSON.stringify(assignmentList)} */}
-		<Form onSubmit={handleSubmit}>
+		<Form onSubmit={handleSubmit} className="assignment-select">
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngAssignDropdown}> 
 			<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
 			{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
 			</Form.Select>
-			<Button className="btn" type="submit">Submit Assignment</Button>
+			<Button type="submit">OK</Button>
 		</Form>
-		<Form onSubmit={handleSubmitStudent}>
+		<Form onSubmit={handleSubmitStudent} className="student-select">
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngStudentDropdown} > 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
 			{/* //maybe include array index somehow */}
@@ -245,7 +245,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			{/* {students?students.map((item,index) => {console.log('ugh');console.log(item[1].ID)} ):'TEST'} */}
 
 			</Form.Select>
-			<Button className="btn" type="submit">Submit Student</Button>
+			<Button type="submit">OK</Button>
 		</Form>
 		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: {currentStudent}, {currentStudentIndex}</h1></span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: {rubricName}</h1></span>
@@ -271,20 +271,19 @@ const MarkingComp = ({setdefualtassignment}) => {
 							</Table>
 							
 							{question.criterions.map((criterion,indexC) => (
-								<div className="btn btn-outline-success-rubric form-row" style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#e1e7eb'}} onClick={() => gradeClick(indexC,index)} key={criterion.id}>
+								<div className="form-row-marking" 
+									style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#D9D9D9'}} 
+									onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									{console.log(criterion.grade)}
 									{console.log(grades[index]>=criterion.grade&&grades[index]!=='')}
 									{/*grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}*/}
 									{/* grade doesn not equal nothing:{valueOf(grades[index]!=='')} */}
-
-									
 										<div className='markBoxStyle2'>{criterion.grade}</div>
 										<div className="box2">{criterion.body}</div>
-										
-									
+		
 								</div>
 							))}
-							<p>&nbsp;</p>
+							
                 
 							
 						</div>
@@ -301,8 +300,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
-				<Button className='fixedbtn' variant='success' onClick={testpost} style={{zIndex:'2'}}>
-					Submit Rubric Data
+				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
+					<strong>Submit Rubric Data</strong>
 				</Button>
 			</div>
 		</div>

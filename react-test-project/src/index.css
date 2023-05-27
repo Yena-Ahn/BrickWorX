@@ -27,18 +27,19 @@ body {
 
 
 .box2 {
-  border: 1.5px solid #367d36;
+  
   min-height:85px;
   text-align:left;
-  padding:10px 5px 5px 10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  padding-left:5px;
   width:89%;
   float:left;
-  
+  margin-left:10px;
 }
 
 .rubricItem {
  padding: 10px;
- border: 1px solid red;
  display: flex;
 }
 
@@ -336,16 +337,25 @@ h2{
     background-color:#F2F2F2;
     
 }
-.row-section .form-row{
+.row-section .form-row, .form-row-marking{
   margin-top:10px;
   padding-bottom:15px;
-  border-bottom: 1.5px solid #4A4A4C;
+  border-bottom: 1.5px solid #404040;
 }
-.form-row{
+.form-row, .form-row-marking{
   width:100%;
   display:inline-block;
-  
+  margin:auto;
+  margin-top:5px;
 }
+.form-row-marking:hover{
+  background-color:#b9edb9 !important;
+  cursor:pointer;
+}
+.form-row-marking:active{
+  background-color:#77d177 !important;
+}
+
 /*Upload page stuff*/
 .fileUpload{
   margin-left: 15px;
@@ -423,6 +433,7 @@ textarea, input{
   position:relative;
   top:0px;
   left:100%;
+  margin-bottom:-40px;
   
 }
 .sidebtn-delete{
@@ -442,6 +453,9 @@ textarea, input{
   bottom: 10px;
   right: 0.25%;
 }
+.fixedbtn:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
 
 hr {  
   margin-top: 20px;
@@ -460,16 +474,14 @@ hr {
 .markBoxStyle2{
   font-size:40px;
   font-weight:bold;
-  border:1.5px solid black;
-  width:11%;
+  text-align:center;
+  vertical-align:center;
+  width:9%;
   min-height:85px;
-  
-  padding:auto;
-  
-  color:black;
+  color:#333333;
   float:left;
+  border: 1px solid black;
 }
-
-.btn-outline-success-rubric:hover{
-  color:black !important;
+.assignment-select{
+  display:inline;
 }
