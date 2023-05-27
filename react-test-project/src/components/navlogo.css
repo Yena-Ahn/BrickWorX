@@ -1,0 +1,14 @@
+.navlogo {
+    top: 0;
+    bottom: 0;
+    margin: 6px 0;
+    display: flex;
+    float: left;
+    background-color:#00467F;
+}
+
+.brick {
+    color: #FFFFFF;
+    margin-top: 6px;
+    margin-left: 6px;
+}
