@@ -16,7 +16,7 @@ body {
   display: flex;
   margin: 20px auto;
   /* overflow: auto; */
-
+  background-color: #F2F2F2;
   width:60%;
   min-height:200px;
   border: 1.5px solid #00467F;
@@ -374,7 +374,7 @@ h2{
 }
 .form-group{
   margin-bottom:15px;
-  
+  text-align:center;
 }
  /*Creation page stuff*/
 .rubricTitleStyle{

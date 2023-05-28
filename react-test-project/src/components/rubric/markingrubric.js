@@ -233,10 +233,11 @@ const MarkingComp = ({setdefualtassignment}) => {
     <div>
 		{console.log(students)}
 		{/* {JSON.stringify(assignmentList)} */}
-		<Form onSubmit={handleSubmit} className="assignment-select">
-			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngAssignDropdown}> 
+		<Form  display="flex" onSubmit={handleSubmit}>
+			<Form.Select className="form-inline" style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngAssignDropdown}> 
 			<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
 			{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
+			
 			</Form.Select>
 			<Button type="submit">OK</Button>
 		</Form>
