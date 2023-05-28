@@ -502,6 +502,8 @@ hr {
 .questionDescStyle{
   width:100%;
   min-height:80px;
+  color: #333333;
+  background-color: white;
 }
 
 h4{
