@@ -3,7 +3,7 @@ import { cloneDeep } from "lodash"
 import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {Button, Table, Form} from 'react-bootstrap'
+import {Button, Table, Form, Container, Row, Col} from 'react-bootstrap'
 
 
 var rubricABC = {
@@ -233,15 +233,27 @@ const MarkingComp = ({setdefualtassignment}) => {
     <div>
 		{console.log(students)}
 		{/* {JSON.stringify(assignmentList)} */}
-		<Form  display="flex" onSubmit={handleSubmit}>
-			<Form.Select className="form-inline" style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngAssignDropdown}> 
-			<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
-			{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
-			
-			</Form.Select>
-			<Button type="submit">OK</Button>
-		</Form>
-		<Form onSubmit={handleSubmitStudent} className="student-select">
+		
+		
+			<Row>
+				<Col>
+				<Form onSubmit={handleSubmit} display="inline">
+				<Form.Select 
+					onChange={chngAssignDropdown}> 
+				<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
+				{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
+				
+				</Form.Select>
+				</Form>
+				</Col>
+				<Col>
+				<Button type="submit" display="inline">OK</Button>
+				</Col>
+				
+			</Row>
+			<Row>
+				<Col>
+				<Form onSubmit={handleSubmitStudent} className="student-select">
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngStudentDropdown} > 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
 			{/* //maybe include array index somehow */}
@@ -252,10 +264,19 @@ const MarkingComp = ({setdefualtassignment}) => {
 			
 
 			</Form.Select>
+			</Form>
+				</Col>
+				<Col>
+					<Button type="submit">OK</Button>
+				</Col>
+			</Row>
+			
+	
+		
 			{/* {students.map((item,index) => {return <p>a{console.log(item['SIS User ID'])}</p>})} */}
 
-			<Button type="submit">OK</Button>
-		</Form>
+			
+		
 		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: {currentStudent}, {currentStudentIndex}</h1></span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: {rubricName}</h1></span>
 			
@@ -264,15 +285,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
-						
-
 						<div className="input-group">
 						<Table bordered className="rubricTable">
 								<thead className="rubricHead">
 									<tr>
 										<th><strong>Mark</strong></th>
-										<th className="criteriaWidth"><strong>Criteria</strong></th>
-										
+										<th className="criteriaWidth"><strong>Criteria</strong></th>	
 									</tr>
 								</thead>
 								<tbody>

@@ -497,9 +497,7 @@ hr {
   float:left;
   border: 1px solid black;
 }
-.assignment-select{
-  display:inline;
-}
+
 
 .questionDescStyle{
   width:100%;
@@ -509,4 +507,9 @@ hr {
 h4{
   color:#00467F;
   margin-top:10px;
+}
+.assignmentSelect{
+  max-width:40%;
+  display:inline;
+  margin:0px;
 }
