@@ -272,7 +272,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							
 							{question.criterions.map((criterion,indexC) => (
 								<div className="form-row-marking" 
-									style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90'}:{backgroundColor:'#D9D9D9'}} 
+									style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90', borderColor:"#77d177"}:{backgroundColor:'#e9ecef'}} 
 									onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									{console.log(criterion.grade)}
 									{console.log(grades[index]>=criterion.grade&&grades[index]!=='')}
