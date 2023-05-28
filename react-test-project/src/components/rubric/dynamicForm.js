@@ -23,6 +23,7 @@ const DynamicForm = ({setRubricSuper}) => {
 	const [rubric, setRubricData] = React.useState([
 		{
 			questionName: "",
+			questionDesc: "",
 			id: 0,
 			criterions: [
 				{
@@ -74,6 +75,7 @@ const DynamicForm = ({setRubricSuper}) => {
 		let _questionMembers = [...rubric]
 		_questionMembers.push({
 			questionName: "",
+			questionDesc: "",
 			id: rubric.slice(-1)[0].id+1,
 			criterions: [
 				{
@@ -214,6 +216,7 @@ const DynamicForm = ({setRubricSuper}) => {
 								type="text"
 								className="questionTitleStyle"
 							/>
+							<input name="questionDesc" placeholder="Question description" onChange={(e) => handleQuestionData(question.id, e)}/>
 							<Table bordered className="rubricTable">
 								<thead className="rubricHead">
 									<tr>
