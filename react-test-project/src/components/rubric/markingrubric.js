@@ -229,7 +229,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 
 	return (
+		
     <div>
+		{console.log(students)}
 		{/* {JSON.stringify(assignmentList)} */}
 		<Form onSubmit={handleSubmit} className="assignment-select">
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngAssignDropdown}> 
@@ -242,12 +244,15 @@ const MarkingComp = ({setdefualtassignment}) => {
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngStudentDropdown} > 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
 			{/* //maybe include array index somehow */}
-			{students?students.map((item,index) => <option key={index} value={[item[1]['SIS User ID'],index]}>{item[1]['SIS User ID']}</option>):'loading'}
+
+
+			{students?students.map((item,index) => <option key={index} value={item['SIS User ID']}>{item['SIS User ID']}</option>):'loading'}
 			
 			
-			{/* {students?students.map((item,index) => {console.log('ugh');console.log(item[1].ID)} ):'TEST'} */}
 
 			</Form.Select>
+			{/* {students.map((item,index) => {return <p>a{console.log(item['SIS User ID'])}</p>})} */}
+
 			<Button type="submit">OK</Button>
 		</Form>
 		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: {currentStudent}, {currentStudentIndex}</h1></span>
