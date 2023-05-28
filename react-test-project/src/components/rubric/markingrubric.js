@@ -11,6 +11,7 @@ var rubricABC = {
     "rubric": [
         {
             "questionName": "Tactics",
+						"questionDesc": " dsfakjhbgsdafjhfdskhajbdsfahjkdfsahkjdshfuykijahkjdsfahkj dfsakhjdsfakhjgds afkhjgdsfahjkgadsfhgkjdsfahgkjydsfagh kjydsfaghjkdsfagkjhdsfaghjkd sfagkjhdsafgjhkdfsaghkdfsghj kdsfghjkdsfa",
             "id": 0,
             "criterions": [
                 {
@@ -38,6 +39,7 @@ var rubricABC = {
         },
         {
             "questionName": "submitted",
+						"questionDesc": " dsfakjhbgsdafjhfdskhajbdsfahjkdfsahkjdshfuykijahkjdsfahkj dfsakhjdsfakhjgds afkhjgdsfahjkgadsfhgkjdsfahgkjydsfagh kjydsfaghjkdsfagkjhdsfaghjkd sfagkjhdsafgjhkdfsaghkdfsghj kdsfghjkdsfa",
             "id": 1,
             "criterions": [
                 {
@@ -262,6 +264,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				{rubric.map((question,index) => (
 					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
+						<h3>description: {question.questionDesc}</h3>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
 
