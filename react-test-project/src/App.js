@@ -16,7 +16,7 @@ import Download from "./components/pages/Download";
 import React from "react";
 function App() {
 
-  const [latestCSV, setCSVNAME] = React.useState('apples.csv');
+  const [latestCSV, setCSVNAME] = React.useState('CanvasExportExample.csv');
   const [chosenAssignment, setChosenAssignment] = React.useState('');
   const [latestRubric, setRubric] = React.useState('apples.csv');
 
