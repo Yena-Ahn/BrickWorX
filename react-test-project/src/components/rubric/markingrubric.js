@@ -83,8 +83,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [tempIndex, setTempIndex] = React.useState(0)
 
 	React.useEffect(() => {
-		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
-		  setlist(response.data[0]);
+		axios.get('/csvcolumns').then((response) => {
+		  setlist(response.data);
 		});
 	}, []);
 
@@ -129,9 +129,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 			//console.log('int ARR')
 			//console.log(grades_arr_int)
 			let sum_grade=grades_arr_int.reduce((partialSum, a) => partialSum + a, 0)
-			//let grade_percentage=(sum_grade/rubricGradeMax)*100
 			//console.log(sum_grade)
-			shallowCopy[currentStudentIndex][assignment]=100*sum_grade/rubricGradeMax();
+			shallowCopy[currentStudentIndex][1][assignment]=sum_grade.toString();
 			//console.log(shallowCopy)
 			setStudents(shallowCopy)
 		}else{
@@ -249,7 +248,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			{/* //maybe include array index somehow */}
 
 
-			{students?students.map((item,index) => <option key={index} value={[item['SIS User ID'],index]}>{item['SIS User ID']}</option>):'loading'}
+			{students?students.map((item,index) => <option key={index} value={item['SIS User ID']}>{item['SIS User ID']}</option>):'loading'}
 			
 			
 
