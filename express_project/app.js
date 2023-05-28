@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -12,6 +11,10 @@ const path = require('path')
 const csv = require('csv')
 const request = require('request');
 const AWS = require('aws-sdk');
+
+
+
+
 AWS.config.update({
   accessKeyId: 'AKIAZHFMAG6LSSEUDBOB',
   secretAccessKey: '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',
@@ -24,6 +27,9 @@ dotenv.config();
 
 const dbService = require("./dbService.js");
 const { get } = require("http");
+const { parse } = require("path");
+const { text } = require("body-parser");
+const e = require("express");
 const db = dbService.connection;
 const storageDir = './uploads/';
 
@@ -131,14 +137,25 @@ app.get('/s3JSON', function(req, res, next){
   try{ 
     url = "https://csvrubricbucket.s3.ap-southeast-2.amazonaws.com/rubrics/"
     fileName = req.query.fn
-    console.log(fileName)
-    var columns={}
+    //console.log(fileName)
     var parse = require('csv-parse');
-    var parser = parse.parse({columns: true}, function (err, records) {
-      rows=[...records];
-      console.log(Object.entries(rows));
-      console.log('////////////////////////////////////////////////////')
-      res.send(Object.entries(rows))
+    var parser = parse.parse({columns: true, cast: true, group_columns_by_name: true, info:true}, function (err, records) {
+      //console.log(records);
+      rows = [...records];
+      //console.log(Object.entries(rows)[0][1]["info"]["columns"]);
+      //console.log('////////////////////////////////////////////////////')
+      let new_rec = [];
+      let cols = [];
+      records[0]["info"]["columns"].forEach(col => {
+        cols.push(col["name"]);
+      })
+      new_rec.push(cols);
+      records.forEach(ele => {
+        new_rec.push(ele["record"]);
+      })
+      //console.log(new_rec);
+      //res.send(Object.entries(rows))
+      res.send(new_rec);
       //console.log(records);
     });
     request((url+fileName)).on('response', function(response) {
@@ -230,12 +247,100 @@ app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // fil
 })
 
 
-app.post('/jsonToCsv', async function(request, response) {
-  console.log('apples')
-  console.log(request.body);      // your JSON
-  response.send(request.body); 
-})
+// app.post('/jsonToCsv', async function(request, response) {
+//   var jsonList = request.body.testJson;
+//   console.log(jsonList);
+//   const { parse } = require('json2csv');
+//   var filename = request.query.filename;
+//   var file = fs.createWriteStream(__dirname+`/${filename}.csv`); 
+//   file.on('error', function(err) { console.log(err.message)});
+//   //const parser = new Parser({ quote: '' });
+//   jsonList.forEach(function(v) { 
+//     let rgx = /"/g;
+//     file.write(parse(v[1]).replace(rgx, '')); 
+//     console.log(parse(v[1]).replace(rgx, ''));
+//   });
+//   file.end();
+// })
 
+app.post('/jsonToCsv', async function(request, response) {
+  var additionalJson = request.body.testJson;
+  const fields = additionalJson[0];
+  var csv = fields.join(",") + "\n";
+  for (let i=1; i<additionalJson.length; i++){
+    let data = additionalJson[i];
+    var order = Array(fields.length).fill(null);
+    Object.keys(data).forEach(ele => {
+      let index = 0;
+      if (Array.isArray(data[ele])) {
+        let n = 0;
+        data[ele].forEach(value => {
+          index = fields.indexOf(ele, n);
+          order[index] = value;
+          n = index+1;
+        })
+      } else{
+        index = fields.indexOf(ele);
+        order[index] = data[ele];
+      }
+    })
+    csv += order.map(function(orderEle) {
+      if (typeof orderEle == "string" && orderEle.includes(",")) {
+        return '"' + orderEle + '"';
+      } else return orderEle;
+    }).join(",") + "\n";
+    
+  }
+  console.log(csv);
+
+  //var filename = request.query.fieldName; --> use this to get file name
+  var filename = "CanvasExportExample.csv"; // this is for checking if it saves s3 successfully. 
+  uploadParams = {Bucket: process.env.BUCKET_NAME, 
+    Key:"rubrics/" + filename, 
+    Body:csv};
+  s3.upload (uploadParams, function (err, data) {
+    if (err) {
+      console.log("Error", err);
+    } if (data) {
+      console.log("Upload Success", data.Location);
+    }
+  });
+});
+
+// app.post('modifyCsv', async function(req, res) {
+//   //var csvCols = Object.keys(req.body.testJson[0]);
+//   var csv = "Student,ID,SIS User ID,SIS Login ID,Section,Assignment One (4757),Assignment Two (4766),Assignments Current Score,Assignments Unposted Current Score,Assignments Final Score,Assignments Unposted Final Score,Final Exam Current Score,Final Exam Unposted Current Score,Final Exam Final Score,Final Exam Unposted Final Score,Assignments Current Score,Assignments Unposted Current Score,Assignments Final Score,Assignments Unposted Final Score,Current Score,Unposted Current Score,Final Score,Unposted Final Score,Current Grade,Unposted Current Grade,Final Grade,Unposted Final Grade\n";
+//   var testlJson = req.body.testJson;
+//   var filename = testlJson['csvFileName'];
+//   var assignment = testJson["assignment"];
+//   var marks = testJson["marks"]
+//   var { StreamParser } = require("json2csv");
+//   const parser = new StreamParser(opts, asyncOpts);
+//   parser.onData = (chunk) => (csv += chunk.toString());
+//   parser.onEnd = () => console.log(csv);
+//   parser.onError = (err) => console.error(err);
+//   marks.forEach(ele => {
+//     parser.parse(ele);
+//   })
+// });
+
+
+
+
+/*
+const jsonToCsv = (json) => {
+  var fields = Object.keys(json)
+  var replacer = function(key,value) { return value === null ? "" : value }
+  var csv = json.map(function(row) {
+    return fields.map(function(fieldName){
+      return JSON.stringify(row[fieldName], replacer)
+    }).join(",")
+  })
+  csv.unshift(fields.join(","))
+  csv = csv.join("\r\n");
+  return csv
+}
+*/
 
 
 app.post('/submit', async function(request, response) {
