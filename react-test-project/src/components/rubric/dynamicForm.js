@@ -24,12 +24,12 @@ const DynamicForm = ({setRubricSuper}) => {
 		{
 			questionName: "",
 			questionDesc: "",
-			id: 0,
+			id: uuidv4(),
 			criterions: [
 				{
 					body: "",
 					grade: 0,
-					id: 0,
+					id: uuidv4(),
 				},
 			],
 		},
@@ -76,12 +76,12 @@ const DynamicForm = ({setRubricSuper}) => {
 		_questionMembers.push({
 			questionName: "",
 			questionDesc: "",
-			id: rubric.slice(-1)[0].id+1,
+			id: uuidv4(),
 			criterions: [
 				{
 					body: "",
 					grade: 0,
-					id: 0,
+					id: uuidv4(),
 				},
 			],
 		})
@@ -97,7 +97,7 @@ const DynamicForm = ({setRubricSuper}) => {
 		_questionMembers[index].criterions.push({
 			body: "",
 			grade: 0,
-			id: thing[0].id+1,
+			id: uuidv4(),
 		})
 		console.log('_questionMembers[index].members')
 		console.log(thing[0])
