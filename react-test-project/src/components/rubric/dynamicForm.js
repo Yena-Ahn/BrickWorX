@@ -96,10 +96,10 @@ const DynamicForm = ({setRubricSuper}) => {
 		let thing = {..._questionMembers[index].criterions.slice(-1)}
 		_questionMembers[index].criterions.push({
 			body: "",
-			grade: 0,
+			grade: parseInt(thing[0].grade)+1,
 			id: uuidv4(),
 		})
-		console.log('_questionMembers[index].members')
+		console.log(thing[0].grade)
 		console.log(thing[0])
 		setRubricData(_questionMembers)
 	}
@@ -237,7 +237,7 @@ const DynamicForm = ({setRubricSuper}) => {
 											<input
 												name="grade"
 												type="number"
-												placeholder="0"
+												value={criterion.grade}
 												onChange={(e) =>
 													handleCriteriaInQuestionData(question.id, criterion.id, e)
 												}
