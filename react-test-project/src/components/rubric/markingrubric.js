@@ -83,8 +83,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [tempIndex, setTempIndex] = React.useState(0)
 
 	React.useEffect(() => {
-		axios.get('/csvcolumns').then((response) => {
-		  setlist(response.data);
+		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
+		  setlist(response.data[0]);
 		});
 	}, []);
 
