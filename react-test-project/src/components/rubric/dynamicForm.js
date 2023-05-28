@@ -205,7 +205,7 @@ const DynamicForm = ({setRubricSuper}) => {
 				{rubric.map((question,index) => (
 					<div className="row-section__inner shadow" key={question.id}>
 						<h2>Question {index+1}</h2>
-						{/*<p>&nbsp;</p>*/}
+						
 
 						
 							{/*<label htmlFor="questionName">Name of Question</label>*/}
@@ -215,8 +215,17 @@ const DynamicForm = ({setRubricSuper}) => {
 								placeholder="Name of Question"
 								type="text"
 								className="questionTitleStyle"
+								display="inline"
 							/>
-							<input name="questionDesc" placeholder="Question description" onChange={(e) => handleQuestionData(question.id, e)}/>
+							<h4>Question Description:</h4>
+							<textarea 
+								name="questionDesc" 
+								lines="2"
+								placeholder="Question Description" 
+								onChange={(e) => handleQuestionData(question.id, e)}
+								className="questionDescStyle"
+								onInput={(e) => setInputHeight(e, "100px")}
+							/>
 							<Table bordered className="rubricTable">
 								<thead className="rubricHead">
 									<tr>

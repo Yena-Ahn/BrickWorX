@@ -452,7 +452,7 @@ textarea, input{
 
 .sidebtn-delete{
   position:relative;
-  left:-9%;
+  left:-100px;
   top:-70px;
 }
 .createNewQuestionBtn{
@@ -501,3 +501,12 @@ hr {
   display:inline;
 }
 
+.questionDescStyle{
+  width:100%;
+  min-height:80px;
+}
+
+h4{
+  color:#00467F;
+  margin-top:10px;
+}
