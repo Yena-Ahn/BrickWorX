@@ -350,7 +350,7 @@ h2{
 }
 .form-row-marking{
   border: 1.5px solid #d1d7db;
-  border-radius:2px;
+  border-radius:5px !important;
 }
 .form-row-marking:hover{
   background-color:#b9edb9 !important;
