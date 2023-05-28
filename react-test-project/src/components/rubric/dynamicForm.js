@@ -103,21 +103,26 @@ const DynamicForm = ({setRubricSuper}) => {
 		console.log(thing[0])
 		setRubricData(_questionMembers)
 	}
-	// const insertCriteriaToQuestion = (questionID, insertAboveIndexID)=>{
-	// 	let data = [...cloneDeep(rubric)];
-	// 	let index = data.findIndex(question => question.id === questionID);
-	// 	let thing = {...data[index].criterions.slice(-1)}
-	// 	let criteriaIndex=data[index].criterions.findIndex(item => item.id === insertAboveIndexID)
-	// 	data[index].criterions=addAfter(data[index].criterions,criteriaIndex,
-	// 		{
-	// 					body: "insertTEST",
-	// 					grade: 0,
-	// 					id: thing[0].id+1,
-	// 		}
-	// 	)
-	// 	setRubricData(data)
-	// }
-	
+
+	// const insertAbove = (QuestionId, criteriaId) => {
+	// 	let rubricCopy = cloneDeep(rubric)
+	// 	const indexQ = rubricCopy.findIndex((question) => question.id === QuestionId)
+	// 	const indexC = rubricCopy[indexQ].criterions.findIndex((criterions) => criterions.id === criteriaId)
+	// 	console.log('INDEX QUESTION')
+	// 	console.log(indexQ)
+	// 	console.log('INDEX CRITERIONS')
+	// 	console.log(indexC)
+	// 	let thingssss=
+	// 	{
+	// 		body: "TESSTSSTSTST",
+	// 		grade: 0,
+	// 		id: uuidv4(),
+	// 	}
+
+	// 	rubricCopy[indexQ].criterions.splice(indexC, 0, thingssss);
+	// 	console.log(rubricCopy)
+	// 	setRubricData(rubricCopy)
+	// } 
 
 
 
@@ -263,6 +268,12 @@ const DynamicForm = ({setRubricSuper}) => {
 												<Button className='sidebtn-add'  size="lg"
 														variant="success" 
 														onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill/></Button>
+												
+												{/* insert above test button */}
+												{/* <Button className='btn'
+														variant="success" 
+														value={'apples'}
+														onClick={() => insertAbove(question.id,criterion.id)}><Icon.PlusCircleFill/></Button> */}
 											</div>
 									</div>
 
