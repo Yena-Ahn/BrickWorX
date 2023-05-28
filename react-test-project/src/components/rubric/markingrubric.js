@@ -83,8 +83,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [tempIndex, setTempIndex] = React.useState(0)
 
 	React.useEffect(() => {
-		axios.get('/csvcolumns').then((response) => {
-		  setlist(response.data);
+		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
+		  setlist(response.data[0]);
 		});
 	}, []);
 
@@ -129,8 +129,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 			//console.log('int ARR')
 			//console.log(grades_arr_int)
 			let sum_grade=grades_arr_int.reduce((partialSum, a) => partialSum + a, 0)
+			//let grade_percentage=(sum_grade/rubricGradeMax)*100
 			//console.log(sum_grade)
-			shallowCopy[currentStudentIndex][1][assignment]=sum_grade.toString();
+			shallowCopy[currentStudentIndex][assignment]=100*sum_grade/rubricGradeMax();
 			//console.log(shallowCopy)
 			setStudents(shallowCopy)
 		}else{
@@ -235,15 +236,13 @@ const MarkingComp = ({setdefualtassignment}) => {
     <div>
 		{console.log(students)}
 		{/* {JSON.stringify(assignmentList)} */}
-		
-		
 			<Row>
 				<Col>
 				<Form onSubmit={handleSubmit} display="inline">
 				<Form.Select 
 					onChange={chngAssignDropdown}> 
 				<option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
-				{assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
+				{assignmentList?assignmentList.map((item) => <option key={uuidv4()}} value={item}>{item}</option>):'loading'}
 				
 				</Form.Select>
 				</Form>
@@ -256,12 +255,13 @@ const MarkingComp = ({setdefualtassignment}) => {
 			<Row>
 				<Col>
 				<Form onSubmit={handleSubmitStudent} className="student-select">
+
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngStudentDropdown} > 
 			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
 			{/* //maybe include array index somehow */}
 
 
-			{students?students.map((item,index) => <option key={index} value={item['SIS User ID']}>{item['SIS User ID']}</option>):'loading'}
+			{students?students.map((item,index) => <option key={index} value={[item['SIS User ID'],index]}>{item['SIS User ID']}</option>):'loading'}
 			
 			
 
