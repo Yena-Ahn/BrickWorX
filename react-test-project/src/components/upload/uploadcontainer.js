@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
@@ -35,7 +36,7 @@ export default class FilesUploadComponent extends Component {
 
     render() {
         return (
-            <div className="container" style={{width:"650px"}}>
+            <div className="container shadow" style={{width:"650px"}}>
                 <div className="row">
                     
                     <Form onSubmit={this.onSubmit}>

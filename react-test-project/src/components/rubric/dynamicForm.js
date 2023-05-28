@@ -1,10 +1,11 @@
+
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
 import React, { /*useEffect */} from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
-import { Button, Table} from "react-bootstrap";
+import { Button, Table, Modal} from "react-bootstrap";
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -58,9 +59,11 @@ const DynamicForm = ({setRubricSuper}) => {
 		axios.post("/submit", {rubricName, rubric}, customConfig).then(response => {
 			console.log(response);
 			setRubricSuper[0]({rubricName, rubric})
+			/*this.setSuccessModalState ({isOpenSuccess: true })*/
 		}).catch(error => {
 			/*console.log("this is error", error);*/
 			console.log("this is error", error.response.data);
+			/*this.setErrorSaveModalState ({isOpenError: true})*/
 		});
 	}
 	
@@ -141,6 +144,12 @@ const DynamicForm = ({setRubricSuper}) => {
 		setRubricData(_questionMembers)
 	}
 
+	const setInputHeight =(element, defaultHeight) => {
+		const target = element.target ? element.target : element;
+		target.style.height = defaultHeight;
+		target.style.height = `${target.scrollHeight}px`;
+	}
+
 	const saveRubric = () => {
 		console.table(rubric)
 		//console.log(rubric)
@@ -173,20 +182,30 @@ const DynamicForm = ({setRubricSuper}) => {
 		console.log(rubricName)
 	}
 
+	function lastMemberCrit (question){
+		 return [...question.criterions.slice(-1)]
+	}
 
 	return (
+		
     <div>
-			<label htmlFor="rubric_name"><h1>Name of Rubric</h1></label>
-			<input name="rubric_name" onChange={(e) => handleNameChange(e)} type="text" placeholder="Rubric Name" className="rubricTitleStyle" style={{width:"250px"}}/>
-
+		<div className="rubricTitleStyle" style={{display:"center"}}>
+			<label htmlFor="rubric_name"><h2 style={{textAlign:"center", marginRight:"10px"}}>Name of Rubric</h2></label>
+			<input 
+				name="rubric_name" 
+				onChange={(e) => handleNameChange(e)} 
+				type="text" placeholder="Rubric Name" 
+				className="questionTitleStyle"
+				style={{fontSize:"26px"}}
+				/>
+		</div>
 			<div className="row-section">
-				
 				{rubric.map((question,index) => (
-					<div className="row-section__inner" key={question.id}>
+					<div className="row-section__inner shadow" key={question.id}>
 						<h2>Question {index+1}</h2>
 						{/*<p>&nbsp;</p>*/}
 
-						<div className="input-group">
+						
 							{/*<label htmlFor="questionName">Name of Question</label>*/}
 							<input
 								name="questionName"
@@ -195,74 +214,82 @@ const DynamicForm = ({setRubricSuper}) => {
 								type="text"
 								className="questionTitleStyle"
 							/>
-							<Table bordered style={{marginTop:"10px", marginBottom:"0px"}}>
-								<thead style={{textAlign:"center", backgroundColor:"#F2F2F2"}}>
+							<Table bordered className="rubricTable">
+								<thead className="rubricHead">
 									<tr>
-										<th style={{minWidth:"630px", }}><strong>Criteria</strong></th>
 										<th><strong>Mark</strong></th>
+										<th className="criteriaWidth"><strong>Criteria</strong></th>
 									</tr>
 								</thead>
-								<tbody></tbody>
+								<tbody>
+								</tbody>
 							</Table>
-							{/*<h3>criterions</h3>*/}
+							
 							{question.criterions.map((criterion) => (
+								
 								<div className="form-row" key={criterion.id}>
-									<div className="input-group">
-										{/*<label htmlFor="body">criteria</label>*/}
-										<textarea
-											name="body"
-											/*type="textarea"*/
-											rows="6"
-											placeholder="Enter criteria for this mark..."
-											
-											onChange={(e) =>
-												handleCriteriaInQuestionData(question.id, criterion.id, e)
-											}
-										/>
-									</div>
 									
-									<div className="sidebtn-group">
-										<Button className='sidebtn' variant ="outline-danger" onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill className="align-center"/></Button>
-										<div className="input-group">
+									<div className="creation-input-group">
 											{/*<label htmlFor="grade">Marks</label>*/}
 											<input
 												name="grade"
 												type="number"
 												placeholder="0"
-												
 												onChange={(e) =>
 													handleCriteriaInQuestionData(question.id, criterion.id, e)
 												}
-												style={{width:"65px", height:"65px", textAlign:"center"}}
+												className="markBoxStyle"
+												
 											/>
-										</div>
-									
 										
-										<Button className='sidebtn text-center' variant="outline-success" onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill /></Button>
+									
+										<textarea
+											name="body"
+											rows="3"
+											placeholder="Enter criteria for this mark..."
+											onChange={(e) =>
+												handleCriteriaInQuestionData(question.id, criterion.id, e)
+											}
+											onInput={(e) => setInputHeight(e, "100px")}
+											className="criteriaTextWidth"
+											style={{display:"inline"}}/>
+											<div className="sidebtn">
+												<Button className='sidebtn-delete' size="lg" 
+														variant ="outline-danger" 
+														onClick={() => removeCriterion(question.id,criterion.id)}><Icon.TrashFill/></Button>
+												<Button className='sidebtn-add'  size="lg"
+														variant="success" 
+														onClick={() => addCriteriaToQuestion(question.id)}><Icon.PlusCircleFill/></Button>
+											</div>
 									</div>
-									<hr></hr>
+
+									
+									
 								</div>
-							
+								
 							))}
 						
-						</div>
 						
-						<Button variant="danger" onClick={() => {removeQuestion(question.id)}}><Icon.X/> Delete Question</Button>
+						
+						<Button variant="danger" style={{marginTop:"5px"}} onClick={() => {removeQuestion(question.id)}} ><Icon.X/> Delete Question</Button>
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
 					</div>
 				))}
 				
-				<Button variant="outline-success" className='btn' 
+				<Button variant="success  text-left" size ="lg" className="createNewQuestionBtn text-left"
 					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br></br>
 				
 			</div>
-			<Button variant="outline-primary" onClick={axios_post} className="fixedbtn">
-					Save and Publish <Icon.FileEarmarkPostFill />
+			<Button variant="success" size="lg" onClick={axios_post} className="fixedbtn">
+			<Icon.FileEarmarkPostFill/><strong> Publish</strong> 
 				</Button>
 		</div>
 		
+		
 	)
+	
 }
 
 export default DynamicForm
+

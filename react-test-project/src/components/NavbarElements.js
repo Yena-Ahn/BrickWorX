@@ -1,3 +1,4 @@
+
 import { FaBars } from "react-icons/fa";
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,11 +8,14 @@ import styled from "styled-components";
 //
 //
 export const Nav = styled.nav`
+overflow: hidden;
+position: sticky;
+top: 0;
 background: #00467F;
-height: 85px;
+height: 60px;
 display: flex;
 justify-content: space-between;
-padding: 0.2rem calc((100vw - 1000px) / 2);
+padding: 0.05rem calc((100vw - 1000px) / 2);
 z-index: 12;
 `;
 
@@ -20,11 +24,54 @@ color: white;
 display: flex;
 align-items: center;
 text-decoration: none;
-padding: 0 1rem;
+padding: 0 1.9rem;
+margin: 0 0;
 height: 100%;
 cursor: pointer;
+justify-content: space-around;
+
+&.active:before {
+	position: absolute;
+	color: #00467F;
+	font-weight: bold;
+	text-decoration: underline;
+	content: ${({title}) => `"${title}"`};
+}
+
 &.active {
-	color: #009AC7;
+	color: #00467F;
+	background-color: #FFFFFF;
+	text-decoration: underline;
+
+	p {
+		visibility: hidden;
+	}
+}
+
+&:hover {
+	text-decoration: none;
+	background-color: #FFFFFF;
+	color: #00467F;
+
+	p {
+		visibility: hidden;
+	}
+}
+
+&:hover:before {
+	position: absolute;
+	color: #00467F;
+	font-weight: bold;
+	content: ${({title}) => `"${title}"`};
+}
+
+&:focus {
+	color: #00467F;
+}
+
+& p {
+	display: flex;
+	margin: auto;
 }
 `;
 
@@ -43,9 +90,11 @@ color: #808080;
 `;
 
 export const NavMenu = styled.div`
-display: flex;
-align-items: center;
-margin-right: -24px;
+display: inline-flex;
+justify-content: center;
+margin: 0 auto;
+/* margin-right: -130px; */
+/* margin-left: 30px; */
 /* Second Nav */
 /* margin-right: 24px; */
 /* Third Nav */
