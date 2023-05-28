@@ -264,7 +264,9 @@ app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // fil
 // })
 
 app.post('/jsonToCsv', async function(request, response) {
-  var additionalJson = request.body.testJson;
+  var additionalJson = request.body.students;
+  console.log('##############################################################')
+  console.log(additionalJson);
   const fields = additionalJson[0];
   var csv = fields.join(",") + "\n";
   for (let i=1; i<additionalJson.length; i++){
@@ -294,6 +296,8 @@ app.post('/jsonToCsv', async function(request, response) {
   console.log(csv);
 
   //var filename = request.query.fieldName; --> use this to get file name
+ 
+ 
   var filename = "CanvasExportExample.csv"; // this is for checking if it saves s3 successfully. 
   uploadParams = {Bucket: process.env.BUCKET_NAME, 
     Key:"rubrics/" + filename, 
@@ -305,6 +309,8 @@ app.post('/jsonToCsv', async function(request, response) {
       console.log("Upload Success", data.Location);
     }
   });
+
+
 });
 
 // app.post('modifyCsv', async function(req, res) {
