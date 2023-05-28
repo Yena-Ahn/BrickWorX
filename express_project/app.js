@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -11,10 +12,6 @@ const path = require('path')
 const csv = require('csv')
 const request = require('request');
 const AWS = require('aws-sdk');
-
-
-
-
 AWS.config.update({
   accessKeyId: 'AKIAZHFMAG6LSSEUDBOB',
   secretAccessKey: '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',
@@ -234,33 +231,11 @@ app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // fil
 
 
 app.post('/jsonToCsv', async function(request, response) {
-  var jsonList = request.body.testJson;
-  console.log(jsonList);
-  const { parse } = require('json2csv');
-  var filename = request.query.filename;
-  var file = fs.createWriteStream(__dirname+`/${filename}.csv`); 
-  file.on('error', function(err) { console.log(err.message)});
-  jsonList.forEach(function(v) { 
-    file.write(parse(v[1])); 
-    console.log(parse(v[1]));
-  });
-  file.end();
+  console.log('apples')
+  console.log(request.body);      // your JSON
+  response.send(request.body); 
 })
 
-/*
-const jsonToCsv = (json) => {
-  var fields = Object.keys(json)
-  var replacer = function(key,value) { return value === null ? "" : value }
-  var csv = json.map(function(row) {
-    return fields.map(function(fieldName){
-      return JSON.stringify(row[fieldName], replacer)
-    }).join(",")
-  })
-  csv.unshift(fields.join(","))
-  csv = csv.join("\r\n");
-  return csv
-}
-*/
 
 
 app.post('/submit', async function(request, response) {

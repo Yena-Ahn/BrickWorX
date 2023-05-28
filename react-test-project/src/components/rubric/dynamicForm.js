@@ -182,6 +182,9 @@ const DynamicForm = ({setRubricSuper}) => {
 		console.log(rubricName)
 	}
 
+	function lastMemberCrit (question){
+		 return [...question.criterions.slice(-1)]
+	}
 
 	return (
 		
@@ -197,7 +200,6 @@ const DynamicForm = ({setRubricSuper}) => {
 				/>
 		</div>
 			<div className="row-section">
-				
 				{rubric.map((question,index) => (
 					<div className="row-section__inner shadow" key={question.id}>
 						<h2>Question {index+1}</h2>
@@ -217,7 +219,6 @@ const DynamicForm = ({setRubricSuper}) => {
 									<tr>
 										<th><strong>Mark</strong></th>
 										<th className="criteriaWidth"><strong>Criteria</strong></th>
-										
 									</tr>
 								</thead>
 								<tbody>
@@ -234,7 +235,6 @@ const DynamicForm = ({setRubricSuper}) => {
 												name="grade"
 												type="number"
 												placeholder="0"
-												
 												onChange={(e) =>
 													handleCriteriaInQuestionData(question.id, criterion.id, e)
 												}
