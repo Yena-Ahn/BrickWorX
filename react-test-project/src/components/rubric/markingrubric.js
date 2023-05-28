@@ -307,5 +307,4 @@ const MarkingComp = ({setdefualtassignment}) => {
 		</div>
 	)
 }
-
 export default MarkingComp

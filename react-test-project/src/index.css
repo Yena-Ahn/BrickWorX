@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,22 +10,23 @@ body {
 }
 
 .container {
+
   max-width:80%;
+
   display: flex;
   margin: 20px auto;
   /* overflow: auto; */
+
   width:60%;
   min-height:200px;
   border: 1.5px solid #00467F;
   /*padding: 30px;*/
   border-radius: 4px;
+
   justify-content: center;
   flex-direction: column;
-  text-align:center;
-  background-color:#F2F2F2;
 
 }
-
 
 .box2 {
   
@@ -307,15 +309,18 @@ h2{
 }
 
 
+
 .input-group input, textarea{     
   padding:10px 10px;
   margin-top:10px;
 }
 
 .form-row button {
+
   padding:10px 10px;
   max-height: 40px;
   display:flex;
+
 }
 
 .row-section{
@@ -330,12 +335,13 @@ h2{
 
 
 .row-section__inner{
+
     border:1.5px solid #365262;
     border-radius: 15px;
     padding:20px;
     margin-bottom:20px;
     background-color:#F2F2F2;
-    
+
 }
 .row-section .form-row, .form-row-marking{
   margin-top:10px;
@@ -360,6 +366,7 @@ h2{
 .form-row-marking:active{
   background-color:#77d177 !important;
 }
+
 
 /*Upload page stuff*/
 .fileUpload{
@@ -421,6 +428,7 @@ textarea, input{
   width:89%;
 }
 
+
 .markBoxStyle{
   width:11%;
   height:100px;
@@ -441,6 +449,7 @@ textarea, input{
   margin-bottom:-40px;
   
 }
+
 .sidebtn-delete{
   position:relative;
   left:-9%;
@@ -460,6 +469,7 @@ textarea, input{
 }
 .fixedbtn:hover{
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
 }
 
 hr {  
@@ -490,3 +500,4 @@ hr {
 .assignment-select{
   display:inline;
 }
+
