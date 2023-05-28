@@ -348,9 +348,14 @@ h2{
   margin:auto;
   margin-top:5px;
 }
+.form-row-marking{
+  border: 1.5px solid #d1d7db;
+  border-radius:2px;
+}
 .form-row-marking:hover{
   background-color:#b9edb9 !important;
   cursor:pointer;
+  border:1.5px solid #77d177;
 }
 .form-row-marking:active{
   background-color:#77d177 !important;
