@@ -155,6 +155,14 @@ const MarkingComp = ({setdefualtassignment}) => {
 		//console.log("_________________")
 	}
 
+	const nextStudent = ()=>{
+		if(students[currentStudentIndex+1]){
+			setCurrentStudent(students[currentStudentIndex+1]['SIS User ID'])
+			setCurrentStudentIndex(currentStudentIndex+1)
+		}
+	}
+
+
 
 	const chngAssignDropdown = (e) => {
 		setAssignment(e.target.value)
@@ -310,6 +318,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 				</h1>
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					<strong>Submit Rubric Data</strong>
+				</Button>
+				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:20, width:200,bottom:100}}>
+					<strong>NEXT STUDENT</strong>
 				</Button>
 			</div>
 		</div>
