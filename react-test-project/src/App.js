@@ -43,7 +43,7 @@ function App() {
         <Route path='/Upload' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
         <Route path='/Create' element={<Create setRubricSuper={[updateRubric, latestRubric]}/>} />
         <Route path='/Mark' element={<Mark setdefualtassignment={[updateAssign, chosenAssignment, latestRubric]} />} />
-        <Route path='/Review' element={<Review/>} />
+        <Route path='/Review' element={<Review setdefualtassignment={[updateAssign, chosenAssignment, latestRubric]} />} />
         <Route path='/Download' element={<Download/>} />
     </Routes>
     </Router>

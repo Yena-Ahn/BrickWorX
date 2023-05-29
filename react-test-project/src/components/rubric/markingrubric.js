@@ -269,7 +269,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			{/* //maybe include array index somehow */}
 
 
-			{students?students.map((item,index) => <option key={index} value={[item['SIS User ID'],index]}>{item['SIS User ID']}</option>):'loading'}
+			{students?students.slice(2).map((item,index) => <option key={index} value={[item['SIS User ID'],index]}>{item['SIS User ID']}</option>):'loading'}
 			
 			
 
