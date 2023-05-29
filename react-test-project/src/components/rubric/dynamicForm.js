@@ -23,7 +23,9 @@ const DynamicForm = ({setRubricSuper}) => {
 	const [rubric, setRubricData] = React.useState([
 		{
 			questionName: "",
-			questionDesc: "",
+			questionDesc: "DEFAULT",
+			questionType: "",
+
 			id: uuidv4(),
 			criterions: [
 				{
