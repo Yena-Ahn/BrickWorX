@@ -16,23 +16,23 @@ var rubricABC = {
             "criterions": [
                 {
                     "body": "No attempt is made to provide tactics. None",
-                    "grade": "0",
+                    "grade": "-2",
                     "id": 0
                 },
                 {
                     "body": "They talk about something they call \"tactics\", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. \"load balancer\", \"cache\") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown",
-                    "grade": "1",
+                    "grade": "-1",
                     "id": 1
                 },
 				{
                     "body": "One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.",
-                    "grade": "2",
+                    "grade": "0",
                     "id": 2
                 }
 				,
 				{
                     "body": "Two recognisable tactics are provided and the justification is plausible.",
-                    "grade": "3",
+                    "grade": "1",
                     "id": 3
                 }
             ],
@@ -305,7 +305,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 							
 							{question.criterions.map((criterion,indexC) => (
 								<div className="form-row-marking" 
-									style={(parseInt(grades[index])>=parseInt(criterion.grade)&&grades[index]!=='')?{backgroundColor:'#90ee90', borderColor:"#77d177"}:{backgroundColor:'#e9ecef'}} 
+									style={((parseInt(grades[index])>=0&&(parseInt(grades[index])>=parseInt(criterion.grade)))&& grades[index]!=='')?{backgroundColor:'#90ee90', borderColor:"#77d177"}:(parseInt(grades[index])<0&&(parseInt(grades[index])<=parseInt(criterion.grade)&&parseInt(criterion.grade)<0))?{backgroundColor:'#90ee90', borderColor:"#77d177"}:{backgroundColor:'#e9ecef'}} 
 									onClick={() => gradeClick(indexC,index)} key={criterion.id}>
 									{console.log(criterion.grade)}
 									{console.log(grades[index]>=criterion.grade&&grades[index]!=='')}
