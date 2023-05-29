@@ -221,7 +221,16 @@ const DynamicForm = ({setRubricSuper}) => {
 								type="text"
 								className="questionTitleStyle"
 							/>
-							<input name="questionDesc" placeholder="Question description" onChange={(e) => handleQuestionData(question.id, e)}/>
+							<h4>Question Description:</h4>
+							<textarea 
+								name="questionDesc" 
+								lines="2"
+								placeholder="Question Description" 
+								onChange={(e) => handleQuestionData(question.id, e)}
+								className="questionDescStyle"
+								onInput={(e) => setInputHeight(e, "100px")}
+							/>
+							
 							<Table bordered className="rubricTable">
 								<thead className="rubricHead">
 									<tr>
