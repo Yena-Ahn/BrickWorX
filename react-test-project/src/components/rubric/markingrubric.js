@@ -81,6 +81,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
 	const [tempStudent, setTempStudent] = React.useState('select a student')
 	const [tempIndex, setTempIndex] = React.useState(0)
+	//what not to reset on next student array of grade indexes
+	const [DefaultGrades, setDefaultGrades] = React.useState([])
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -310,6 +312,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 								
 						</div>
 						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
+						<Button className='btn btn-warning' size="lg" onClick={() => gradeZero(index)}>Set Mark as Default</Button>
 
 					</div>
 				))}
