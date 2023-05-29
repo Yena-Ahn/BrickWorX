@@ -103,7 +103,11 @@ const MarkingComp = ({setdefualtassignment}) => {
     }
 	};
 
-
+	const setInputHeight =(element, defaultHeight) => {
+		const target = element.target ? element.target : element;
+		target.style.height = defaultHeight;
+		target.style.height = `${target.scrollHeight}px`;
+	}
 
 	//needs to be changed
 	// const axios_post = ()=>{
@@ -296,7 +300,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 									{/*grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}*/}
 									{/* grade doesn not equal nothing:{valueOf(grades[index]!=='')} */}
 										<div className='markBoxStyle2'>{criterion.grade}</div>
-										<div className="box2">{criterion.body}</div>
+										<div
+											className="box2"
+											
+											disabled>{criterion.body}</div>
 		
 								</div>
 							))}
