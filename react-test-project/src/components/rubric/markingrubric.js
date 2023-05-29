@@ -119,6 +119,7 @@ However they may want to discuss other tactics even though they may not be direc
         },
 				{
 					"questionName": "Overall",
+					"questionType": "BONUS",
 					"questionDesc": `Use this to adjust the mark that comes from the components (under Raw column in spreadsheet). For example, if you feel the result is a little harsh than you can adjust up or if you feel there are problems with the submission not covered by the guide (e.g., poor grammar, spelling errors, general carelessness) you can adjust down. The adjustments can be up to 2 marks up or down. I hope that this will not be used much. Let me know if you find there is a common pattern to why you need to adjust the mark.
 I can't predict what might apply here so have no suggested phrases.`,
 					"id": 3,
@@ -311,7 +312,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 	}
 
 	const rubricGradeMax = ()=>{
-		return rubric.map((question,index) => {return question.criterions.slice(-1)[0].grade}).map(function(str) {return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)
+		return rubric.map((question,index) => {if(question.questionType&&question.questionType==="BONUS"){return 0} else {return question.criterions.slice(-1)[0].grade}}).map(function(str){return parseInt(str); }).reduce((partialSum, a) => partialSum + a, 0)
 	}
 	const gradeClick = (indexCrit,indexQuest)=>{
 		let mark = rubric[indexQuest].criterions[indexCrit].grade
