@@ -271,7 +271,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 				{rubric.map((question,index) => (
 					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
-						<h3>description: {question.questionDesc}</h3>
+						<h4>Question Description: </h4> 
+						<textarea className="questionDescStyle" value={question.questionDesc} disabled/>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
 
