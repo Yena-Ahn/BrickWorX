@@ -144,7 +144,7 @@ const MarkReview = ({setdefualtassignment}) => {
 				<Table bordered className="rubricTable">
 				<div className="row-section__marked ">
 					<tr wd><th>Student ID</th><th>Marked?</th><th>Score</th></tr>
-						{students.slice(2).map((item,index) => {return <tr> 
+						{students.map((item,index) => {return <tr> 
 							<th>{item['SIS User ID']}</th> 
 							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th><Badge bg="success">Yes</Badge>{' '}</th> : <th><Badge bg="danger">No</Badge>{' '}</th>}
 							<th>{(item[assignment])}</th>
