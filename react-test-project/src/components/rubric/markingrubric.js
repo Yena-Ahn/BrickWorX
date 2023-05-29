@@ -82,7 +82,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [tempStudent, setTempStudent] = React.useState('select a student')
 	const [tempIndex, setTempIndex] = React.useState(0)
 	//what not to reset on next student array of grade indexes
-	const [DefaultGrades, setDefaultGrades] = React.useState([])
+	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -162,6 +162,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 			setCurrentStudent(students[currentStudentIndex+1]['SIS User ID'])
 			setCurrentStudentIndex(currentStudentIndex+1)
 		}
+		// let thing=grades.map((item,index)=>{
+		// 	if(!(DefaultGrades.includes(index))){
+		// 		return ''
+		// 	}
+		// })
+		setGrades(DefaultGrades)
 	}
 
 
@@ -231,6 +237,14 @@ const MarkingComp = ({setdefualtassignment}) => {
 		//console.log(mark)
 		grades_shallow[indexQuest]=mark
 		setGrades(grades_shallow)
+	}
+
+	const setDefaultMark = (index)=>{
+		let arr=DefaultGrades
+		arr[index]=grades[index]
+		setDefaultGrades(arr)
+		console.log('default mark:')
+		console.log(DefaultGrades)
 	}
 
 
@@ -308,12 +322,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 						</div>
 						<div className="rubricItem">
 								<h2>Total Marks:{"\n"}</h2>
-								<input style={{textAlign:"center", fontSize:"25px"}} key={index+10} value={grades[index]} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
+								<input style={{textAlign:"center", fontSize:"25px"}} key={index+10} value={grades[index]||''} max={question.criterions.slice(-1)[0].grade} min={0} type="number" onChange={(e) => handleQuestionData(question.id, e)}></input>
 								<h1>/{question.criterions.slice(-1)[0].grade}</h1>
 								
 						</div>
 						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
-						<Button className='btn btn-warning' size="lg" onClick={() => gradeZero(index)}>Set Mark as Default</Button>
+						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultMark(index)}>Set Mark as Default</Button>
 
 					</div>
 				))}
