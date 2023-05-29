@@ -317,7 +317,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				{rubricGradeMax()}
 				</h1>
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
-					<strong>Submit Rubric Data</strong>
+					<strong>Submit Grade</strong>
 				</Button>
 				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:20, width:200,bottom:100}}>
 					<strong>NEXT STUDENT</strong>
