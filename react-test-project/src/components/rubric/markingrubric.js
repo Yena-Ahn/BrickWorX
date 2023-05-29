@@ -96,11 +96,6 @@ const MarkingComp = ({setdefualtassignment}) => {
 		});
 	}, []);
 
-    const sumGrade = (questionID)=>{
-        let sum = 0;
-        //stubb
-        return sum;
-    }
 
 	let customConfig = {
     headers: {
@@ -129,6 +124,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			//console.log('int ARR')
 			//console.log(grades_arr_int)
 			let sum_grade=grades_arr_int.reduce((partialSum, a) => partialSum + a, 0)
+			if(sum_grade<0){sum_grade=0}
 			//let grade_percentage=(sum_grade/rubricGradeMax)*100
 			//console.log(sum_grade)
 			shallowCopy[currentStudentIndex][assignment]=100*sum_grade/rubricGradeMax();
@@ -245,7 +241,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		</Form>
 		<Form onSubmit={handleSubmitStudent} className="student-select">
 			<Form.Select style={{whiteSpace:"pre-line", width:"250px"}} onChange={chngStudentDropdown} > 
-			<option value="⬇️ Select student ⬇️"> -- Select student -- </option>
+			<option value={"⬇️ Select student ⬇️"}> -- Select student -- </option>
 			{/* //maybe include array index somehow */}
 
 
