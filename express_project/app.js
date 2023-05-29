@@ -14,16 +14,15 @@ const AWS = require('aws-sdk');
 
 
 
-
+dotenv.config();
 AWS.config.update({
-  accessKeyId: 'AKIAZHFMAG6LSSEUDBOB',
-  secretAccessKey: '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',
+  accessKeyId: process.env.ACCESS_KEY, //'AKIAZHFMAG6LSSEUDBOB',
+  secretAccessKey: process.env.SECRET_KEY, //'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',
   apiVersion: '2006-03-01', 
   signatureVersion: "v3"
 });
 
 var s3 = new AWS.S3();
-dotenv.config();
 
 const dbService = require("./dbService.js");
 const { get } = require("http");
