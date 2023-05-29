@@ -301,7 +301,8 @@ app.post('/jsonToCsv', async function(request, response) {
   var filename = "CanvasExportExample.csv"; // this is for checking if it saves s3 successfully. 
   uploadParams = {Bucket: process.env.BUCKET_NAME, 
     Key:"rubrics/" + filename, 
-    Body:csv};
+    Body:csv,
+    ContentType: 'text/csv'}
   s3.upload (uploadParams, function (err, data) {
     if (err) {
       console.log("Error", err);
