@@ -274,7 +274,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						<h4>Question Description: </h4> 
-						<textarea className="questionDescStyle" value={question.questionDesc} disabled/>
+						<div className="questionDescStyle2" 
+							style={{ backgroundColor:'#90ee90', borderColor:"#77d177", borderRadius:"4px"}}>{question.questionDesc}</div>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
 
@@ -303,7 +304,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 										<div
 											className="box2"
 											
-											disabled value={criterion.body}
+											
 											style={{whiteSpace:"pre-wrap"}}>{criterion.body}</div>
 		
 								</div>

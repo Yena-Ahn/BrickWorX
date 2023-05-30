@@ -38,6 +38,7 @@ body {
   width:89%;
   float:left;
   margin-left:10px;
+  word-wrap:break-word;
   
 }
 
@@ -504,7 +505,12 @@ hr {
 
 .questionDescStyle{
   width:100%;
-  min-height:150px;
   color: #333333;
   background-color: white;
+}
+.questionDescStyle2{
+  padding:10px;
+  padding-left:15px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
