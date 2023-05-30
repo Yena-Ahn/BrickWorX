@@ -511,6 +511,11 @@ hr {
 
 /* Feedback box styling and feedback default button */
 
+.feedback_border {
+  vertical-align: right;
+  float: right;  
+}
+
 .feedback_box {
   width: 83%;
   height: 55px;
