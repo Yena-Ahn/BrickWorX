@@ -113,7 +113,7 @@ However they may want to discuss other tactics even though they may not be direc
 							{
 								"body": `Two recognisable tactics are provided and the justification is plausible.`,
 								"grade": "3",
-								"id": 1
+								"id": 3
 						},
             ],
         },
@@ -170,6 +170,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
   const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
+	const [feedback, setFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
+
 	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
@@ -180,6 +182,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [tempIndex, setTempIndex] = React.useState(0)
 	//what not to reset on next student array of grade indexes
 	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
+	const [DefaultFeedback, setDefaultFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
+
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -238,7 +242,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const testpost = ()=>{
 		updateStudentGrade()
-		axios.post("http://localhost:3001/jsonToCsv",  {students}, customConfig).then(response => {
+		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
+
+
+
+		axios.post("http://localhost:3001/jsonToCsv",  {students, grades_feedback}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -259,6 +267,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			setCurrentStudent(students[currentStudentIndex+1]['SIS User ID'])
 			setCurrentStudentIndex(currentStudentIndex+1)
 		}
+		setFeedback(DefaultFeedback)
 		setGrades(DefaultGrades)
 	}
 	const prevStudent = ()=>{
@@ -266,6 +275,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			setCurrentStudent(students[currentStudentIndex-1]['SIS User ID'])
 			setCurrentStudentIndex(currentStudentIndex-1)
 		}
+		setFeedback(DefaultFeedback)
 		setGrades(DefaultGrades)
 	}
 
@@ -309,6 +319,18 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('TEST GRADES STORED')
 		console.log(updatedgrade)
 		setGrades(updatedgrade)
+	}
+
+	const handleFeedbackData = (
+		id,
+		event,
+	) => {
+		const index = rubric.findIndex((question) => question.id === id)
+		let updatedfeedback = [...feedback]
+		updatedfeedback[index]= event.target.value
+		console.log('TEST feedback STORED')
+		console.log(updatedfeedback)
+		setFeedback(updatedfeedback)
 	}
 
 	const rubricGradeMax = ()=>{
@@ -382,6 +404,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 			
 			<div className="row-section">
 				{rubric.map((question,index) => (
+				<div key={(index+1)*42}>
+
 					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						<h4>Question Description: </h4> 
@@ -427,8 +451,14 @@ const MarkingComp = ({setdefualtassignment}) => {
 						</div>
 						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
 						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultMark(index)}>Set Mark as Default</Button>
-
+						
 					</div>
+					{/* issues deal with later */}
+					<div className="row-section__inner shadow" key={(index+1)*69}>
+						<textarea value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)}/>
+					</div>
+					</div>
+					
 				))}
 				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)<0?0:grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
@@ -442,6 +472,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 					<strong>NEXT STUDENT</strong>
 				</Button>
 			</div>
+			
 		</div>
 	)
 }

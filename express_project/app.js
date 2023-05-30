@@ -264,6 +264,7 @@ app.post('/uploadFileAPI', uploads3.single('file'), (req, res, next) => { // fil
 
 app.post('/jsonToCsv', async function(request, response) {
   var additionalJson = request.body.students;
+  console.log(request.body.grades_feedback)
   console.log('##############################################################')
   console.log(additionalJson);
   const fields = additionalJson[0];
