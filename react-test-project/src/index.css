@@ -512,11 +512,12 @@ hr {
 /* Feedback box styling and feedback default button */
 
 .feedback_box {
-  width: 80%;
+  width: 83%;
   height: 55px;
 
 }
 
 .feedback_default {
-  margin: 50 0;
+  margin-bottom: 45px ;
+  margin-left: 10px;
 }
