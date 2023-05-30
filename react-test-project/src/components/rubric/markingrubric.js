@@ -463,8 +463,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 					</div>
 					{/* issues deal with later */}
 					<div className="row-section__inner shadow" key={(index+1)*69}>
-						<textarea value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)}/>
-						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultComments(index)}>Set feedback as default</Button>
+						<textarea className="feedback_box" value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)}/>
+						<Button className='btn btn-warning feedback_default' size="lg" onClick={() => setDefaultComments(index)}>Set feedback as default</Button>
 					</div>
 					</div>
 					
