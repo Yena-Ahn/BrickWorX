@@ -275,7 +275,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 						<h2>Question {index+1}: {question.questionName}</h2>
 						<h4>Question Description: </h4> 
 						<div className="questionDescStyle2" 
-							style={{ backgroundColor:'#90ee90', borderColor:"#77d177", borderRadius:"4px"}}>{question.questionDesc}</div>
+							style={(grades[index]===0||grades[index]) ? {backgroundColor:'#90ee90', borderColor:"#77d177"}:{backgroundColor:'#e9ecef'}} >{question.questionDesc}</div>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
 
