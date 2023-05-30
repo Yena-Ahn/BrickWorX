@@ -7,49 +7,146 @@ import {Button, Table, Form} from 'react-bootstrap'
 
 
 var rubricABC = {
-    "rubricName": "rubric",
-    "rubric": [
-        {
-            "questionName": "Tactics",
-						"questionDesc": " dsfakjhbgsdafjhfdskhajbdsfahjkdfsahkjdshfuykijahkjdsfahkj dfsakhjdsfakhjgds afkhjgdsfahjkgadsfhgkjdsfahgkjydsfagh kjydsfaghjkdsfagkjhdsfaghjkd sfagkjhdsafgjhkdfsaghkdfsghj kdsfghjkdsfa",
-            "id": 0,
-            "criterions": [
-                {
-                    "body": "No attempt is made to provide tactics. None",
-                    "grade": "0",
-                    "id": 0
-                },
-                {
-                    "body": "They talk about something they call \"tactics\", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. \"load balancer\", \"cache\") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown",
-                    "grade": "1",
-                    "id": 1
-                },
+	"rubricName": "rubric",
+	"rubric": [
+			{
+					"questionName": "Architecture Description",
+					"questionDesc": "Each category is indicative. You can adjust up or down as needed but provide feedback in this case.",
+					"id": 0,
+					"criterions": [
+							{
+									"body": "No description of architecture (this seems unlikely but is provided for completeness). None",
+									"grade": "0",
+									"id": 0
+							},
+							{
+									"body": "There is at an attempt at one structure description, even if it is poorly done. Poor",
+									"grade": "1",
+									"id": 1
+							},
+			{
+									"body": "At least one of Module, Concurrency, or Deployment structure descriptions are missing, and some of the descriptions have problems (inadequate legends, missing details, significantly incorrect details). Service can be substituted for Concurrency. Incomplete and poor, incorrect (1 or more as applicable)",
+									"grade": "3",
+									"id": 2
+							}
+			,
+			{
+									"body": 
+									`One of the following applies:
+At least one of Module, Concurrency, or Deployment structure descriptions are missing (but see Functionality note below), but the descriptions provided are adequate. Service can be substituted for Concurrency.
+Incomplete
+									
+All of Module, Concurrency/Service, or Deployment structure descriptions are provided, but more than one of the descriptions have problems (inadequate or wrong legends, missing details).
+Poor, Legends, Details (1 or more as applicable)
+									
+There is no indication of where the functionality is provided. As discussed above if they have adequately described the functionality somewhere else, then they only need Deployment. This is for when they have not done so.
+Functionality
+									
+Notes:
+See also below if the submission has in addition Service or Decomposition descriptions.`,
+									"grade": "5",
+									"id": 3
+							},
 				{
-                    "body": "One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.",
-                    "grade": "2",
-                    "id": 2
-                }
-				,
+									"body": `One of the following applies
+
+All of Module, Concurrency, or Deployment structure descriptions are provided, but at most one of the descriptions have problems (inadequate legends, missing details).
+Poor, Legends, Details (1 or more as applicable)
+
+Does not meet the above requirements but does include in addition Decomposition and/or Service.
+Poor, Legends, Details (1 or more as applicable)
+
+If the submission does meet the above requirements and also includes at least one of Decomposition and Service then consider adding a mark.`,
+									"grade": "7",
+									"id": 4
+							},
 				{
-                    "body": "Two recognisable tactics are provided and the justification is plausible.",
-                    "grade": "3",
-                    "id": 3
-                }
-            ],
-        },
-        {
-            "questionName": "submitted",
-						"questionDesc": " dsfakjhbgsdafjhfdskhajbdsfahjkdfsahkjdshfuykijahkjdsfahkj dfsakhjdsfakhjgds afkhjgdsfahjkgadsfhgkjdsfahgkjydsfagh kjydsfaghjkdsfagkjhdsfaghjkd sfagkjhdsafgjhkdfsaghkdfsghj kdsfghjkdsfa",
-            "id": 1,
-            "criterions": [
-                {
-                    "body": "yes or no",
-                    "grade": "1",
-                    "id": 0
-                }
-            ],
-        }
-    ]
+								"body": "It is not clear whether or not there is physical separation (different geographic locations) of the servers. Location",
+								"grade": "9",
+								"id": 5
+							},
+							{
+								"body": "All of the expected structures are reasonably well described. Service cannot be substituted for concurrency. Definitely do not give this mark if there are problems with missing legends or other issues with the description no matter how well everything else is done.",
+								"grade": "10",
+								"id": 6
+							},
+
+					],
+			},
+			{
+					"questionName": "Tactics",
+					"questionDesc": `They are meant to discuss at least two tactics. The tactics they discuss are supposed to be not associated with the pattern they chose.
+
+As they are meant to be focussing on performance, they should be talking about performance tactics, namely (the bold ones are the easiest to justify):
+					
+increase computational efficiency
+reduce computational overhead
+manage event rate
+control frequency of sampling
+bound execution times
+bound queue sizes
+introduce concurrency
+maintain multiple copies of either data or computations
+increase available resources
+first-in/first-out
+fixed-priority (semantic importance, deadline importance, rate monotonic)
+dynamic priority (round robin, earliest deadline first)
+cyclic executive (static)
+However they may want to discuss other tactics even though they may not be directly useful for performance. A full list is given at the end.`,
+					"id": 1,
+					"criterions": [
+							{
+									"body": "No attempt is made to provide tactics. None",
+									"grade": "0",
+									"id": 0
+							},
+							{
+								"body": `They talk about something they call "tactics", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. "load balancer", "cache") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown`,
+								"grade": "1",
+								"id": 1
+						},
+						{
+							"body": `One of Recognisable tactics are listed but no justification given. Justification One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient`,
+							"grade": "2",
+							"id": 2
+						},
+						{
+							"body": `Two recognisable tactics are provided and the justification is plausible.`,
+							"grade": "3",
+							"id": 3
+					},
+					],
+			},
+			{
+				"questionName": "Overall",
+				"questionType": "BONUS",
+				"questionDesc": `Use this to adjust the mark that comes from the components (under Raw column in spreadsheet). For example, if you feel the result is a little harsh than you can adjust up or if you feel there are problems with the submission not covered by the guide (e.g., poor grammar, spelling errors, general carelessness) you can adjust down. The adjustments can be up to 2 marks up or down. I hope that this will not be used much. Let me know if you find there is a common pattern to why you need to adjust the mark.
+I can't predict what might apply here so have no suggested phrases.`,
+				"id": 3,
+				"criterions": [
+				{
+					"body": "Significant problems with the submission not covered by the marking guide. An example is I have noticed that some have included copies of figures from my lecture slides. If they do not credit these slides then this is questionable academic integrity.",
+					"grade": "-2",
+					"id": 0
+				},
+				{
+					"body": `Problems with the submission not covered by the marking guide so that the Raw mark is too generous.
+An example is if they frequently use the terminology incorrectly (or don't use it at all). An example I've noticed is referring to a "Component-and-connector structure" or "Allocation structure". These are both categories of structures.`,
+					"grade": "-1",
+					"id": 1
+				},
+				{
+					"body": `The Raw mark is lower than what the submission deserves.`,
+					"grade": "1",
+					"id": 2
+				},
+				{
+					"body": `The Raw mark is much lower than what the submission deserves.`,
+					"grade": "2",
+					"id": 3
+				},
+				]}
+			]
 }
 
 
