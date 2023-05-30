@@ -303,7 +303,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 										<div
 											className="box2"
 											
-											disabled>{criterion.body}</div>
+											disabled value={criterion.body}
+											style={{whiteSpace:"pre-wrap"}}>{criterion.body}</div>
 		
 								</div>
 							))}
