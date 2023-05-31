@@ -325,7 +325,7 @@ h2{
 
 .row-section{
     /*margin-top:40px;*/
-    width:80%;
+    width:55%;
     margin:auto;
 }
 .row-section  h3{
@@ -335,12 +335,12 @@ h2{
 
 
 .row-section__inner{
-
-    border:1.5px solid #365262;
-    border-radius: 15px;
-    padding:20px;
-    margin-bottom:20px;
-    background-color:#F2F2F2;
+  display:inline-block;
+  border:1.5px solid #365262;
+  border-radius: 15px;
+  padding:20px;
+  margin-bottom:20px;
+  background-color:#F2F2F2;
 
 }
 .row-section .form-row, .form-row-marking{
@@ -512,14 +512,17 @@ hr {
 /* Feedback box styling and feedback default button */
 
 .feedback_border {
-  vertical-align: right;
-  float: right;  
+  display: inline-block;
+  width: 35%;
+  padding: 30;
+  float: right;
+  
 }
 
 .feedback_box {
   width: 83%;
   height: 55px;
-
+  text-align: left !important;
 }
 
 .feedback_default {
