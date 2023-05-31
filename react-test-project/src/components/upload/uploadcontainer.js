@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
 import { Button, Form, Modal} from "react-bootstrap";
 import uploadModal from './uploadmodal.js';
+
 export default class FilesUploadComponent extends Component {
    
     constructor(props) {
@@ -12,7 +13,7 @@ export default class FilesUploadComponent extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             filecsv: '',
-            showModal: false
+            showModal: false,
         }
         
         console.log(props.change)
@@ -66,8 +67,6 @@ export default class FilesUploadComponent extends Component {
                         </div>
                     </Form>
                     <uploadModal></uploadModal>
-                    
-                    <dialog>here's a dialog</dialog>
                 </div>
             </div>
         )
