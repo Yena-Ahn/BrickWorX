@@ -4,7 +4,7 @@ import React, { useEffect } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {Button, Table, Form} from 'react-bootstrap'
-
+import submitModal from './submitmodal.js';
 
 var rubricABC = {
 	"rubricName": "rubric",
@@ -426,10 +426,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					<strong>Submit Grade</strong>
 				</Button>
+				{this.state.showModal ? <submitModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}
 				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:20, width:200,bottom:100}}>
 					<strong>NEXT STUDENT</strong>
 				</Button>
 			</div>
+			
 		</div>
 	)
 }

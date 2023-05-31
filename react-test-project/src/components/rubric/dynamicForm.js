@@ -6,6 +6,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
 import { Button, Table, Modal} from "react-bootstrap";
+import publishModal from './publishmodal.js';
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -307,6 +308,7 @@ const DynamicForm = ({setRubricSuper}) => {
 			<Button variant="success" size="lg" onClick={axios_post} className="fixedbtn">
 			<Icon.FileEarmarkPostFill/><strong> Publish</strong> 
 				</Button>
+			{this.state.showModal ? <publishModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}
 		</div>
 		
 		
