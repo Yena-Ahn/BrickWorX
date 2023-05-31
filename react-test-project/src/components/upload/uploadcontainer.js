@@ -2,25 +2,32 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
-import { Button, Form} from "react-bootstrap";
+import { Button, Form, Modal} from "react-bootstrap";
+import uploadModal from './uploadmodal.js';
 export default class FilesUploadComponent extends Component {
+   
     constructor(props) {
         super(props);
         this.onFileChange = this.onFileChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            filecsv: ''
+            filecsv: '',
+            showModal: false
         }
+        
         console.log(props.change)
         //props.change[0]('fruit.csv')
         //console.log(props.change)
         this.updateCSV=props.change[0]
+        const openModal = () => this.setState({ showModal: true });
 
+        const closeModal = () => this.setState({ showModal: false});
     }
     onFileChange(e) {
         this.setState({ filecsv: e.target.files[0] })
     }
     onSubmit(e) {
+        
         console.log(this.state.filecsv.name)
         e.preventDefault()
         const formData = new FormData()
@@ -32,10 +39,14 @@ export default class FilesUploadComponent extends Component {
             this.updateCSV(this.state.filecsv.name)
           }
         })
+
+        
     }
 
     render() {
+        
         return (
+            
             <div className="container shadow" style={{width:"650px"}}>
                 <div className="row">
                     
@@ -49,11 +60,17 @@ export default class FilesUploadComponent extends Component {
                             </Form.Group>
                         </div>
                         <div className="form-group">
-                            <Button type="submit"><Icon.Upload/> Upload</Button>
+                            <Button type="submit"  onClick={this.openModal}><Icon.Upload/> Upload</Button>
+                            
+                  <uploadModal closeModal={this.closeModal} isOpen={this.state.showModal}/>
                         </div>
                     </Form>
+                    <uploadModal></uploadModal>
+                    
+                    <dialog>here's a dialog</dialog>
                 </div>
             </div>
         )
     }
+    
 }

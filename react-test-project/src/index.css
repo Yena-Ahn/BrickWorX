@@ -26,7 +26,6 @@ body {
 }
 
 .box2 {
-  
   min-height:85px;
   text-align:left;
   padding-top:5px;
@@ -36,7 +35,6 @@ body {
   float:left;
   margin-left:10px;
   word-wrap:break-word;
-  
 }
 
 .rubricItem {
