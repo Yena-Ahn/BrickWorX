@@ -66,14 +66,14 @@ export default class FilesUploadComponent extends Component {
                             </Form.Group>
                         </div>
                         <div className="form-group">
-                            
+                            <Button type="submit"><Icon.Upload/>Upload</Button>
                             {/*<Button type="submit"  onClick={this.openModal}><Icon.Upload/> Upload</Button>*/}
                             {/*<uploadModal closeModal={this.closeModal} isOpen={this.state.showModal}/>*/}
                         </div>
                     </Form>
 
                 </div>
-                
+                {this.state.showModal ? <UploadModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}
             </div>
         )
     }
