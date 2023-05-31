@@ -243,11 +243,35 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const testpost = ()=>{
 		updateStudentGrade()
-		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
+		//let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
 
+		let grades_feedback = {assignment: 'Assignment One (4757)', questionNum: 3, data: [{
+			student: 'tstu999',
+			grades: [ '1', '3', '1' ],
+			feedback: [ '', '', '' ]
+		  },{
+			student: 'pota999',
+			grades: [ '1', '3', '1' ],
+			feedback: [ '', '', '' ]
+		  },{
+			student: 'abcd300',
+			grades: [ '1', '3', '1' ],
+			feedback: [ '', '', '' ]
+		  },{
+			student: 'hmhm400',
+			grades: [ '1', '3', '1' ],
+			feedback: [ '', '', '' ]
+		  },{
+			student: 'dsda787',
+			grades: [ '1', '3', '1' ],
+			feedback: [ '', '', '' ]
+		  },{
+			student: 'adsm787',
+			grades: [ '1', '3', '1' ],
+			feedback: [ '', '', '' ]
+		  }]};
 
-
-		axios.post("http://localhost:3001/jsonToCsv",  {students, grades_feedback}, customConfig).then(response => {
+		axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
