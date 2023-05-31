@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
 import { Button, Form, Modal} from "react-bootstrap";
-import uploadModal from './uploadmodal.js';
+import UploadModal from './uploadmodal.js';
 
 export default class FilesUploadComponent extends Component {
    
@@ -14,32 +14,37 @@ export default class FilesUploadComponent extends Component {
         this.state = {
             filecsv: '',
             showModal: false,
-        }
+        };
         
-        console.log(props.change)
+        //console.log(props.change)
         //props.change[0]('fruit.csv')
         //console.log(props.change)
-        this.updateCSV=props.change[0]
-        const openModal = () => this.setState({ showModal: true });
-
-        const closeModal = () => this.setState({ showModal: false});
+        this.updateCSV=props.change[0];
+        
     }
+    openModal = () => this.setState({ showModal: true });
+
+    closeModal = () => this.setState({ showModal: false});
+
     onFileChange(e) {
         this.setState({ filecsv: e.target.files[0] })
     }
     onSubmit(e) {
         
-        console.log(this.state.filecsv.name)
-        e.preventDefault()
-        const formData = new FormData()
-        formData.append('file', this.state.filecsv)
-        axios.post("/uploadFileAPI", formData, {
-        }).then(res => {
-          console.log(res)
-          if(res.status===200){
-            this.updateCSV(this.state.filecsv.name)
-          }
-        })
+        console.log(this.state.filecsv.name);
+        this.openModal();
+        e.preventDefault();
+        this.updateCSV(this.state.filecsv.name);
+
+        //const formData = new FormData()
+        //formData.append('file', this.state.filecsv)
+        //axios.post("/uploadFileAPI", formData, {
+        //}).then(res => {
+        //  console.log(res)
+        //  if(res.status===200){
+        //    this.updateCSV(this.state.filecsv.name)
+        //  }
+        //})
 
         
     }
@@ -61,15 +66,15 @@ export default class FilesUploadComponent extends Component {
                             </Form.Group>
                         </div>
                         <div className="form-group">
-                            <Button type="submit"  onClick={this.openModal}><Icon.Upload/> Upload</Button>
                             
-                  <uploadModal closeModal={this.closeModal} isOpen={this.state.showModal}/>
+                            {/*<Button type="submit"  onClick={this.openModal}><Icon.Upload/> Upload</Button>*/}
+                            {/*<uploadModal closeModal={this.closeModal} isOpen={this.state.showModal}/>*/}
                         </div>
                     </Form>
-                    <uploadModal></uploadModal>
+
                 </div>
+                
             </div>
         )
     }
-    
 }
