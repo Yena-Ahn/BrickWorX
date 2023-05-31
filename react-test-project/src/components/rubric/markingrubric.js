@@ -164,7 +164,11 @@ const MarkingComp = ({setdefualtassignment}) => {
         ...array.slice(index)
     ]
 	}
-
+	const setInputHeight =(element, defaultHeight) => {
+		const target = element.target ? element.target : element;
+		target.style.height = defaultHeight;
+		target.style.height = `${target.scrollHeight}px`;
+	}
 	
 
 
@@ -410,11 +414,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: {currentStudent}, {currentStudentIndex}</h1></span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: {rubricName}</h1></span>
 			
-			<div className="row-section">
+			<div className="row-section-marking">
 				{rubric.map((question,index) => (
-				<div key={(index+1)*42}>
+				<div key={(index+1)*42} className="oneQuestion">
 
-					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
+					<div className="row-section__inner-marking shadow marking-rubric" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						<h4>Question Description: </h4> 
 						<textarea className="questionDescStyle" value={question.questionDesc} disabled/>
@@ -462,16 +466,18 @@ const MarkingComp = ({setdefualtassignment}) => {
 						
 					</div>
 					{/* issues deal with later */}
-					<div className="row-section__inner shadow feedback_border" key={(index+1)*69}>
-						<textarea className="feedback_box" value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)}/>
-						<Button className='btn btn-warning feedback_default' size="lg" onClick={() => setDefaultComments(index)}>Set feedback as default</Button>
+					<div className="row-section__inner-marking shadow feedback_border" key={(index+1)*69}>
+						<h4>Feedback for Student</h4>
+						<textarea className="feedback_box" rows="15" value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)} onInput={(e) => setInputHeight(e, "385px")}/>
+						<Button className='btn-warning' onClick={() => setDefaultComments(index)}>Set feedback as default</Button>
 					</div>
 					</div>
 					
 				))}
-				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)<0?0:grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
+				<h1 style={{textAlign:"center"}}>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)<0?0:grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
+				<div className="bottomBtns">
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					<strong>Submit Grade</strong>
 				</Button>
@@ -480,6 +486,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:0, width:200,bottom:100}}>
 					<strong>NEXT STUDENT</strong>
 				</Button>
+				</div>
 			</div>
 			
 		</div>
