@@ -1,9 +1,9 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { useEffect } from "react"
+import React, { useEffect, Component } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {Button, Table, Form} from 'react-bootstrap'
+import {Button, Table, Form, Modal} from 'react-bootstrap'
 import submitModal from './submitmodal.js';
 
 var rubricABC = {
@@ -163,8 +163,7 @@ const MarkingComp = ({setdefualtassignment}) => {
         newItem,
         ...array.slice(index)
     ]
-	}
-
+	}	
 	
 
 
@@ -426,7 +425,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					<strong>Submit Grade</strong>
 				</Button>
-				{this.state.showModal ? <submitModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}
+				{/*{this.state.showModal ? <submitModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}*/}
 				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:20, width:200,bottom:100}}>
 					<strong>NEXT STUDENT</strong>
 				</Button>

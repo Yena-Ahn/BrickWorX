@@ -306,9 +306,9 @@ const DynamicForm = ({setRubricSuper}) => {
 				
 			</div>
 			<Button variant="success" size="lg" onClick={axios_post} className="fixedbtn">
-			<Icon.FileEarmarkPostFill/><strong> Publish</strong> 
+			<Icon.FileEarmarkPostFill/><strong> Publish </strong> 
 				</Button>
-			{this.state.showModal ? <publishModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}
+			{/*{this.state.showModal ? <publishModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}*/}
 		</div>
 		
 		
