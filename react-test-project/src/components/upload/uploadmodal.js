@@ -4,7 +4,7 @@ import { Button, Modal} from "react-bootstrap";
 class uploadModal extends React.Component{
     render() {
         return (
-        <Modal show={this.props.isOpen} onHide={this.props.closeModal} style={{height:"90%"}}>
+        <Modal show={this.props.isOpen} onHide={this.props.closeModal} style={{height:"90%"}} centered>
             
             <Modal.Header closeButton> <strong style={{color:'green'}}>Upload Successful!</strong> </Modal.Header>
             
