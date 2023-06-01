@@ -4,6 +4,7 @@ import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
 import { Button, Form, Modal} from "react-bootstrap";
 import UploadModal from './uploadmodal.js';
+import NoUploadModal from './nouploadmodal.js';
 
 export default class FilesUploadComponent extends Component {
    
@@ -41,7 +42,7 @@ export default class FilesUploadComponent extends Component {
         axios.post("/uploadFileAPI", formData, {
         }).then(res => {
           console.log(res)
-          if(res.status===200){
+          if(res.status===200){                             //file is uploaded
             this.updateCSV(this.state.filecsv.name)
           }
         })
