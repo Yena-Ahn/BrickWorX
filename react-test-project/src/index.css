@@ -528,10 +528,8 @@ hr {
 .feedback_border {
   width:400px;
   margin-left:15px;
-  margin-top:auto;
+  margin-bottom:auto;
   height:500px;
- 
-
 }
 
 .feedback_box {
