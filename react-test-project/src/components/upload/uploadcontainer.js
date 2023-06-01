@@ -34,19 +34,17 @@ export default class FilesUploadComponent extends Component {
         console.log(this.state.filecsv.name);
         this.openModal();
         e.preventDefault();
-        this.updateCSV(this.state.filecsv.name);
+        //this.updateCSV(this.state.filecsv.name);
 
-        //const formData = new FormData()
-        //formData.append('file', this.state.filecsv)
-        //axios.post("/uploadFileAPI", formData, {
-        //}).then(res => {
-        //  console.log(res)
-        //  if(res.status===200){
-        //    this.updateCSV(this.state.filecsv.name)
-        //  }
-        //})
-
-        
+        const formData = new FormData()
+        formData.append('file', this.state.filecsv)
+        axios.post("/uploadFileAPI", formData, {
+        }).then(res => {
+          console.log(res)
+          if(res.status===200){
+            this.updateCSV(this.state.filecsv.name)
+          }
+        })
     }
 
     render() {
