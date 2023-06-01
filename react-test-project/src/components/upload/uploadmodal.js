@@ -11,8 +11,8 @@ class uploadModal extends React.Component{
             <Modal.Body> You're now ready to create a rubric! </Modal.Body>
             
             <Modal.Footer>
-                <Button variant="secondary" onClick={this.props.closeModal}>Close</Button>
-                {/*<Button variant="primary">Create Rubric</Button>*/}
+                <Button variant="secondary" style={{width:'48%', float:'left'}} onClick={this.props.closeModal}>Close</Button>
+                <Button variant="primary" style={{width:'48%', float:'right'}}>Create Rubric</Button>
             </Modal.Footer>
         </Modal>
         )
