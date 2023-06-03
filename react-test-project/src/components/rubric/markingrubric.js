@@ -1,10 +1,10 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { useEffect, Component } from "react"
+import React, { useEffect, Component, useState } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {Button, Table, Form, Modal} from 'react-bootstrap'
-import submitModal from './submitmodal.js';
+import SubmitModal from './submitmodal.js';
 
 var rubricABC = {
 	"rubricName": "rubric",
@@ -168,7 +168,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 
 	const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
-  const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
+  	const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
@@ -177,6 +177,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
 	const [tempStudent, setTempStudent] = React.useState('select a student')
 	const [tempIndex, setTempIndex] = React.useState(0)
+	
+	//modal const
+	const [showModal, setShowModal] = React.useState(false);
+	const closeSubmitGradeModal = () => setShowModal(false);
+	const showSubmitGradeModal = () => setShowModal(true);
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -238,8 +243,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	}
 
 	const testpost = ()=>{
-		updateStudentGrade()
-		axios.post("http://localhost:3001/jsonToCsv",  {students}, customConfig).then(response => {
+		updateStudentGrade();
+		axios.post("http://localhost:3001/jsonToCsv", {students}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -253,6 +258,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 		//console.log(test_thing)
 		//console.log(grades)
 		//console.log("_________________")
+
+		showSubmitGradeModal();
 	}
 
 	const nextStudent = ()=>{
@@ -431,6 +438,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 				</Button>
 			</div>
 			
+			<SubmitModal isOpen={showModal} closeModal={closeSubmitGradeModal}/>
 		</div>
 	)
 }
