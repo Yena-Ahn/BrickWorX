@@ -11,7 +11,7 @@ class SubmitModal extends React.Component{
             <Modal.Body> You're now ready to mark the next student! </Modal.Body>
             
             <Modal.Footer>
-                <Button variant="secondary" onClick={this.props.closeModal}>Close</Button>
+                <Button style={{width:"100%"}} variant="secondary" onClick={this.props.closeModal}>Close</Button>
                 {/*<Button variant="primary">Create Rubric</Button>*/}
             </Modal.Footer>
         </Modal>
