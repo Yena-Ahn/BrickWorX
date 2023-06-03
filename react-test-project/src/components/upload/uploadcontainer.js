@@ -14,7 +14,8 @@ export default class FilesUploadComponent extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             filecsv: '',
-            showModal: false,
+            showSuccessModal: false,
+            showNoUploadModal: false,
         };
         
         //console.log(props.change)
@@ -23,18 +24,25 @@ export default class FilesUploadComponent extends Component {
         this.updateCSV=props.change[0];
         
     }
-    openModal = () => this.setState({ showModal: true });
 
-    closeModal = () => this.setState({ showModal: false});
+    openSuccessModal = () => this.setState({ showSuccessModal: true });
+    closeSuccessModal = () => this.setState({ showSuccessModal: false});
+
+    openNoUploadModal = () => this.setState({ showNoUploadModal: true });
+    closeNoUploadModal = () => this.setState({ showNoUploadModal: false});
 
     onFileChange(e) {
         this.setState({ filecsv: e.target.files[0] })
     }
     onSubmit(e) {
-        
-        console.log(this.state.filecsv.name);
-        this.openModal();
         e.preventDefault();
+
+        if (this.state.filecsv === "")
+        {
+            this.openNoUploadModal();
+            return;
+        }
+
         //this.updateCSV(this.state.filecsv.name);
 
         const formData = new FormData()
@@ -43,7 +51,8 @@ export default class FilesUploadComponent extends Component {
         }).then(res => {
           console.log(res)
           if(res.status===200){                             //file is uploaded
-            this.updateCSV(this.state.filecsv.name)
+            this.updateCSV(this.state.filecsv.name);
+            this.openSuccessModal();
           }
         })
     }
@@ -71,7 +80,8 @@ export default class FilesUploadComponent extends Component {
                     </Form>
 
                 </div>
-                {this.state.showModal ? <UploadModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}
+                {this.state.showSuccessModal ? <UploadModal isOpen={this.state.showSuccessModal} closeModal={this.closeSuccessModal}/> : null}
+                {this.state.showNoUploadModal ? <NoUploadModal isOpen={this.state.showNoUploadModal} closeModal={this.closeNoUploadModal}/> : null}
             </div>
         )
     }

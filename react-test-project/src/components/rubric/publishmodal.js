@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal} from "react-bootstrap";
 
-class publishModal extends React.Component{
+class PublishModal extends React.Component{
     render() {
         return (
         <Modal show={this.props.isOpen} onHide={this.props.closeModal} style={{height:"90%"}}>
@@ -20,4 +20,4 @@ class publishModal extends React.Component{
 }
    
 
-export default publishModal;
+export default PublishModal;
