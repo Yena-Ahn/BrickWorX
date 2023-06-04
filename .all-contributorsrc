@@ -24,6 +24,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "hillaro",
+      "name": "Hillary",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69489040?v=4",
+      "profile": "https://github.com/hillaro",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
