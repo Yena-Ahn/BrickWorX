@@ -107,7 +107,6 @@ These are just a few of the exciting features and enhancements we have planned. 
 ## :calendar: Project Management Tool
 
 
-## :sparkles: Contributors
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
