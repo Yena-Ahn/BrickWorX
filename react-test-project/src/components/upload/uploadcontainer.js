@@ -74,7 +74,7 @@ export default class FilesUploadComponent extends Component {
                             </Form.Group>
                         </div>
                         <div className="form-group">
-                            <Button type="submit"><Icon.Upload/>Upload</Button>
+                            <Button type="submit"><Icon.Upload/> Upload</Button>
                             
                         </div>
                     </Form>

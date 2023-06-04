@@ -6,12 +6,12 @@ class PublishModal extends React.Component{
         return (
         <Modal show={this.props.isOpen} onHide={this.props.closeModal} style={{height:"90%"}}>
             
-            <Modal.Header closeButton> <strong style={{color:'green'}}>Rubric Published!</strong> </Modal.Header>
+            <Modal.Header closeButton><h4><strong style={{color:'green'}}>Rubric Published!</strong></h4> </Modal.Header>
             
             <Modal.Body> You're now ready to mark students using your published rubric! </Modal.Body>
             
             <Modal.Footer>
-                <Button style={{width:"100%"}} variant="secondary" onClick={this.props.closeModal}>Close</Button>
+                <Button variant="primary" onClick={this.props.closeModal}>Close</Button>
                 {/*<Button variant="primary">Create Rubric</Button>*/}
             </Modal.Footer>
         </Modal>

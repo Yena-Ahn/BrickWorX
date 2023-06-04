@@ -6,13 +6,13 @@ class uploadModal extends React.Component{
         return (
         <Modal show={this.props.isOpen} onHide={this.props.closeModal} style={{height:"90%"}} centered>
             
-            <Modal.Header closeButton> <strong style={{color:'green'}}>Upload Successful!</strong> </Modal.Header>
+            <Modal.Header closeButton> <h4><strong style={{color:'green'}}>Upload Successful!</strong></h4> </Modal.Header>
             
             <Modal.Body> You're now ready to create a rubric! </Modal.Body>
             
             <Modal.Footer>
-                <Button variant="secondary" style={{width:'48%', float:'left'}} onClick={this.props.closeModal}>Close</Button>
-                <Button variant="primary" style={{width:'48%', float:'right'}}>Create Rubric</Button>
+                <Button variant="primary" style={{ float:'left'}} onClick={this.props.closeModal}>Close</Button>
+                
             </Modal.Footer>
         </Modal>
         )
