@@ -200,10 +200,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 			
 			let thing = response.data
 		  setStudents(thing);
-			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],grades:[],feedback:[]}})
+			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
+			,feedback:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})}})
 			console.log('PAIN')
 			console.log(apples)
-			let data = {assignment: '', questionNum: 0, apples}
+			let data = {assignment: '', questionNum: grades.length, data:apples}
 			console.log(data)
 			setgfs(data)
 			console.log('PAIN')
@@ -284,9 +285,20 @@ const MarkingComp = ({setdefualtassignment}) => {
 		updateStudentGrade()
 		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
 
+		let pain = {...gradeFeedbackStudents}
+		console.log('TEST GFB')
+		console.log(pain.data.findIndex((item) => item.student === currentStudent))
+		let index = pain.data.findIndex((item) => item.student === currentStudent)
+		pain.data[index].grades=grades
+		pain.data[index].feedback=feedback
+		setgfs(pain)
+		console.log(pain)
 
+    //pain.data=pain.data.slice(2)
+		
+		console.log(pain)
 
-		axios.post("http://localhost:3001/jsonToCsv",  {students, grades_feedback}, customConfig).then(response => {
+		axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -337,6 +349,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('submitting')
 		console.log(event)
 		setdefualtassignment[0](assignment)
+		let obj = {...gradeFeedbackStudents}
+		obj.assignment=assignment
+		console.log(obj)
+		setgfs(obj)
 	}
 
 	const handleSubmitStudent= (event)=>{
