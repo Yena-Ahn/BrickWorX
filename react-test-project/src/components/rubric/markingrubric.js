@@ -1,84 +1,84 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { useEffect } from "react"
+import React, { useEffect, Component, useState } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {Button, Table, Form} from 'react-bootstrap'
-
+import {Button, Table, Form, Modal} from 'react-bootstrap'
+import SubmitModal from './submitmodal.js';
 
 var rubricABC = {
-    "rubricName": "rubric",
-    "rubric": [
-        {
-            "questionName": "Architecture Description",
-						"questionDesc": "Each category is indicative. You can adjust up or down as needed but provide feedback in this case.",
-            "id": 0,
-            "criterions": [
-                {
-                    "body": "No description of architecture (this seems unlikely but is provided for completeness). None",
-                    "grade": "0",
-                    "id": 0
-                },
-                {
-                    "body": "There is at an attempt at one structure description, even if it is poorly done. Poor",
-                    "grade": "1",
-                    "id": 1
-                },
+	"rubricName": "rubric",
+	"rubric": [
+			{
+					"questionName": "Architecture Description",
+					"questionDesc": "Each category is indicative. You can adjust up or down as needed but provide feedback in this case.",
+					"id": 0,
+					"criterions": [
+							{
+									"body": "No description of architecture (this seems unlikely but is provided for completeness). None",
+									"grade": "0",
+									"id": 0
+							},
+							{
+									"body": "There is at an attempt at one structure description, even if it is poorly done. Poor",
+									"grade": "1",
+									"id": 1
+							},
+			{
+									"body": "At least one of Module, Concurrency, or Deployment structure descriptions are missing, and some of the descriptions have problems (inadequate legends, missing details, significantly incorrect details). Service can be substituted for Concurrency. Incomplete and poor, incorrect (1 or more as applicable)",
+									"grade": "3",
+									"id": 2
+							}
+			,
+			{
+									"body": 
+									`One of the following applies:
+At least one of Module, Concurrency, or Deployment structure descriptions are missing (but see Functionality note below), but the descriptions provided are adequate. Service can be substituted for Concurrency.
+Incomplete
+									
+All of Module, Concurrency/Service, or Deployment structure descriptions are provided, but more than one of the descriptions have problems (inadequate or wrong legends, missing details).
+Poor, Legends, Details (1 or more as applicable)
+									
+There is no indication of where the functionality is provided. As discussed above if they have adequately described the functionality somewhere else, then they only need Deployment. This is for when they have not done so.
+Functionality
+									
+Notes:
+See also below if the submission has in addition Service or Decomposition descriptions.`,
+									"grade": "5",
+									"id": 3
+							},
 				{
-                    "body": "At least one of Module, Concurrency, or Deployment structure descriptions are missing, and some of the descriptions have problems (inadequate legends, missing details, significantly incorrect details). Service can be substituted for Concurrency. Incomplete and poor, incorrect (1 or more as applicable)",
-                    "grade": "3",
-                    "id": 2
-                }
-				,
+									"body": `One of the following applies
+
+All of Module, Concurrency, or Deployment structure descriptions are provided, but at most one of the descriptions have problems (inadequate legends, missing details).
+Poor, Legends, Details (1 or more as applicable)
+
+Does not meet the above requirements but does include in addition Decomposition and/or Service.
+Poor, Legends, Details (1 or more as applicable)
+
+If the submission does meet the above requirements and also includes at least one of Decomposition and Service then consider adding a mark.`,
+									"grade": "7",
+									"id": 4
+							},
 				{
-                    "body": 
-										`One of the following applies:
-										At least one of Module, Concurrency, or Deployment structure descriptions are missing (but see Functionality note below), but the descriptions provided are adequate. Service can be substituted for Concurrency.
-										Incomplete
-										
-										All of Module, Concurrency/Service, or Deployment structure descriptions are provided, but more than one of the descriptions have problems (inadequate or wrong legends, missing details).
-										Poor, Legends, Details (1 or more as applicable)
-										
-										There is no indication of where the functionality is provided. As discussed above if they have adequately described the functionality somewhere else, then they only need Deployment. This is for when they have not done so.
-										Functionality
-										
-										Notes:
-										See also below if the submission has in addition Service or Decomposition descriptions.`,
-                    "grade": "5",
-                    "id": 3
-                },
-					{
-										"body": `One of the following applies
+								"body": "It is not clear whether or not there is physical separation (different geographic locations) of the servers. Location",
+								"grade": "9",
+								"id": 5
+							},
+							{
+								"body": "All of the expected structures are reasonably well described. Service cannot be substituted for concurrency. Definitely do not give this mark if there are problems with missing legends or other issues with the description no matter how well everything else is done.",
+								"grade": "10",
+								"id": 6
+							},
 
-										All of Module, Concurrency, or Deployment structure descriptions are provided, but at most one of the descriptions have problems (inadequate legends, missing details).
-										Poor, Legends, Details (1 or more as applicable)
-										
-										Does not meet the above requirements but does include in addition Decomposition and/or Service.
-										Poor, Legends, Details (1 or more as applicable)
-										
-										If the submission does meet the above requirements and also includes at least one of Decomposition and Service then consider adding a mark.`,
-										"grade": "7",
-										"id": 4
-								},
-					{
-									"body": "It is not clear whether or not there is physical separation (different geographic locations) of the servers. Location",
-									"grade": "9",
-									"id": 5
-							  },
-								{
-									"body": "All of the expected structures are reasonably well described. Service cannot be substituted for concurrency. Definitely do not give this mark if there are problems with missing legends or other issues with the description no matter how well everything else is done.",
-									"grade": "10",
-									"id": 6
-							  },
-
-            ],
-        },
-        {
-            "questionName": "Tactics",
-						"questionDesc": `They are meant to discuss at least two tactics. The tactics they discuss are supposed to be not associated with the pattern they chose.
+					],
+			},
+			{
+					"questionName": "Tactics",
+					"questionDesc": `They are meant to discuss at least two tactics. The tactics they discuss are supposed to be not associated with the pattern they chose.
 
 As they are meant to be focussing on performance, they should be talking about performance tactics, namely (the bold ones are the easiest to justify):
-						
+					
 increase computational efficiency
 reduce computational overhead
 manage event rate
@@ -93,60 +93,60 @@ fixed-priority (semantic importance, deadline importance, rate monotonic)
 dynamic priority (round robin, earliest deadline first)
 cyclic executive (static)
 However they may want to discuss other tactics even though they may not be directly useful for performance. A full list is given at the end.`,
-            "id": 1,
-            "criterions": [
-                {
-                    "body": "No attempt is made to provide tactics. None",
-                    "grade": "0",
-                    "id": 0
-                },
-								{
-									"body": `They talk about something they call "tactics", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. "load balancer", "cache") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown`,
-									"grade": "1",
-									"id": 1
+					"id": 1,
+					"criterions": [
+							{
+									"body": "No attempt is made to provide tactics. None",
+									"grade": "0",
+									"id": 0
 							},
 							{
-								"body": `One of Recognisable tactics are listed but no justification given. Justification One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient`,
-								"grade": "2",
-								"id": 2
-						  },
-							{
-								"body": `Two recognisable tactics are provided and the justification is plausible.`,
-								"grade": "3",
-								"id": 3
+								"body": `They talk about something they call "tactics", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. "load balancer", "cache") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown`,
+								"grade": "1",
+								"id": 1
 						},
-            ],
-        },
-				{
-					"questionName": "Overall",
-					"questionType": "BONUS",
-					"questionDesc": `Use this to adjust the mark that comes from the components (under Raw column in spreadsheet). For example, if you feel the result is a little harsh than you can adjust up or if you feel there are problems with the submission not covered by the guide (e.g., poor grammar, spelling errors, general carelessness) you can adjust down. The adjustments can be up to 2 marks up or down. I hope that this will not be used much. Let me know if you find there is a common pattern to why you need to adjust the mark.
+						{
+							"body": `One of Recognisable tactics are listed but no justification given. Justification One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient`,
+							"grade": "2",
+							"id": 2
+						},
+						{
+							"body": `Two recognisable tactics are provided and the justification is plausible.`,
+							"grade": "3",
+							"id": 3
+					},
+					],
+			},
+			{
+				"questionName": "Overall",
+				"questionType": "BONUS",
+				"questionDesc": `Use this to adjust the mark that comes from the components (under Raw column in spreadsheet). For example, if you feel the result is a little harsh than you can adjust up or if you feel there are problems with the submission not covered by the guide (e.g., poor grammar, spelling errors, general carelessness) you can adjust down. The adjustments can be up to 2 marks up or down. I hope that this will not be used much. Let me know if you find there is a common pattern to why you need to adjust the mark.
 I can't predict what might apply here so have no suggested phrases.`,
-					"id": 3,
-					"criterions": [
-					{
-						"body": "Significant problems with the submission not covered by the marking guide. An example is I have noticed that some have included copies of figures from my lecture slides. If they do not credit these slides then this is questionable academic integrity.",
-						"grade": "-2",
-						"id": 0
-					},
-					{
-						"body": `Problems with the submission not covered by the marking guide so that the Raw mark is too generous.
+				"id": 3,
+				"criterions": [
+				{
+					"body": "Significant problems with the submission not covered by the marking guide. An example is I have noticed that some have included copies of figures from my lecture slides. If they do not credit these slides then this is questionable academic integrity.",
+					"grade": "-2",
+					"id": 0
+				},
+				{
+					"body": `Problems with the submission not covered by the marking guide so that the Raw mark is too generous.
 An example is if they frequently use the terminology incorrectly (or don't use it at all). An example I've noticed is referring to a "Component-and-connector structure" or "Allocation structure". These are both categories of structures.`,
-						"grade": "-1",
-						"id": 1
-					},
-					{
-						"body": `The Raw mark is lower than what the submission deserves.`,
-						"grade": "1",
-						"id": 2
-					},
-					{
-						"body": `The Raw mark is much lower than what the submission deserves.`,
-						"grade": "2",
-						"id": 3
-					},
-					]}
-				]
+					"grade": "-1",
+					"id": 1
+				},
+				{
+					"body": `The Raw mark is lower than what the submission deserves.`,
+					"grade": "1",
+					"id": 2
+				},
+				{
+					"body": `The Raw mark is much lower than what the submission deserves.`,
+					"grade": "2",
+					"id": 3
+				},
+				]}
+			]
 }
 
 
@@ -164,11 +164,7 @@ const MarkingComp = ({setdefualtassignment}) => {
         ...array.slice(index)
     ]
 	}
-	const setInputHeight =(element, defaultHeight) => {
-		const target = element.target ? element.target : element;
-		target.style.height = defaultHeight;
-		target.style.height = `${target.scrollHeight}px`;
-	}
+	
 	
 
 
@@ -184,6 +180,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
 	const [tempStudent, setTempStudent] = React.useState('select a student')
 	const [tempIndex, setTempIndex] = React.useState(0)
+	
+	//modal const
+	const [showModal, setShowModal] = React.useState(false);
+	const closeSubmitGradeModal = () => setShowModal(false);
+	const showSubmitGradeModal = () => setShowModal(true);
 	//what not to reset on next student array of grade indexes
 	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [DefaultFeedback, setDefaultFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
@@ -210,7 +211,11 @@ const MarkingComp = ({setdefualtassignment}) => {
     }
 	};
 
-
+	const setInputHeight =(element, defaultHeight) => {
+		const target = element.target ? element.target : element;
+		target.style.height = defaultHeight;
+		target.style.height = `${target.scrollHeight}px`;
+	}
 
 	//needs to be changed
 	// const axios_post = ()=>{
@@ -264,6 +269,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 		//console.log(test_thing)
 		//console.log(grades)
 		//console.log("_________________")
+
+		showSubmitGradeModal();
 	}
 
 	const nextStudent = ()=>{
@@ -421,7 +428,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 					<div className="row-section__inner-marking shadow marking-rubric" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						<h4>Question Description: </h4> 
-						<textarea className="questionDescStyle" value={question.questionDesc} disabled/>
+						<div className="questionDescStyle2" 
+							style={(grades[index]===0||grades[index]) ? {backgroundColor:'#90ee90', borderColor:"#77d177"}:{backgroundColor:'#e9ecef'}} >{question.questionDesc}</div>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
 
@@ -447,7 +455,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 									{/*grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}*/}
 									{/* grade doesn not equal nothing:{valueOf(grades[index]!=='')} */}
 										<div className='markBoxStyle2'>{criterion.grade}</div>
-										<div className="box2">{criterion.body}</div>
+										<div
+											className="box2"
+											
+											
+											style={{whiteSpace:"pre-wrap"}}>{criterion.body}</div>
 		
 								</div>
 							))}
@@ -462,14 +474,14 @@ const MarkingComp = ({setdefualtassignment}) => {
 								
 						</div>
 						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
-						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultMark(index)}>Set Mark as Default</Button>
+						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultMark(index)}>Set as Default Mark</Button>
 						
 					</div>
 					{/* issues deal with later */}
 					<div className="row-section__inner-marking shadow feedback_border" key={(index+1)*69}>
 						<h4>Feedback for Student</h4>
 						<textarea className="feedback_box" rows="15" value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)} onInput={(e) => setInputHeight(e, "385px")}/>
-						<Button className='btn-warning' onClick={() => setDefaultComments(index)}>Set feedback as default</Button>
+						<Button className='btn-warning' onClick={() => setDefaultComments(index)}>Set as Default Feedback</Button>
 					</div>
 					</div>
 					
@@ -486,10 +498,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:0, width:200,bottom:100}}>
 					<strong>NEXT STUDENT</strong>
 				</Button>
-				</div>
 			</div>
 			
+			<SubmitModal isOpen={showModal} closeModal={closeSubmitGradeModal}/>
 		</div>
+	</div>
 	)
 }
 export default MarkingComp

@@ -2,40 +2,65 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import * as Icon from 'react-bootstrap-icons';
-import { Button, Form} from "react-bootstrap";
+import { Button, Form, Modal} from "react-bootstrap";
+import UploadModal from './uploadmodal.js';
+import NoUploadModal from './nouploadmodal.js';
+
 export default class FilesUploadComponent extends Component {
+   
     constructor(props) {
         super(props);
         this.onFileChange = this.onFileChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-            filecsv: ''
-        }
-        console.log(props.change)
+            filecsv: '',
+            showSuccessModal: false,
+            showNoUploadModal: false,
+        };
+        
+        //console.log(props.change)
         //props.change[0]('fruit.csv')
         //console.log(props.change)
-        this.updateCSV=props.change[0]
-
+        this.updateCSV=props.change[0];
+        
     }
+
+    openSuccessModal = () => this.setState({ showSuccessModal: true });
+    closeSuccessModal = () => this.setState({ showSuccessModal: false});
+
+    openNoUploadModal = () => this.setState({ showNoUploadModal: true });
+    closeNoUploadModal = () => this.setState({ showNoUploadModal: false});
+
     onFileChange(e) {
         this.setState({ filecsv: e.target.files[0] })
     }
     onSubmit(e) {
-        console.log(this.state.filecsv.name)
-        e.preventDefault()
+        e.preventDefault();
+
+        if (this.state.filecsv === "")
+        {
+            this.openNoUploadModal();
+            return;
+        }
+
+        //this.updateCSV(this.state.filecsv.name);
+
         const formData = new FormData()
         formData.append('file', this.state.filecsv)
         axios.post("/uploadFileAPI", formData, {
         }).then(res => {
           console.log(res)
-          if(res.status===200){
-            this.updateCSV(this.state.filecsv.name)
+          if(res.status===200){                             //file is uploaded
+            this.updateCSV(this.state.filecsv.name);
+            this.openSuccessModal();
           }
         })
     }
 
     render() {
+        
         return (
+            
             <div className="container shadow" style={{width:"650px"}}>
                 <div className="row">
                     
@@ -50,9 +75,13 @@ export default class FilesUploadComponent extends Component {
                         </div>
                         <div className="form-group">
                             <Button type="submit"><Icon.Upload/> Upload</Button>
+                            
                         </div>
                     </Form>
+
                 </div>
+                {this.state.showSuccessModal ? <UploadModal isOpen={this.state.showSuccessModal} closeModal={this.closeSuccessModal}/> : null}
+                {this.state.showNoUploadModal ? <NoUploadModal isOpen={this.state.showNoUploadModal} closeModal={this.closeNoUploadModal}/> : null}
             </div>
         )
     }

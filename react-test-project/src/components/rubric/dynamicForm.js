@@ -1,11 +1,12 @@
 
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { /*useEffect */} from "react"
+import React, { /*useEffect */ useState} from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import * as Icon from 'react-bootstrap-icons';
 import { Button, Table, Modal} from "react-bootstrap";
+import PublishModal from './publishmodal.js';
 
 const DynamicForm = ({setRubricSuper}) => {
 	//just usefull to have
@@ -38,6 +39,10 @@ const DynamicForm = ({setRubricSuper}) => {
 	])
 	const [rubricName, setRubricName] = React.useState('default')
 
+	const [showModal, setShowModal] = React.useState(false);
+	const closePublishModal = () => setShowModal(false);
+	const showPublishModal = () => setShowModal(true);
+
 	// const handleSubmit = async (event) => {
 	// 	setStatus(""); // Reset status
   //   event.preventDefault();
@@ -63,6 +68,11 @@ const DynamicForm = ({setRubricSuper}) => {
 			console.log(response);
 			setRubricSuper[0]({rubricName, rubric})
 			/*this.setSuccessModalState ({isOpenSuccess: true })*/
+
+			if (response.status === 200)
+			{
+				showPublishModal();
+			}
 		}).catch(error => {
 			/*console.log("this is error", error);*/
 			console.log("this is error", error.response.data);
@@ -307,8 +317,10 @@ const DynamicForm = ({setRubricSuper}) => {
 				
 			</div>
 			<Button variant="success" size="lg" onClick={axios_post} className="fixedbtn">
-			<Icon.FileEarmarkPostFill/><strong> Publish</strong> 
+			<Icon.FileEarmarkPostFill/><strong> Publish </strong> 
 				</Button>
+			{/*{this.state.showModal ? <publishModal isOpen={this.state.showModal} closeModal={this.closeModal}/> : null}*/}
+			<PublishModal isOpen={showModal} closeModal={closePublishModal}/>
 		</div>
 		
 		

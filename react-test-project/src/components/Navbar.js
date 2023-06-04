@@ -9,9 +9,9 @@ const Navbar = () => {
     <>
       
       <Nav>
-      <div class="navlogo">
-          <img src="../UoA_White.png" class="logo" alt="logo" width="45" height="45" position="left"/>
-          <h4 class="brick" alt="BrickWorx" color="white"> BrickWorx </h4>
+      <div className="navlogo">
+          <img src="../UoA_White.png" className="logo" alt="logo" width="45" height="45" position="left"/>
+          <h4 className="brick" alt="BrickWorx" color="white"> BrickWorx </h4>
       </div>
         
         <NavMenu>
