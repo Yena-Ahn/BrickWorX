@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Yena-Ahn",
+      "name": "Yena Ahn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75198944?v=4",
+      "profile": "https://github.com/Yena-Ahn",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "project-team-18",
+  "projectOwner": "uoa-compsci399-s1-2023"
+}
