@@ -185,6 +185,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [DefaultFeedback, setDefaultFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 
+	const [gradeFeedbackStudents, setgfs] = React.useState()
+	
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -195,10 +197,47 @@ const MarkingComp = ({setdefualtassignment}) => {
 	React.useEffect(() => {
 		//hard coded temperarily
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
-			//console.log(response.data)
-		  setStudents(response.data);
+			
+			let thing = response.data
+		  setStudents(thing);
+			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],grades:[],feedback:[]}})
+			console.log('PAIN')
+			console.log(apples)
+			let data = {assignment: '', questionNum: 0, apples}
+			console.log(data)
+			setgfs(data)
+			console.log('PAIN')
+
 		});
 	}, []);
+
+
+	let grades_feedback = {assignment: 'Assignment One (4757)', questionNum: 3, data: [{
+		student: 'tstu999',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'pota999',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'abcd300',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'hmhm400',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'dsda787',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'adsm787',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		}]};
+
 
 
 	let customConfig = {
