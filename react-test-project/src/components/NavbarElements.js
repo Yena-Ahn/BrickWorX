@@ -7,6 +7,12 @@ import styled from "styled-components";
 // MOVE TO STYLE SHEET LATER
 //
 //
+
+/*export const img = styled.img`
+width: 60px;
+height: 60px;
+`;*/
+
 export const Nav = styled.nav`
 overflow: hidden;
 position: sticky;
