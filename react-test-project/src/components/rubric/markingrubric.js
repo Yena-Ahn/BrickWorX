@@ -260,17 +260,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		}).catch(error => {
 			console.log("this is error", error);
 		});
-		//other test code unrelated
-		let test_thing = rubricABC.rubric.map((item,index)=>{
-			return []
-		})
-		//console.log("total questions TEST")
-		//console.log(rubricABC.rubric.length)
-		//console.log(test_thing)
-		//console.log(grades)
-		//console.log("_________________")
 
-		//showSubmitGradeModal();
 	}
 
 	const nextStudent = ()=>{
