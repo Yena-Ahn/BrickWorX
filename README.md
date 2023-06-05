@@ -119,7 +119,8 @@ These are just a few of the exciting features and enhancements we have planned. 
 Currently, the web application only accepts CSV files with the name `CanvasExportExample.csv`. In the future, we are actively working to support different CSV file names for greater flexibility. Additionally, the CSV file format must explicitly follow the canvas format. We will work on handling different formats or displaying error messages if the format is not correct.
 
 
-## :calendar: [Project Management Tool]("https://github.com/orgs/uoa-compsci399-s1-2023/projects/1")
+## :calendar: [Project Management Tool]("https://github.com/orgs/uoa-compsci399-s1-2023/projects/1/views/2")
+Click header to view a github kanban board of our project management.
 
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
