@@ -93,6 +93,7 @@ Track the progress of grading for all student submissions in one centralized loc
 
 ## :question: How to Use
 link to demo video
+**Note that a CSV file should be named as `CanvasExportExample.csv`.**
 
 ## :thought_balloon: Future Plans
 
@@ -113,6 +114,10 @@ We plan to implement user account functionality, allowing educators to create pe
 We plan to introduce permission tiers for users to ensure proper access control. Instructors will have exclusive access to rubric creation, while markers will be limited to marking assignments. This feature will enhance security and maintain the integrity of the grading process.
 
 These are just a few of the exciting features and enhancements we have planned. We value feedback from our users, and their needs and suggestions will play a vital role in shaping the future of our application. Stay tuned for updates and announcements as we continue to evolve and improve ***BrickWorX***.
+
+#### 6. CSV File Name and Format Handling
+Currently, the web application only accepts CSV files with the name `CanvasExportExample.csv`. In the future, we are actively working to support different CSV file names for greater flexibility. Additionally, the CSV file format must explicitly follow the canvas format. We will work on handling different formats or displaying error messages if the format is not correct.
+
 
 ## :calendar: [Project Management Tool]("https://github.com/orgs/uoa-compsci399-s1-2023/projects/1")
 
