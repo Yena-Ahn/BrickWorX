@@ -4,6 +4,7 @@ import React, { useEffect, Component, useState } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {Button, Table, Form, Modal} from 'react-bootstrap'
+import * as Icon from 'react-bootstrap-icons';
 import SubmitModal from './submitmodal.js';
 
 var rubricABC = {
@@ -560,10 +561,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					<strong>Submit Grade</strong>
 				</Button>
-				<Button className='fixedbtn' size="lg" variant='success' onClick={prevStudent} style={{zIndex:'2', right:0, width:200,bottom:150}}>PREV STUDENT
+				<Button className='fixedbtn'  variant='success' onClick={prevStudent} style={{zIndex:'2', right:0, width:200,bottom:150}}> <Icon.ArrowLeftCircleFill/> Previous Student
 				</Button>
-				<Button className='fixedbtn' size="lg" variant='success' onClick={nextStudent} style={{zIndex:'2', right:0, width:200,bottom:100}}>
-					<strong>NEXT STUDENT</strong>
+				<Button className='fixedbtn' variant='success' onClick={nextStudent} style={{zIndex:'2', right:0, width:200,bottom:100}}>
+					<strong> Next Student <Icon.ArrowRightCircleFill/></strong>
 				</Button>
 			</div>
 			
