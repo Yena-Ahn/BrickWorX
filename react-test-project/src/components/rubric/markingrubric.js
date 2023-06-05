@@ -284,7 +284,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const testpost = ()=>{
 		updateStudentGrade()
 
-		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
+		//let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
 
 		let pain = {...gradeFeedbackStudents}
 		console.log('TEST GFB')
@@ -294,8 +294,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 		pain.data[index].feedback=feedback
 		setgfs(pain)
 		console.log(pain)
-
-    //pain.data=pain.data.slice(2)
+    pain = cloneDeep(pain)
+    pain.data=pain.data.slice(2)
+		grades_feedback=pain
 		
 		console.log(pain)
     axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
@@ -303,11 +304,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 		}).catch(error => {
 			console.log("this is error", error);
 		});
-		axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
-			console.log(response);
-		}).catch(error => {
-			console.log("this is error", error);
-		});
+		// axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
+		// 	console.log(response);
+		// }).catch(error => {
+		// 	console.log("this is error", error);
+		// });
 		//other test code unrelated
 		let test_thing = rubricABC.rubric.map((item,index)=>{
 			return []
