@@ -68,8 +68,18 @@ Track the progress of grading for all student submissions in one centralized loc
     "web-vitals": "^2.1.4"
 
 ## :heavy_check_mark: Getting Started
-1. Use `npm install` to install all the necessary dependencies.
-2. Start the application by running `npm start` on both backend and frontend apps. Open two separate terminals to run both apps.
+1. Install the latest version of LTS *Node.js*. Please click on the link to download the file compatible with your operating system. [Node.js Download]("https://nodejs.org/en")
+   
+2. To install all the required dependencies, use the command `npm install` in both the `express_project` and `react-test-project` subdirectories.
+   ```console
+    foo@bar % cd express_project
+    foo@bar % npm install
+    ```
+    ```console
+    foo@bar % cd react-test-project
+    foo@bar % npm install
+    ```
+3. Start the application by running `npm start` on both backend and frontend apps. Open two separate terminals to run both apps.
     ```console
       foo@bar % cd express_project
       foo@bar % npm start
@@ -78,8 +88,8 @@ Track the progress of grading for all student submissions in one centralized loc
       foo@bar % cd react-test-project
       foo@bar % npm start
     ```
-3. Access the web application through your browser at `http://localhost:3000`.
-4. **Or access the deployed web application by visiting http://52.64.233.59:3000/.**
+4. Access the web application through your browser at `http://localhost:3000`.
+5. **Or access the deployed web application by visiting http://52.64.233.59:3000/.**
 
 ## :question: How to Use
 link to demo video
@@ -104,7 +114,7 @@ We plan to introduce permission tiers for users to ensure proper access control.
 
 These are just a few of the exciting features and enhancements we have planned. We value feedback from our users, and their needs and suggestions will play a vital role in shaping the future of our application. Stay tuned for updates and announcements as we continue to evolve and improve ***BrickWorX***.
 
-## :calendar: Project Management Tool
+## :calendar: [Project Management Tool]("https://github.com/orgs/uoa-compsci399-s1-2023/projects/1")
 
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
