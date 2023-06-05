@@ -270,7 +270,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 		//console.log(grades)
 		//console.log("_________________")
 
-		showSubmitGradeModal();
+		//showSubmitGradeModal();
 	}
 
 	const nextStudent = ()=>{
