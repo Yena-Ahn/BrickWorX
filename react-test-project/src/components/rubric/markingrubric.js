@@ -150,6 +150,7 @@ An example is if they frequently use the terminology incorrectly (or don't use i
 }
 
 
+
 const testJson = [["Student","ID","SIS User ID","SIS Login ID","Section","Assignment One (4757)","Assignment Two (4766)","Assignments Current Score","Assignments Unposted Current Score","Assignments Final Score","Assignments Unposted Final Score","Final Exam Current Score","Final Exam Unposted Current Score","Final Exam Final Score","Final Exam Unposted Final Score","Assignments Current Score","Assignments Unposted Current Score","Assignments Final Score","Assignments Unposted Final Score","Current Score","Unposted Current Score","Final Score","Unposted Final Score","Current Grade","Unposted Current Grade","Final Grade","Unposted Final Grade"],
 {"Student":"    Points Possible","ID":"","SIS User ID":"","SIS Login ID":"","Section":"","Assignment One (4757)":100,"Assignment Two (4766)":100,"Assignments Current Score":["(read only)","(read only)"],"Assignments Unposted Current Score":["(read only)","(read only)"],"Assignments Final Score":["(read only)","(read only)"],"Assignments Unposted Final Score":["(read only)","(read only)"],"Final Exam Current Score":"(read only)","Final Exam Unposted Current Score":"(read only)","Final Exam Final Score":"(read only)","Final Exam Unposted Final Score":"(read only)","Current Score":"(read only)","Unposted Current Score":"(read only)","Final Score":"(read only)","Unposted Final Score":"(read only)","Current Grade":"(read only)","Unposted Current Grade":"(read only)","Final Grade":"(read only)","Unposted Final Grade":"(read only)"},
 {"Student":"student, Test","ID":83299,"SIS User ID":"tstu999","SIS Login ID":10000000,"Section":"Programming for dummies","Assignment One (4757)":60,"Assignment Two (4766)":70,"Assignments Current Score":["",""],"Assignments Unposted Current Score":["",""],"Assignments Final Score":["",""],"Assignments Unposted Final Score":["",""],"Final Exam Current Score":"","Final Exam Unposted Current Score":"","Final Exam Final Score":"","Final Exam Unposted Final Score":"","Current Score":65,"Unposted Current Score":"","Final Score":65,"Unposted Final Score":"","Current Grade":"B-","Unposted Current Grade":"","Final Grade":"B-","Unposted Final Grade":""},
@@ -176,7 +177,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [assignmentList, setlist] = React.useState(null)
 	const [assignment, setAssignment] = React.useState('select an assignment')
 	const [students, setStudents] = React.useState([])
-	const [currentStudent, setCurrentStudent] = React.useState('select a student')
+	const [currentStudent, setCurrentStudent] = React.useState()
 	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
 	const [tempStudent, setTempStudent] = React.useState('select a student')
 	const [tempIndex, setTempIndex] = React.useState(0)
@@ -189,6 +190,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [DefaultFeedback, setDefaultFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 
+	const [gradeFeedbackStudents, setgfs] = React.useState()
+	
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -199,10 +202,46 @@ const MarkingComp = ({setdefualtassignment}) => {
 	React.useEffect(() => {
 		//hard coded temperarily
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
-			//console.log(response.data)
-		  setStudents(response.data);
+			
+			let thing = response.data
+		  setStudents(thing);
+			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],
+			grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
+			,feedback:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})}})
+			let data = {assignment: setdefualtassignment[1]?setdefualtassignment[1]:'', questionNum: grades.length, data:apples}
+			setgfs(data)
+			
+
 		});
 	}, []);
+
+
+	let grades_feedback = {assignment: 'Assignment One (4757)', questionNum: 3, data: [{
+		student: 'tstu999',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'pota999',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'abcd300',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'hmhm400',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'dsda787',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'adsm787',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		}]};
+
 
 
 	let customConfig = {
@@ -251,16 +290,36 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const testpost = ()=>{
 		updateStudentGrade()
-		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
-
-
-
-		axios.post("http://localhost:3001/jsonToCsv",  {students, grades_feedback}, customConfig).then(response => {
+		console.log(currentStudent)
+		console.log('STUPID')
+		if(currentStudent){
+		//let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
+		console.log('TESTING TESTING\n'+JSON.stringify(gradeFeedbackStudents)+'#############################################')
+		let pain = {...gradeFeedbackStudents}
+		//console.log('TEST GFB')
+		//console.log(pain.data.findIndex((item) => item.student === currentStudent))
+		let index = pain.data.findIndex((item) => item.student === currentStudent)
+		pain.data[index].grades=grades
+		pain.data[index].feedback=feedback
+		setgfs(pain)
+		console.log(pain)
+    let Thing = cloneDeep(pain)
+		setdefualtassignment[3](gradeFeedbackStudents)
+    Thing.data=pain.data.slice(2)
+		grades_feedback=Thing
+		
+		console.log(Thing)
+		console.log(gradeFeedbackStudents)
+    axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
 		});
-
+		axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
+			console.log(response);
+		}).catch(error => {
+			console.log("this is error", error);
+		});
 	}
 
 	const nextStudent = ()=>{
@@ -298,7 +357,24 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('submitting')
 		console.log(event)
 		setdefualtassignment[0](assignment)
-	}
+
+
+
+
+		console.log('DEBUG')
+		console.log(assignment)
+		console.log('DEBUG')
+
+		let apples=students.map((item, index)=>{return {student:item['SIS User ID'],
+			grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
+			,feedback:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})}})	
+		let data = {assignment: assignment, questionNum: grades.length, data:apples}
+		console.log(data)
+		setgfs(data)
+		setdefualtassignment[3](data)
+
+
+		}
 
 	const handleSubmitStudent= (event)=>{
 		event.preventDefault();
@@ -317,8 +393,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 		const index = rubric.findIndex((question) => question.id === id)
 		let updatedgrade = [...grades]
 		updatedgrade[index]= event.target.value
-		console.log('TEST GRADES STORED')
-		console.log(updatedgrade)
+		//console.log('TEST GRADES STORED')
+		//console.log(updatedgrade)
 		setGrades(updatedgrade)
 	}
 
@@ -365,16 +441,16 @@ const MarkingComp = ({setdefualtassignment}) => {
 		let arr=DefaultGrades
 		arr[index]=grades[index]
 		setDefaultGrades(arr)
-		console.log('default mark:')
-		console.log(DefaultGrades)
+		//console.log('default mark:')
+		//console.log(DefaultGrades)
 	}
 
 	const setDefaultComments = (index)=>{
 		let arr=DefaultFeedback
 		arr[index]=feedback[index]
 		setDefaultFeedback(arr)
-		console.log('default feedback:')
-		console.log(DefaultFeedback)
+		//console.log('default feedback:')
+		//console.log(DefaultFeedback)
 	}
 
 

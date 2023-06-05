@@ -104,6 +104,7 @@ app.get('/s3download', function(req, res, next){
     fileName = req.query.fn
     console.log(fileName)
     request(url+fileName).pipe(res.set('Content-Type', 'application/csv'))
+    //db.end();
   } catch{
     next(err);
   }
@@ -313,6 +314,76 @@ app.post('/jsonToCsv', async function(request, response) {
 
 
 });
+
+
+
+
+
+app.post("/feedbackCsv", async function(req, res) {
+  var fields = req.body.students[0].slice(0,5);
+  var total_fields = req.body.students[0].slice(0,5);
+  var grades_feedback = req.body.grades_feedback;
+  console.log(grades_feedback);
+  fields.push(grades_feedback["assignment"]);
+  total_fields.push(grades_feedback["assignment"]);
+  var additionalJson = req.body.students; 
+  for (let i=1; i<=req.body.grades_feedback["questionNum"]; i++) {
+    total_fields.push(`Q${i} Grade`);
+  }
+  for (let i=1; i<=req.body.grades_feedback["questionNum"]; i++) {
+    total_fields.push(`Q${i} Feedback`);
+  }
+  let csv = total_fields.join(",") + "\n";
+
+
+
+
+  for (let i=1; i<additionalJson.length; i++){
+    let data = additionalJson[i];
+    for (let j=0; j<fields.length; j++) {
+      if (typeof data[fields[j]] == "string" && data[fields[j]].includes(",")) {
+        csv += '"' + data[fields[j]] + '",';
+      } else {
+        csv += data[fields[j]] + ",";
+      }
+    }
+    if (i==1) csv += ",".repeat(grades_feedback["questionNum"] * 2 - 1) + "\n";
+    if (i>1) {
+      csv += grades_feedback["data"][i-2]["grades"].join(",") + ",";
+      csv += grades_feedback["data"][i-2]["feedback"].join(",") + "\n";
+    }
+
+  
+
+  }
+  console.log(csv);
+  
+  //var filename = request.query.fieldName; --> use this to get file name
+ 
+ 
+  var filename = "feedback.csv"; // this is for checking if it saves s3 successfully. 
+  uploadParams = {Bucket: process.env.BUCKET_NAME, 
+    Key:"rubrics/" + filename, 
+    Body:csv,
+    ContentType: 'text/csv'};
+  s3.upload (uploadParams, function (err, data) {
+    if (err) {
+      console.log("Error", err);
+    } if (data) {
+      console.log("Upload Success", data.Location);
+    }
+  });
+
+
+})
+
+
+
+
+
+
+
+
 
 // app.post('modifyCsv', async function(req, res) {
 //   //var csvCols = Object.keys(req.body.testJson[0]);

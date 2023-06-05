@@ -19,10 +19,15 @@ function App() {
   const [latestCSV, setCSVNAME] = React.useState('CanvasExportExample.csv');
   const [chosenAssignment, setChosenAssignment] = React.useState('');
   const [latestRubric, setRubric] = React.useState('apples.csv');
+  const [globalGrades, setGG] = React.useState('');
+
 
   const updateCSNAME = (newName)=>{setCSVNAME(newName)}
   const updateAssign = (newName)=>{setChosenAssignment(newName)}
   const updateRubric = (newName)=>{setRubric(newName)}
+  const updateGG = (newName)=>{setGG(newName)}
+
+
 
 
 
@@ -42,8 +47,8 @@ function App() {
         <Route exact path='/' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
         <Route path='/Upload' element={<UPLOAD change={[updateCSNAME,latestCSV]} csvName={latestCSV}/>} />
         <Route path='/Create' element={<Create setRubricSuper={[updateRubric, latestRubric]}/>} />
-        <Route path='/Mark' element={<Mark setdefualtassignment={[updateAssign, chosenAssignment, latestRubric]} />} />
-        <Route path='/Review' element={<Review setdefualtassignment={[updateAssign, chosenAssignment, latestRubric]} />} />
+        <Route path='/Mark' element={<Mark setdefualtassignment={[updateAssign, chosenAssignment, latestRubric, updateGG]} />} />
+        <Route path='/Review' element={<Review setdefualtassignment={[updateAssign, chosenAssignment, latestRubric, globalGrades]} />} />
         <Route path='/Download' element={<Download/>} />
     </Routes>
     </Router>
