@@ -107,7 +107,7 @@ We have exciting plans to further enhance ***BrickWorX*** and provide additional
 #### 3. Version Control of Rubrics and Marking
 We plan to introduce version control for rubrics and marking. All changes made to rubrics and marking will be saved in the database, allowing users to access and review previous versions. This feature will provide transparency and facilitate collaboration among educators.
 
-#### 4.User Accounts
+#### 4. User Accounts
 We plan to implement user account functionality, allowing educators to create personalized accounts. User accounts will provide a personalized experience, with features such as saved preferences, assignment history, and easy access to previously marked submissions.
 
 #### 5. Permission Tiers 
