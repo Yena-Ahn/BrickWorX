@@ -321,6 +321,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 			console.log("this is error", error);
 		});
 	}
+	}
 
 	const nextStudent = ()=>{
 		if(students[currentStudentIndex+1]){
