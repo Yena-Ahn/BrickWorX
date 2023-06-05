@@ -88,6 +88,7 @@ const DynamicForm = ({setRubricSuper}) => {
 		_questionMembers.push({
 			questionName: "",
 			questionDesc: "",
+			questionType: "DEFAULT",
 			id: uuidv4(),
 			criterions: [
 				{
@@ -97,6 +98,31 @@ const DynamicForm = ({setRubricSuper}) => {
 				},
 			],
 		})
+
+		setRubricData(_questionMembers)
+    console.log('_questionMembers')
+    console.log(_questionMembers)
+	}
+
+
+	const handleBonusAddQuestion = () => {
+    console.log("ISSUES")
+    console.log(rubric.slice(-1)[0].id)
+		let _questionMembers = [...rubric]
+		_questionMembers.push({
+			questionName: "",
+			questionDesc: "",
+			questionType: "BONUS",
+			id: uuidv4(),
+			criterions: [
+				{
+					body: "",
+					grade: 0,
+					id: uuidv4(),
+				},
+			],
+		})
+
 		setRubricData(_questionMembers)
     console.log('_questionMembers')
     console.log(_questionMembers)
@@ -307,13 +333,17 @@ const DynamicForm = ({setRubricSuper}) => {
 						
 						
 						<Button variant="danger" style={{marginTop:"5px"}} onClick={() => {removeQuestion(question.id)}} ><Icon.X/> Delete Question</Button>
+						<p>Question Type:{question.questionType}</p>
+
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
 					</div>
 				))}
 				
 				<Button variant="success  text-left" size ="lg" className="createNewQuestionBtn text-left"
-					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> <br></br>
+					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> 
+					<Button variant="warning  text-left" size ="lg" className="createNewQuestionBtn text-left"
+					onClick={handleBonusAddQuestion}><Icon.PlusCircleFill /> Create New Bonus Question</Button> <br></br>
 				
 			</div>
 			<Button variant="success" size="lg" onClick={axios_post} className="fixedbtn">
