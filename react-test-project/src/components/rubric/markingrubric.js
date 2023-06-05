@@ -283,6 +283,7 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const testpost = ()=>{
 		updateStudentGrade()
+
 		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
 
 		let pain = {...gradeFeedbackStudents}
@@ -297,7 +298,7 @@ const MarkingComp = ({setdefualtassignment}) => {
     //pain.data=pain.data.slice(2)
 		
 		console.log(pain)
-
+    axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
 		axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
