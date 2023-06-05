@@ -333,7 +333,6 @@ app.post("/feedbackCsv", async function(req, res) {
   for (let i=1; i<=req.body.grades_feedback["questionNum"]; i++) {
     total_fields.push(`Q${i} Feedback`);
   }
-  total_fields.push("Concat Feedback");
   let csv = total_fields.join(",") + "\n";
 
 
@@ -351,7 +350,7 @@ app.post("/feedbackCsv", async function(req, res) {
     if (i==1) csv += ",".repeat(grades_feedback["questionNum"] * 2 - 1) + "\n";
     if (i>1) {
       csv += grades_feedback["data"][i-2]["grades"].join(",") + ",";
-      csv += grades_feedback["data"][i-2]["feedback"].join(",") + "," + grades_feedback["data"][i-2]["feedback"].join("|") + "\n";
+      csv += grades_feedback["data"][i-2]["feedback"].join(",") + "\n";
     }
 
   
@@ -508,8 +507,6 @@ app.get("/getRubric", async function(req, res) {
         if (!Object.keys(questionJson).length) {
           questionJson.questionName = resultEle.question_name;
           questionJson.id = resultEle.question_id;
-          questionJson.questionDesc = resultEle.question_description;
-          questionJson.questionType = resultEle.type_name;
         }
         criterions.push({body: resultEle.text, grade: resultEle.grade, id: resultEle.id});
       }
@@ -548,8 +545,7 @@ app.get("/list", async function(req, res) {
 
   const getRubric = (id) => {
     return new Promise((resolve, reject) => {
-      // let query = "SELECT Question.question_name, Question.question_id, Question.question_description, Question_type.type_name, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Question, Rubric_block WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id LEFT JOIN OUTER JOIN Question_type on Question.question_type_id = Question_type.type_id;";
-      let query = "SELECT Question.question_name, Question.question_id, Question.question_description, Question_type.type_name, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Rubric_block, Question LEFT JOIN Question_type on Question.question_type_id = Question_type.type_id WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id;"
+      let query = "SELECT Question.question_name, Question.question_id, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Question, Rubric_block WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id;";
       db.query(query, [id], (err, res) => {
         if (err) {
           reject(err);
