@@ -68,7 +68,8 @@ export default class FilesUploadComponent extends Component {
                        
                         <div className="form-group">
                             <Form.Group controlId="formFileLg" className="mb-3">
-                                <Form.Label><h2>Upload Canvas Gradebook:</h2></Form.Label>
+                                <Form.Label><h2 style={{marginTop:"5px"}}>Upload Canvas Gradebook:</h2></Form.Label>
+                                <p>Please rename your file to exactly <strong style={{color:"red"}} >"CanvasExportExample.csv"</strong> before uploading.</p>
                                 {/*<input type="file" name='file' onChange={this.onFileChange} className="fileUpload" />*/}
                                 <Form.Control type="file" name="file" onChange={this.onFileChange} style ={{width:"350px", margin:"auto"}} className="center"/>
                             </Form.Group>

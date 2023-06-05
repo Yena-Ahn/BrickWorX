@@ -120,33 +120,33 @@ const MarkReview = ({setdefualtassignment}) => {
                 <div className="row-section">
                 {!setdefualtassignment[3]?
 				<Table bordered className="rubricTable">
-                <thead>
-					<tr className="row-section__marked "><th>Student ID</th><th>Marked?</th><th>Score</th></tr></thead>
+                <thead className='rubricHead'>
+					<tr className="row-section__marked "><th className="studentWidth">Student ID</th><th className="markedWidth">Marked?</th><th className="scoreWidth">Score</th></tr></thead>
                         <tbody>
                         
 						{students.map((item,index) => {return <tr key={(index+1)*69}> 
 							<th>{item['SIS User ID']}</th> 
-							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th><Badge bg="success">Yes</Badge>{' '}</th> : <th><Badge bg="danger">No</Badge>{' '}</th>}
-							<th>{(item[assignment])}</th>
+							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th style={{textAlign:"center"}}><Badge bg="success">Yes</Badge>{' '}</th> : <th style={{textAlign:"center"}}><Badge bg="danger">No</Badge>{' '}</th>}
+							<th style={{textAlign:"center"}}>{(item[assignment])}</th>
 							</tr>})}
                         </tbody>
 				</Table>
                 :
                 <Table bordered className="rubricTable">
-                <thead>
-					<tr className="row-section__marked "><th>Student ID</th><th>Marked?</th><th>Score</th>{range(setdefualtassignment[3].questionNum).map((item,index)=>{
+                <thead className='rubricHead'>
+					<tr className="row-section__marked "><th className="studentWidth">Student ID</th><th className="markedWidth">Marked?</th><th className="scoreWidth">Score</th>{range(setdefualtassignment[3].questionNum).map((item,index)=>{
                         return <th>Question {index+1}</th>
                     })}{range(setdefualtassignment[3].questionNum).map((item,index)=>{
-                        return <th>feedback Q{index+1}</th>
+                        return <th>Feedback Q{index+1}</th>
                     })}</tr></thead>
                         <tbody>
                         
 						{students.map((item,index) => {return <tr key={(index+1)*69}> 
 							<th>{item['SIS User ID']}</th> 
-							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th><Badge bg="success">Yes</Badge>{' '}</th> : <th><Badge bg="danger">No</Badge>{' '}</th>}
-							<th>{(item[assignment])}</th>
+							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th style={{textAlign:"center"}}><Badge bg="success">Yes</Badge>{' '}</th> : <th style={{textAlign:"center"}}><Badge bg="danger">No</Badge>{' '}</th>}
+							<th style={{textAlign:"center"}}>{(item[assignment])}</th>
                             {setdefualtassignment[3].data[index].grades.map((item,index)=>{
-                                return <th>{item}</th>
+                                return <th >{item}</th>
                             })}
                             {setdefualtassignment[3].data[index].feedback.map((item,index)=>{
                                 return <th>{item}</th>

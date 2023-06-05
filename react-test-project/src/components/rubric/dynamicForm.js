@@ -247,7 +247,7 @@ const DynamicForm = ({setRubricSuper}) => {
 			<div className="row-section">
 				{rubric.map((question,index) => (
 					<div className="row-section__inner shadow" key={question.id}>
-						<h2>Question {index+1}</h2>
+						<label><h2>Question {index+1}</h2></label>
 						{/*<p>&nbsp;</p>*/}
 
 						
@@ -258,7 +258,9 @@ const DynamicForm = ({setRubricSuper}) => {
 								placeholder="Name of Question"
 								type="text"
 								className="questionTitleStyle"
+								style={{marginLeft:"5px", height:"35px"}}
 							/>
+							<p className="questionTypeStyle">Question Type:{question.questionType}</p>
 							<h4>Question Description:</h4>
 							<textarea 
 								name="questionDesc" 
@@ -272,8 +274,8 @@ const DynamicForm = ({setRubricSuper}) => {
 							<Table bordered className="rubricTable">
 								<thead className="rubricHead">
 									<tr>
-										<th><strong>Mark</strong></th>
-										<th className="criteriaWidth"><strong>Criteria</strong></th>
+										<th>Mark</th>
+										<th className="criteriaWidth">Criteria</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -333,7 +335,7 @@ const DynamicForm = ({setRubricSuper}) => {
 						
 						
 						<Button variant="danger" style={{marginTop:"5px"}} onClick={() => {removeQuestion(question.id)}} ><Icon.X/> Delete Question</Button>
-						<p>Question Type:{question.questionType}</p>
+						
 
 						{/*<button className='btn' onClick={() => {}}>TEST BUTTON</button>*/}
 
@@ -342,7 +344,7 @@ const DynamicForm = ({setRubricSuper}) => {
 				
 				<Button variant="success  text-left" size ="lg" className="createNewQuestionBtn text-left"
 					onClick={handleAddQuestion}><Icon.PlusCircleFill /> Create New Question</Button> 
-					<Button variant="warning  text-left" size ="lg" className="createNewQuestionBtn text-left"
+					<Button variant="outline-warning  text-left" size ="lg" className="createNewQuestionBtn text-left"
 					onClick={handleBonusAddQuestion}><Icon.PlusCircleFill /> Create New Bonus Question</Button> <br></br>
 				
 			</div>
