@@ -549,7 +549,7 @@ app.get("/list", async function(req, res) {
   const getRubric = (id) => {
     return new Promise((resolve, reject) => {
       // let query = "SELECT Question.question_name, Question.question_id, Question.question_description, Question_type.type_name, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Question, Rubric_block WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id LEFT JOIN OUTER JOIN Question_type on Question.question_type_id = Question_type.type_id;";
-      let query = "SELECT Question.question_name, Question.question_id, Question.question_description, Question_type.type_name, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Rubric_block, Question LEFT JOIN Question_type on Question.question_type_id = Question_type.type_id WHERE Rubrics.id = 1 and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id;      "
+      let query = "SELECT Question.question_name, Question.question_id, Question.question_description, Question_type.type_name, Rubric_block.text, Rubric_block.grade, Rubric_block.id FROM Rubrics, Rubric_block, Question LEFT JOIN Question_type on Question.question_type_id = Question_type.type_id WHERE Rubrics.id = ? and Rubrics.id = Question.rubric_id and Question.question_id = Rubric_block.question_id;"
       db.query(query, [id], (err, res) => {
         if (err) {
           reject(err);
