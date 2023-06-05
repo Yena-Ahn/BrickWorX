@@ -361,7 +361,7 @@ app.post("/feedbackCsv", async function(req, res) {
   //var filename = request.query.fieldName; --> use this to get file name
  
  
-  var filename = "CanvasExportExample.csv"; // this is for checking if it saves s3 successfully. 
+  var filename = "feedback.csv"; // this is for checking if it saves s3 successfully. 
   uploadParams = {Bucket: process.env.BUCKET_NAME, 
     Key:"rubrics/" + filename, 
     Body:csv,
