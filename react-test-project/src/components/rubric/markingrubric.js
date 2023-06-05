@@ -200,14 +200,12 @@ const MarkingComp = ({setdefualtassignment}) => {
 			
 			let thing = response.data
 		  setStudents(thing);
-			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
+			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],
+			grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
 			,feedback:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})}})
-			console.log('PAIN')
-			console.log(apples)
-			let data = {assignment: setdefualtassignment[1], questionNum: grades.length, data:apples}
-			console.log(data)
+			let data = {assignment: setdefualtassignment[1]?setdefualtassignment[1]:'', questionNum: grades.length, data:apples}
 			setgfs(data)
-			console.log('PAIN')
+			
 
 		});
 	}, []);
@@ -354,11 +352,24 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('submitting')
 		console.log(event)
 		setdefualtassignment[0](assignment)
-		let obj = {...gradeFeedbackStudents}
-		obj.assignment=assignment
-		console.log(obj)
-		setgfs(obj)
-	}
+
+
+
+
+		console.log('DEBUG')
+		console.log(assignment)
+		console.log('DEBUG')
+
+		let apples=students.map((item, index)=>{return {student:item['SIS User ID'],
+			grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
+			,feedback:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})}})	
+		let data = {assignment: assignment, questionNum: grades.length, data:apples}
+		console.log(data)
+		setgfs(data)
+		setdefualtassignment[3](data)
+
+
+		}
 
 	const handleSubmitStudent= (event)=>{
 		event.preventDefault();
