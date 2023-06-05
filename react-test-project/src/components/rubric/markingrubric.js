@@ -299,6 +299,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 		
 		console.log(pain)
     axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
+			console.log(response);
+		}).catch(error => {
+			console.log("this is error", error);
+		});
 		axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
