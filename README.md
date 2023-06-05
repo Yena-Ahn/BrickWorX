@@ -92,7 +92,7 @@ Track the progress of grading for all student submissions in one centralized loc
 5. **Or access the deployed web application by visiting http://52.64.233.59:3000/.**
 
 ## :question: How to Use
-link to demo video
+[link to demo video](https://www.youtube.com/watch?v=pMfg54nrRA4)
 **Note that a CSV file should be named as `CanvasExportExample.csv`.**
 
 ## :thought_balloon: Future Plans
