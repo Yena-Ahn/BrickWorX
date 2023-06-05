@@ -89,7 +89,7 @@ Track the progress of grading for all student submissions in one centralized loc
       foo@bar % npm start
     ```
 4. Access the web application through your browser at `http://localhost:3000`.
-5. **Or access the deployed web application by visiting http://52.64.233.59:3000/.**
+5. **Or access the deployed web application by visiting http://52.64.233.59:3000/. (out of date, old build)**
 
 ## :question: How to Use
 [link to demo video](https://www.youtube.com/watch?v=pMfg54nrRA4)
