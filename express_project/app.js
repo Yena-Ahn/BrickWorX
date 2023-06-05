@@ -104,7 +104,7 @@ app.get('/s3download', function(req, res, next){
     fileName = req.query.fn
     console.log(fileName)
     request(url+fileName).pipe(res.set('Content-Type', 'application/csv'))
-    db.end();
+    //db.end();
   } catch{
     next(err);
   }
