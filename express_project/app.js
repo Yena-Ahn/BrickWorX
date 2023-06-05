@@ -333,6 +333,7 @@ app.post("/feedbackCsv", async function(req, res) {
   for (let i=1; i<=req.body.grades_feedback["questionNum"]; i++) {
     total_fields.push(`Q${i} Feedback`);
   }
+  total_fields.push("Concat Feedback");
   let csv = total_fields.join(",") + "\n";
 
 
@@ -350,7 +351,7 @@ app.post("/feedbackCsv", async function(req, res) {
     if (i==1) csv += ",".repeat(grades_feedback["questionNum"] * 2 - 1) + "\n";
     if (i>1) {
       csv += grades_feedback["data"][i-2]["grades"].join(",") + ",";
-      csv += grades_feedback["data"][i-2]["feedback"].join(",") + "\n";
+      csv += grades_feedback["data"][i-2]["feedback"].join(",") + "," + grades_feedback["data"][i-2]["feedback"].join("|") + "\n";
     }
 
   
