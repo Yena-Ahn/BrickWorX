@@ -4,61 +4,12 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {Button, Table, Form, Container, Row, Col, Badge} from 'react-bootstrap'
 
-var rubricABC = {
-    "rubricName": "rubric",
-    "rubric": [
-        {
-            "questionName": "Tactics",
-						"questionDesc": " dsfakjhbgsdafjhfdskhajbdsfahjkdfsahkjdshfuykijahkjdsfahkj dfsakhjdsfakhjgds afkhjgdsfahjkgadsfhgkjdsfahgkjydsfagh kjydsfaghjkdsfagkjhdsfaghjkd sfagkjhdsafgjhkdfsaghkdfsghj kdsfghjkdsfa",
-            "id": 0,
-            "criterions": [
-                {
-                    "body": "No attempt is made to provide tactics. None",
-                    "grade": "0",
-                    "id": 0
-                },
-                {
-                    "body": "They talk about something they call \"tactics\", but they are not one of the recognised tactics. It may be that they use different tactic names to what was used in classes (e.g. \"load balancer\", \"cache\") but doing so indicates they don't really understand what is meant by tactic. So they are considered not recognised tactics. Unknown",
-                    "grade": "1",
-                    "id": 1
-                },
-				{
-                    "body": "One of Recognisable tactics are listed but no justification given. Justification. One recognisable tactic is listed and justified but the other one is not recognisable (so only one tactic is discussed but they are meant to discuss two). Insufficient.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.One of Recognisable tactics are listed but no justification given.",
-                    "grade": "2",
-                    "id": 2
-                }
-				,
-				{
-                    "body": "Two recognisable tactics are provided and the justification is plausible.",
-                    "grade": "3",
-                    "id": 3
-                }
-            ],
-        },
-        {
-            "questionName": "submitted",
-						"questionDesc": " dsfakjhbgsdafjhfdskhajbdsfahjkdfsahkjdshfuykijahkjdsfahkj dfsakhjdsfakhjgds afkhjgdsfahjkgadsfhgkjdsfahgkjydsfagh kjydsfaghjkdsfagkjhdsfaghjkd sfagkjhdsafgjhkdfsaghkdfsghj kdsfghjkdsfa",
-            "id": 1,
-            "criterions": [
-                {
-                    "body": "yes or no",
-                    "grade": "1",
-                    "id": 0
-                }
-            ],
-        }
-    ]
-}
-
 
 
 const MarkReview = ({setdefualtassignment}) => {
 
-    const [rubric, setRubricData] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric:rubricABC.rubric)
-    const [grades, setGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
-	const [rubricName, setRubricName] = React.useState(setdefualtassignment[2].rubricName?setdefualtassignment[2].rubricName:rubricABC.rubricName)
 	const [assignmentList, setlist] = React.useState(null)
-	const [assignment, setAssignment] = React.useState('select an assignment')
+	const [assignment, setAssignment] = React.useState(!setdefualtassignment[3]?'select an assignment':setdefualtassignment[3].assignment)
 	const [students, setStudents] = React.useState([])
 	const [currentStudent, setCurrentStudent] = React.useState('select a student')
 	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
@@ -79,6 +30,30 @@ const MarkReview = ({setdefualtassignment}) => {
 		  setStudents(response.data);
 		});
 	}, []);
+
+    function range(start, stop, step) {
+        if (typeof stop == 'undefined') {
+            // one param defined
+            stop = start;
+            start = 0;
+        }
+    
+        if (typeof step == 'undefined') {
+            step = 1;
+        }
+    
+        if ((step > 0 && start >= stop) || (step < 0 && start <= stop)) {
+            return [];
+        }
+    
+        var result = [];
+        for (var i = start; step > 0 ? i < stop : i > stop; i += step) {
+            result.push(i);
+        }
+    
+        return result;
+    };
+    
 
 
     let customConfig = {
@@ -119,14 +94,15 @@ const MarkReview = ({setdefualtassignment}) => {
 
         return (
             <div>
-
+                {/* {JSON.stringify(setdefualtassignment[3])} */}
+                {!setdefualtassignment[3]?
                 <Row>
                     <Col>
                     <Form onSubmit={handleSubmit} display="inline">
                     <Form.Select 
                         onChange={chngAssignDropdown}> 
                     <option value="⬇️ Select Assignment ⬇️"> -- Select Assignment -- </option>
-                    {assignmentList?assignmentList.map((item) => <option key={item} value={item}>{item}</option>):'loading'}
+                    {assignmentList?assignmentList.map((item,index) => <option key={index+1} value={item}>{item}</option>):'loading'}
                     
                     </Form.Select>
                     </Form>
@@ -135,23 +111,52 @@ const MarkReview = ({setdefualtassignment}) => {
     
                     </Col>
                 </Row>
+                :setdefualtassignment[3].assignment}
             
             
                 <br></br>
 
 
                 <div className="row-section">
+                {!setdefualtassignment[3]?
 				<Table bordered className="rubricTable">
-				<div className="row-section__marked ">
-					<tr wd><th>Student ID</th><th>Marked?</th><th>Score</th></tr>
-						{students.map((item,index) => {return <tr> 
+                <thead>
+					<tr className="row-section__marked "><th>Student ID</th><th>Marked?</th><th>Score</th></tr></thead>
+                        <tbody>
+                        
+						{students.map((item,index) => {return <tr key={(index+1)*69}> 
 							<th>{item['SIS User ID']}</th> 
 							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th><Badge bg="success">Yes</Badge>{' '}</th> : <th><Badge bg="danger">No</Badge>{' '}</th>}
 							<th>{(item[assignment])}</th>
 							</tr>})}
-				</div>
-
+                        </tbody>
 				</Table>
+                :
+                <Table bordered className="rubricTable">
+                <thead>
+					<tr className="row-section__marked "><th>Student ID</th><th>Marked?</th><th>Score</th>{range(setdefualtassignment[3].questionNum).map((item,index)=>{
+                        return <th>Question {index+1}</th>
+                    })}{range(setdefualtassignment[3].questionNum).map((item,index)=>{
+                        return <th>feedback Q{index+1}</th>
+                    })}</tr></thead>
+                        <tbody>
+                        
+						{students.map((item,index) => {return <tr key={(index+1)*69}> 
+							<th>{item['SIS User ID']}</th> 
+							{(item[assignment] !== undefined && !isNaN(parseInt(item[assignment])) ) ? <th><Badge bg="success">Yes</Badge>{' '}</th> : <th><Badge bg="danger">No</Badge>{' '}</th>}
+							<th>{(item[assignment])}</th>
+                            {setdefualtassignment[3].data[index].grades.map((item,index)=>{
+                                return <th>{item}</th>
+                            })}
+                            {setdefualtassignment[3].data[index].feedback.map((item,index)=>{
+                                return <th>{item}</th>
+                            })}
+							</tr>})}
+                        </tbody>
+				</Table>}
+
+
+
 			</div>
 
             </div>
