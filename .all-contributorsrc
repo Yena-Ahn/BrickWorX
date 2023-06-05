@@ -1,0 +1,62 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Yena-Ahn",
+      "name": "Yena Ahn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75198944?v=4",
+      "profile": "https://github.com/Yena-Ahn",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dampbacon",
+      "name": "Francois Beetge",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7982855?v=4",
+      "profile": "https://github.com/dampbacon",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "hillaro",
+      "name": "Hillary",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69489040?v=4",
+      "profile": "https://github.com/hillaro",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "OfficeMinus",
+      "name": "OfficeMinus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88012436?v=4",
+      "profile": "https://github.com/OfficeMinus",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ItsAmeKen",
+      "name": "ItsAmeKen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/110082308?v=4",
+      "profile": "https://github.com/ItsAmeKen",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "project-team-18",
+  "projectOwner": "uoa-compsci399-s1-2023"
+}

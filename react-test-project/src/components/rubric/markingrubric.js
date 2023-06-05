@@ -185,6 +185,8 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [DefaultFeedback, setDefaultFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 
+	const [gradeFeedbackStudents, setgfs] = React.useState()
+	
 
 	React.useEffect(() => {
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
@@ -195,10 +197,48 @@ const MarkingComp = ({setdefualtassignment}) => {
 	React.useEffect(() => {
 		//hard coded temperarily
 		axios.get('/s3JSON?fn=CanvasExportExample.csv').then((response) => {
-			//console.log(response.data)
-		  setStudents(response.data);
+			
+			let thing = response.data
+		  setStudents(thing);
+			let apples=thing.map((item, index)=>{return {student:item['SIS User ID'],grades:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})
+			,feedback:setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''})}})
+			console.log('PAIN')
+			console.log(apples)
+			let data = {assignment: '', questionNum: grades.length, data:apples}
+			console.log(data)
+			setgfs(data)
+			console.log('PAIN')
+
 		});
 	}, []);
+
+
+	let grades_feedback = {assignment: 'Assignment One (4757)', questionNum: 3, data: [{
+		student: 'tstu999',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'pota999',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'abcd300',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'hmhm400',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'dsda787',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		},{
+		student: 'adsm787',
+		grades: [ '1', '3', '1' ],
+		feedback: [ '', '', '' ]
+		}]};
+
 
 
 	let customConfig = {
@@ -243,35 +283,23 @@ const MarkingComp = ({setdefualtassignment}) => {
 
 	const testpost = ()=>{
 		updateStudentGrade()
-		//let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
 
-		let grades_feedback = {assignment: 'Assignment One (4757)', questionNum: 3, data: [{
-			student: 'tstu999',
-			grades: [ '1', '3', '1' ],
-			feedback: [ '', '', '' ]
-		  },{
-			student: 'pota999',
-			grades: [ '1', '3', '1' ],
-			feedback: [ '', '', '' ]
-		  },{
-			student: 'abcd300',
-			grades: [ '1', '3', '1' ],
-			feedback: [ '', '', '' ]
-		  },{
-			student: 'hmhm400',
-			grades: [ '1', '3', '1' ],
-			feedback: [ '', '', '' ]
-		  },{
-			student: 'dsda787',
-			grades: [ '1', '3', '1' ],
-			feedback: [ '', '', '' ]
-		  },{
-			student: 'adsm787',
-			grades: [ '1', '3', '1' ],
-			feedback: [ '', '', '' ]
-		  }]};
+		let grades_feedback = {student:currentStudent,assignment:assignment,grades:grades, feedback:feedback}
 
-		axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
+		let pain = {...gradeFeedbackStudents}
+		console.log('TEST GFB')
+		console.log(pain.data.findIndex((item) => item.student === currentStudent))
+		let index = pain.data.findIndex((item) => item.student === currentStudent)
+		pain.data[index].grades=grades
+		pain.data[index].feedback=feedback
+		setgfs(pain)
+		console.log(pain)
+
+    //pain.data=pain.data.slice(2)
+		
+		console.log(pain)
+    axios.post("http://localhost:3001/feedbackCsv",  {students, grades_feedback}, customConfig).then(response => {
+		axios.post("http://localhost:3001/jsonToCsv",  {students, pain}, customConfig).then(response => {
 			console.log(response);
 		}).catch(error => {
 			console.log("this is error", error);
@@ -322,6 +350,10 @@ const MarkingComp = ({setdefualtassignment}) => {
 		console.log('submitting')
 		console.log(event)
 		setdefualtassignment[0](assignment)
+		let obj = {...gradeFeedbackStudents}
+		obj.assignment=assignment
+		console.log(obj)
+		setgfs(obj)
 	}
 
 	const handleSubmitStudent= (event)=>{
