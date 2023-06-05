@@ -1,10 +1,10 @@
 /* eslint-disable no-extend-native */
 import { cloneDeep } from "lodash"
-import React, { useEffect } from "react"
+import React, { useEffect, Component, useState } from "react"
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {Button, Table, Form} from 'react-bootstrap'
-
+import {Button, Table, Form, Modal} from 'react-bootstrap'
+import SubmitModal from './submitmodal.js';
 
 var rubricABC = {
 	"rubricName": "rubric",
@@ -165,7 +165,7 @@ const MarkingComp = ({setdefualtassignment}) => {
         ...array.slice(index)
     ]
 	}
-
+	
 	
 
 
@@ -181,6 +181,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 	const [currentStudentIndex, setCurrentStudentIndex] = React.useState(0)
 	const [tempStudent, setTempStudent] = React.useState('select a student')
 	const [tempIndex, setTempIndex] = React.useState(0)
+	
+	//modal const
+	const [showModal, setShowModal] = React.useState(false);
+	const closeSubmitGradeModal = () => setShowModal(false);
+	const showSubmitGradeModal = () => setShowModal(true);
 	//what not to reset on next student array of grade indexes
 	const [DefaultGrades, setDefaultGrades] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
 	const [DefaultFeedback, setDefaultFeedback] = React.useState(setdefualtassignment[2].rubric?setdefualtassignment[2].rubric.map((item,index)=>{return ''}):rubricABC.rubric.map((item,index)=>{return ''}))
@@ -245,7 +250,11 @@ const MarkingComp = ({setdefualtassignment}) => {
     }
 	};
 
-
+	const setInputHeight =(element, defaultHeight) => {
+		const target = element.target ? element.target : element;
+		target.style.height = defaultHeight;
+		target.style.height = `${target.scrollHeight}px`;
+	}
 
 	//needs to be changed
 	// const axios_post = ()=>{
@@ -311,10 +320,6 @@ const MarkingComp = ({setdefualtassignment}) => {
 		}).catch(error => {
 			console.log("this is error", error);
 		});
-	}
-	
-		
-	  
 	}
 
 	const nextStudent = ()=>{
@@ -482,14 +487,15 @@ const MarkingComp = ({setdefualtassignment}) => {
 		    <span style={{whiteSpace:"pre-line"}}><h1>Student ID: {currentStudent}, {currentStudentIndex}</h1></span>
 		    <span style={{whiteSpace:"pre-line"}}><h1>Rubric name: {rubricName}</h1></span>
 			
-			<div className="row-section">
+			<div className="row-section-marking">
 				{rubric.map((question,index) => (
-				<div key={(index+1)*42}>
+				<div key={(index+1)*42} className="oneQuestion">
 
-					<div className="row-section__inner shadow" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
+					<div className="row-section__inner-marking shadow marking-rubric" style={grades[index]===0||grades[index]?{backgroundColor:'#d4edb9'}:{backgroundColor:'#F2F2F2'}} key={question.id}>
 						<h2>Question {index+1}: {question.questionName}</h2>
 						<h4>Question Description: </h4> 
-						<textarea className="questionDescStyle" value={question.questionDesc} disabled/>
+						<div className="questionDescStyle2" 
+							style={(grades[index]===0||grades[index]) ? {backgroundColor:'#90ee90', borderColor:"#77d177"}:{backgroundColor:'#e9ecef'}} >{question.questionDesc}</div>
 						{grades[index]===0||grades[index] ? <h1 style={{color:'green'}}>Marked</h1> : <h1 style={{color:'red'}}>Yet to Mark</h1>}
 						
 
@@ -515,7 +521,11 @@ const MarkingComp = ({setdefualtassignment}) => {
 									{/*grades q index:{grades[index]}, greater or equal to grade crit:{criterion.grade}*/}
 									{/* grade doesn not equal nothing:{valueOf(grades[index]!=='')} */}
 										<div className='markBoxStyle2'>{criterion.grade}</div>
-										<div className="box2">{criterion.body}</div>
+										<div
+											className="box2"
+											
+											
+											style={{whiteSpace:"pre-wrap"}}>{criterion.body}</div>
 		
 								</div>
 							))}
@@ -530,20 +540,22 @@ const MarkingComp = ({setdefualtassignment}) => {
 								
 						</div>
 						<Button className='btn btn-danger' size="lg" onClick={() => gradeZero(index)}>Set Marks to 0</Button>
-						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultMark(index)}>Set Mark as Default</Button>
+						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultMark(index)}>Set as Default Mark</Button>
 						
 					</div>
 					{/* issues deal with later */}
-					<div className="row-section__inner shadow" key={(index+1)*69}>
-						<textarea value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)}/>
-						<Button className='btn btn-warning' size="lg" onClick={() => setDefaultComments(index)}>Set feedback as default</Button>
+					<div className="row-section__inner-marking shadow feedback_border" key={(index+1)*69}>
+						<h4>Feedback for Student</h4>
+						<textarea className="feedback_box" rows="15" value={feedback[index]||''}  key={(index+1)*420} onChange={(e) => handleFeedbackData(question.id, e)} onInput={(e) => setInputHeight(e, "385px")}/>
+						<Button className='btn-warning' onClick={() => setDefaultComments(index)}>Set as Default Feedback</Button>
 					</div>
 					</div>
 					
 				))}
-				<h1>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)<0?0:grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
+				<h1 style={{textAlign:"center"}}>Total Grade={grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)<0?0:grades.map(function(str) {if(str){return parseInt(str)}else{return 0} }).reduce((partialSum, a) => partialSum + a, 0)}/
 				{rubricGradeMax()}
 				</h1>
+				<div className="bottomBtns">
 				<Button className='fixedbtn' size="lg" variant='success' onClick={testpost} style={{zIndex:'2'}}>
 					<strong>Submit Grade</strong>
 				</Button>
@@ -554,7 +566,9 @@ const MarkingComp = ({setdefualtassignment}) => {
 				</Button>
 			</div>
 			
+			<SubmitModal isOpen={showModal} closeModal={closeSubmitGradeModal}/>
 		</div>
+	</div>
 	)
 }
 export default MarkingComp

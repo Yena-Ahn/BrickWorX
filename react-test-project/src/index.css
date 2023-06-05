@@ -10,26 +10,22 @@ body {
 }
 
 .container {
-
   max-width:80%;
-
   display: flex;
   margin: 20px auto;
   /* overflow: auto; */
-
   width:60%;
   min-height:200px;
   border: 1.5px solid #00467F;
   /*padding: 30px;*/
   border-radius: 4px;
-
   justify-content: center;
   flex-direction: column;
-
+  text-align:center;
+  background-color:#F2F2F2;
 }
 
 .box2 {
-  
   min-height:85px;
   text-align:left;
   padding-top:5px;
@@ -38,6 +34,7 @@ body {
   width:89%;
   float:left;
   margin-left:10px;
+  word-wrap:break-word;
 }
 
 .rubricItem {
@@ -328,19 +325,22 @@ h2{
     width:80%;
     margin:auto;
 }
+
 .row-section  h3{
     color:#365262;
     margin-top:30px;
 }
 
-
-.row-section__inner{
-
-    border:1.5px solid #365262;
-    border-radius: 15px;
-    padding:20px;
-    margin-bottom:20px;
-    background-color:#F2F2F2;
+.marking-rubric{
+  width:55%;
+}
+.row-section__inner, .row-section__inner-marking{
+  
+  border:1.5px solid #365262;
+  border-radius: 15px;
+  padding:20px;
+  margin-bottom:20px;
+  background-color:#F2F2F2;
 
 }
 .row-section .form-row, .form-row-marking{
@@ -357,6 +357,7 @@ h2{
 .form-row-marking{
   border: 1.5px solid #d1d7db;
   border-radius:5px !important;
+  
 }
 .form-row-marking:hover{
   background-color:#b9edb9 !important;
@@ -503,7 +504,49 @@ hr {
 
 .questionDescStyle{
   width:100%;
-  min-height:80px;
   color: #333333;
   background-color: white;
+}
+.questionDescStyle2{
+  padding:10px;
+  padding-left:15px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+
+/* Feedback box styling and feedback default button */
+.oneQuestion{
+  display:flex;
+  margin-bottom:25px;
+  
+}
+
+.marking-rubric{
+  flex-grow:1;
+  margin-left:15px;
+  
+}
+.feedback_border {
+  width:400px;
+  margin-left:15px;
+  margin-bottom:auto;
+  height:500px;
+}
+
+.feedback_box {
+  width: 100%;
+  min-height: 100px;
+  
+  text-align: left !important;
+}
+
+.bottomBtns{
+  width:150px;
+  border: 1px solid black;
+  position:fixed;
+  z-index:2;
+}
+.bottomBtns:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }

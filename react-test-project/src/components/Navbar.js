@@ -2,11 +2,18 @@
 import React from "react";
 import { Nav, NavLink, NavMenu } 
     from "./NavbarElements";
+import "./navlogo.css";
   
 const Navbar = () => {
   return (
     <>
+      
       <Nav>
+      <div className="navlogo">
+          <img src="../UoA_White.png" className="logo" alt="logo" width="45" height="45" position="left"/>
+          <h4 className="brick" alt="BrickWorx" color="white"> BrickWorx </h4>
+      </div>
+        
         <NavMenu>
           <NavLink to="/Upload" title={"Upload Canvas CSV"} activeStyle>
             <p>Upload Canvas CSV</p>
