@@ -120,8 +120,8 @@ Currently, the web application only accepts CSV files with the name `CanvasExpor
 
 
 ## :calendar: Project Management Tool
-Click [here]("https://github.com/orgs/uoa-compsci399-s1-2023/projects/1") to view a github kanban board of our project management.
-Meeting minutes also avilable at: [Meeting Minutes]("https://docs.google.com/document/d/1XFaQ9pxMEqqS9NVbJVnaUKih2UAm4s1jXCRbFnfROjk/edit?usp=sharing")
+Click [here](https://github.com/orgs/uoa-compsci399-s1-2023/projects/1) to view a github kanban board of our project management.
+Meeting minutes also avilable at: [Meeting Minutes](https://docs.google.com/document/d/1XFaQ9pxMEqqS9NVbJVnaUKih2UAm4s1jXCRbFnfROjk/edit?usp=sharing)
 
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
