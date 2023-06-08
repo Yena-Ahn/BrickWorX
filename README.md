@@ -89,7 +89,11 @@ Track the progress of grading for all student submissions in one centralized loc
       foo@bar % npm start
     ```
 4. Access the web application through your browser at `http://localhost:3000`.
-5. **Or access the deployed web application by visiting http://52.64.233.59:3000/. (out of date, old build)**
+5. Or access the deployed web application by visiting http://52.64.233.59:3000/. 
+### :warning: A few things to note with the deployed site:
+- any deviation from demonstrated workflow in the video bellow has not been accounted for and may result in unexpected behavoir
+- upload canvas csv -> create rubric (submit) -> mark (select first student and the assignment) submit, next student, mark submit (repeat) -> review -> download
+- Does not support concurrent users and two or more attempting to mark at the same time will result in collisions
 
 ## :question: How to Use
 [link to demo video](https://www.youtube.com/watch?v=pMfg54nrRA4)
