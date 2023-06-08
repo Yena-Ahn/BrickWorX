@@ -3,11 +3,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 config = {
-    user: process.env.USER,
-    host: process.env.HOST,
-    port: process.env.DB_PORT,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    user: 'admin',
+    host: 'team18.cj9qnbowobx2.ap-southeast-2.rds.amazonaws.com',
+    port: 3306,
+    password: 'admin123',
+    database: 'rubric',
     connectionLimit: 10,
     multipleStatements: true
 }
