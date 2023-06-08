@@ -25,6 +25,7 @@ Track the progress of grading for all student submissions in one centralized loc
 * Amazon AWS
   - S3
   - EC2
+  - RDS
 
 ## :wrench: Dependencies
 #### [Backend](https://github.com/uoa-compsci399-s1-2023/project-team-18/blob/upgradesToCreation/express_project/package.json)
