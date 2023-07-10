@@ -16,8 +16,8 @@ const AWS = require('aws-sdk');
 
 dotenv.config();
 AWS.config.update({
-  accessKeyId: process.env.ACCESS_KEY, //'AKIAZHFMAG6LSSEUDBOB',
-  secretAccessKey: process.env.SECRET_KEY, //'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',
+  accessKeyId: process.env.ACCESS_KEY, 
+  secretAccessKey: process.env.SECRET_KEY, 
   apiVersion: '2006-03-01', 
   signatureVersion: "v3"
 });
